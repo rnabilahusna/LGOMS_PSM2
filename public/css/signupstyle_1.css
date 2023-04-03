@@ -179,38 +179,40 @@ body {
       padding: 0px 2px;
   }
 
+  .input {
+    background-color: #FF6161;
+  }
+
   .btnstaff {
-    border: 1px solid white;
     border-radius: 20px 20px 20px 20px;
-    color: #FF6161;
-    padding: 6px 30px;
+    border: 1px solid #FF6161;
+    padding: 5px 30px;
+    color: white;
     text-align: center;
-    text-decoration: none;
     display: inline-block;
     font-size: 16px;
     margin: 4px 2px;
     transition-duration: 0.4s;
     cursor: pointer;
-    background-color: white;
-    box-shadow: 1px 2px #888888;
-  }
-  .btnclient{
-      border-radius: 20px 20px 20px 20px;
-      border: 1px solid #FF6161;
-      padding: 5px 30px;
-      color: white;
-      text-align: center;
-      display: inline-block;
-      font-size: 16px;
-      margin: 4px 2px;
-      transition-duration: 0.4s;
-      cursor: pointer;
-      background-color: #FF6161;
-      width: 100px;
-  }
-
-
-  .input {
     background-color: #FF6161;
-  }
+    width: 100px;
+}
+.btnclient {
+  border: 1px solid white;
+  border-radius: 20px 20px 20px 20px;
+  color: #FF6161;
+  padding: 6px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 10px;
+  margin-right:15px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  background-color: white;
+  position: relative;
+  left: 7px;
+  box-shadow: 1px 2px #888888;
+}
 

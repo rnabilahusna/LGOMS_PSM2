@@ -25,7 +25,8 @@ body {
     width: 200%; 
     height: 200%;
     z-index:-5;
-  }
+}
+
   .bg img {
     position: absolute; 
     top: 0; 
@@ -36,7 +37,7 @@ body {
     min-width: 50%;
     min-height: 50%;
     filter: blur(3px);
-  }
+}
 
 .menu-container {
     color: black;
