@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\appointment;
+use App\Models\Appointment;
 use Illuminate\Http\Request;
 
 class appointmentController extends Controller
@@ -12,7 +12,8 @@ class appointmentController extends Controller
      */
     public function index()
     {
-        //
+        $data = Appointment::latest()->paginate(5);
+        return view('index', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
     /**
@@ -20,7 +21,8 @@ class appointmentController extends Controller
      */
     public function create()
     {
-        //
+        return view('appointmentForm');
+        // return redirect()->route('appointmentForm');
     }
 
     /**
@@ -28,38 +30,82 @@ class appointmentController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'buyerCode'          =>  'required',
+            'appDate'            =>  'required',
+            'appPurpose'         =>  'required',
+            'appStatus'          =>  'required',
+            'appTime'            =>  'required'
+        ]);
+
+        $appointment = new Appointment;
+
+        $appointment->buyerCode = $request->buyerCode;
+        $appointment->appDate = $request->appDate;
+        $appointment->appPurpose = $request->appPurpose;
+        $appointment->appStatus = $request->appStatus;
+        $appointment->appTime = $request->appTime;
+
+        $appointment->save();
+
+        return redirect()->route('appointment.index')->with('success', 'Appointment added successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(appointment $appointment)
+    public function show(Appointment $appointment)
     {
-        //
+        return view('show', compact('appointment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(appointment $appointment)
+    public function edit(Appointment $appointment)
     {
-        //
+        return view('edit', compact('appointment'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, appointment $appointment)
+    public function update(Request $request, Appointment $appointment)
     {
-        //
+        $request->validate([
+            'buyerCode'          =>  'required',
+            'appDate'            =>  'required',
+            'appPurpose'         =>  'required',
+            'appStatus'          =>  'required',
+            'appTime'            =>  'required'
+        ]);
+
+        $appointment = Appointment::find($request->hidden_id);
+
+        $appointment->buyerCode = $request->buyerCode;
+
+        $appointment->appDate = $request->appDate;
+
+        $appointment->appPurpose = $request->appPurpose;
+
+        $appointment->appStatus = $request->appStatus;
+
+        $appointment->appTime = $request->appTime;        
+
+        $appointment->save();
+
+        return redirect()->route('appointment.index')->with('success', 'Appointment info has been updated successfully');
+
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(appointment $appointment)
+    public function destroy(Appointment $appointment)
     {
-        //
+        $appointment->delete();
+
+        return redirect()->route('appointment.index')->with('success', 'Appointment deleted successfully');
+    
     }
 }

@@ -12,7 +12,8 @@ class designController extends Controller
      */
     public function index()
     {
-        //
+        $data = design::latest()->paginate(5);
+        return view('myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
     /**

@@ -12,7 +12,8 @@ class orderController extends Controller
      */
     public function index()
     {
-        //
+        $data = order::latest()->paginate(5);
+        return view('myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
     /**

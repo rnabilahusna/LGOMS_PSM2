@@ -1,3 +1,7 @@
+@extends('navbar_sales')
+
+@section('content')
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,32 +14,6 @@
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
-
-<div class="menu-container">
-    <div class="menu">
-        <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
-
-        <div class="links">
-            <div class="home">Home</div>
-            <div class="register_user">Register User</div>
-            <div class="order_list">Order List</div>
-            <div class="design_list">Design List</div>
-        </div>
-
-        <div class="dropdown">
-            <div class="profile-group">
-                <div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
-                <div class="profile"><p class="dropbtn">Profile</p></div>
-            </div>
-
-            <div class="dropdown-content">
-                <a href="#">Account Settings</a>
-                <a href="#">Sign Out</a>
-            </div>
-        </div>
-        
-    </div>
-</div>
 
 <div class="smaller_body">
     <div class="bg">
@@ -52,7 +30,8 @@
 
                 <p style="color: grey;font-size:20px;text-align:center;padding-top: 20px;">Sign up for Staff</p>
                 
-              <form id="registerFormP" onsubmit ="verifyPassword()" class="well form-horizontal" method="post">
+              <form id="registerFormP" class="well form-horizontal" action="{{ route('user.validate_registration') }}" method="post">
+                @csrf
                 <div class="contents-right">
                   <div class="PI-left">
                       <p style="text-decoration:underline;color: grey;">Personal Information</p>
@@ -66,12 +45,15 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="fullname" placeholder="Full Name *" class="form-control"  type="text" Required>
+                                    <input  name="name" placeholder="Full Name *" class="form-control"  type="text">
+                                    @if($errors->has('name'))
+                                        <span class="text-danger">{{ $errors->first('name') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
 
-                        <div class="form-group">
+                        <!-- <div class="form-group">
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
@@ -114,7 +96,6 @@
                       <div class="dept">
                             <label for="department" class="form-group">Department</label>
                             <select class="form-group" style="width:85%; height:40px; color:grey; padding-left: 10px">
-                                    <!-- <label class="col-md-4 control-label">Department&emsp;</label> -->
                                    
                                                 <option name="department" value="Sales"> Sales </option>
                                         
@@ -125,20 +106,9 @@
                                                 <option name="department" value="production">  Production </option>
                                         
                             </select>
-                        </div>
-
-                      
-
-                      <!-- <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="phone" placeholder="Phone *" class="form-control"  type="text" Required>
-                                </div>
-                            </div>
                         </div> -->
 
-                      
+        
 
 
                   </div>
@@ -151,7 +121,10 @@
                                 <div class="col-md-4 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
-                                        <input  name="email" placeholder="Email *" class="form-control"  type="text" Required>
+                                        <input  name="email" placeholder="Email *" class="form-control"  type="text">
+                                        @if($errors->has('email'))
+                                            <span class="text-danger">{{ $errors->first('email') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -170,6 +143,9 @@
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
                                         <input  id="password" name="password" placeholder="Password *" class="form-control"  type="password" Required>
+                                        @if($errors->has('password'))
+                                            <span class="text-danger">{{ $errors->first('password') }}</span>
+                                        @endif
                                         <span id="message" style="color:red"> </span> <br>
                                     </div>
                                 </div>
@@ -191,3 +167,6 @@
     
 </body>
 </html>
+
+
+@endsection('content')

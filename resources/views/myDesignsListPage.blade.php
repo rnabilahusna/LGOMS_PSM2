@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>My Orders List</title>
+	<title>My Designs List</title>
 </head>
 <body>
 		<div class="menu-container">

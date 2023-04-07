@@ -1,10 +1,21 @@
+
+@if($message = Session::get('success'))
+
+<div class="alert alert-info">
+{{ $message }}
+</div>
+
+@endif
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Login Page</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/navbarstyle.css" >
+    <link rel="stylesheet" href="css/loginpagestyle.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 
@@ -29,19 +40,27 @@
             
             </div>
         </div>
+
 <div class="wrapper_big">
         <div class="wrapper">
             <div class="form-box login">
                 <img src="images/profile_picture_default.png" alt="profile pic" style="width:90px;height:90px;">
-                <form action="#">
+                <form action="{{ route('user.validate_login') }}" method="post">
+                    @csrf
                     <div class="input-box">
                         <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                        <input type="email" placeholder="Email" required>
+                        <input type="email" placeholder="Email" style="background-color: #FF6161;">
+                        @if($errors->has('email'))
+							<span class="text-danger">{{ $errors->first('email') }}</span>
+						@endif
                         <label hidden>Email</label>
                     </div>
                     <div class="input-box">
                         <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                        <input type="password" placeholder="Password" required>
+                        <input type="password" placeholder="Password" style="background-color: #FF6161;">
+                        @if($errors->has('password'))
+							<span class="text-danger">{{ $errors->first('password') }}</span>
+						@endif
                         <label hidden>Password</label>
                     </div>
                     <div class="remember-forgot">

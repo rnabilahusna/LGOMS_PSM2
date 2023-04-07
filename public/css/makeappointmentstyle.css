@@ -1,0 +1,59 @@
+.content-header{display:flex;justify-content: flex-end;}
+.form-control{height: 25px;width:350px;padding: 10px; border-radius: 4%;}
+.form-group{margin: 10px; margin-top:20px}
+/* .enquiries{padding: 10px;} */
+.contents{
+    padding-top: 10px;
+}
+.contents-title{
+    display: flex;
+    align-content: center;
+    flex-wrap: wrap;
+}
+.desc{margin-left: 30px;padding-top: 40px;}
+            
+.button {
+    border: 1px solid white;
+    border-radius: 20px 20px 20px 20px;
+    color: white;
+    padding: 8px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #FF6161;
+    box-shadow: 1px 1px #888888;
+}
+            
+.button:hover {
+    background-color: red;
+    color: white;
+}
+            
+.buttonsubmit{
+    margin-left: 550px;
+    margin-top: 80px;
+}
+
+.content-container {
+    margin-top: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.date-time {
+    display: flex;
+}
+
+::placeholder {
+    color: grey;
+}
+
+label {
+    color: black;
+    margin-bottom: 20px
+}
