@@ -1,3 +1,6 @@
+/* body {
+    background-color: #E5E5E5;
+} */
 .content-header{display:flex;justify-content: flex-end;}
 .form-control{height: 25px;width:350px;padding: 10px; border-radius: 4%;}
 .form-group{margin: 10px; margin-top:20px}

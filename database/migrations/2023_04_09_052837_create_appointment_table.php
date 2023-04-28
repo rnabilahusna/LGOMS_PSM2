@@ -14,12 +14,16 @@ return new class extends Migration
     {
         Schema::create('appointment', function (Blueprint $table) {
             $table->id('appID');
-            $table->string('buyerCode');
             $table->date('appDate');
             $table->string('appPurpose');
             $table->string('appStatus');
             $table->time('appTime');
             $table->timestamps();
+            $table->string('buyerCode');
+        });
+
+        Schema::table('appointment', function(Blueprint $table){
+            $table->foreign('buyerCode')->references('buyerCode')->on('client')->onDelete('cascade');
         });
     }
 

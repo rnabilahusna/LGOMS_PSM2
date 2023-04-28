@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class order extends Model
 {
     public $table = 'order';
+    // protected $primaryKey = "PONo";
     use HasFactory;
 
     protected $fillable = [
         'PONo',
-        'designID',
         'actionCode',
         'amount',
         'comment',
@@ -25,6 +25,7 @@ class order extends Model
         'partDescription',
         'partNo',
         'paymentStatus',
+        'paymentProof',
         'paymentTerm',
         'placeOfDelivery',
         'quantity',
@@ -38,6 +39,18 @@ class order extends Model
         'shippingTerm',
         'termOfPayment',
         'unitPrice',
-        'UOM'
+        'UOM',
+        'buyerCode',
+        'designID',
     ];
+
+    public function getClient() {
+        return $this->belongsTo(client::class, 'buyerCode','buyerCode');
+    }
+
+    public function getDesign() {
+        return $this->belongsTo(design::class, 'designID','designID');
+    }
+
+    
 }

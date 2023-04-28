@@ -154,7 +154,7 @@ body {
 }
 
 .buttonregister{
-    margin-top: 100px;
+    margin-top: 200px;
     margin-left: 150px;
     color: white;
     padding-top: 8px;
@@ -169,7 +169,7 @@ body {
   .form-group{margin: 10px;}
   /* .address-control{height: 30px;width:81px;padding: 5px;}
   .address-group{margin: 10px;} */
-  .PI-right{padding-right:90px; padding-top: 43px; padding-left: 15px;}
+  .PI-right{padding-right:90px; padding-top: 0px; padding-left: 15px;}
   .contents-right{display: flex; justify-content: flex-end;}
   .btnrole{ margin-left: 550px }
   .btnrole{

@@ -2,7 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Appointment;
+use App\Models\appointment;
+use App\Models\design;
 use Illuminate\Http\Request;
 
 class appointmentController extends Controller
@@ -12,8 +13,8 @@ class appointmentController extends Controller
      */
     public function index()
     {
-        $data = Appointment::latest()->paginate(5);
-        return view('index', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        $data = appointment::latest()->paginate(5);
+        return view('prod.appointmentListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
     /**
@@ -21,8 +22,7 @@ class appointmentController extends Controller
      */
     public function create()
     {
-        return view('appointmentForm');
-        // return redirect()->route('appointmentForm');
+        // return view('client.appointmentForm');
     }
 
     /**
@@ -38,7 +38,7 @@ class appointmentController extends Controller
             'appTime'            =>  'required'
         ]);
 
-        $appointment = new Appointment;
+        $appointment = new appointment;
 
         $appointment->buyerCode = $request->buyerCode;
         $appointment->appDate = $request->appDate;
@@ -48,21 +48,21 @@ class appointmentController extends Controller
 
         $appointment->save();
 
-        return redirect()->route('appointment.index')->with('success', 'Appointment added successfully.');
+        return redirect()->route('client.myDesignsListPage')->with('success', 'Appointment added successfully.');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Appointment $appointment)
+    public function show(appointment $appointment)
     {
-        return view('show', compact('appointment'));
+        return view('prod.appointmentDetailsPage', compact('appointment'));
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Appointment $appointment)
+    public function edit(appointment $appointment)
     {
         return view('edit', compact('appointment'));
     }
@@ -70,27 +70,15 @@ class appointmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Appointment $appointment)
+    public function update(Request $request, appointment $appointment)
     {
         $request->validate([
-            'buyerCode'          =>  'required',
-            'appDate'            =>  'required',
-            'appPurpose'         =>  'required',
-            'appStatus'          =>  'required',
-            'appTime'            =>  'required'
+            'appStatus'          =>  'required'
         ]);
 
-        $appointment = Appointment::find($request->hidden_id);
+        $appointment = appointment::find($request->hidden_id);
 
-        $appointment->buyerCode = $request->buyerCode;
-
-        $appointment->appDate = $request->appDate;
-
-        $appointment->appPurpose = $request->appPurpose;
-
-        $appointment->appStatus = $request->appStatus;
-
-        $appointment->appTime = $request->appTime;        
+        $appointment->appStatus = $request->appStatus;  
 
         $appointment->save();
 
@@ -101,11 +89,22 @@ class appointmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Appointment $appointment)
+    public function destroy(appointment $appointment)
     {
         $appointment->delete();
 
         return redirect()->route('appointment.index')->with('success', 'Appointment deleted successfully');
     
     }
+
+    public function requestAppointment() {
+        return view('client.appointmentForm');
+    }
+
+    public function getMyDesignsListPage() {
+        $data = design::latest()->paginate(5);
+        return view('client.myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+    }
+    
 }
+

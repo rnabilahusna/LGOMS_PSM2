@@ -34,21 +34,27 @@
 
         <div class="links">
             <div class="home">Home</div>
-            <div class="my_designs">My Designs</div>
+            <div class="my_designs"><a href="{{ route('client.myDesignsListPage') }}" style="color:black; text-decoration:none">My Designs</a></div>
             <div class="my_orders">My Orders</div>
         </div>
 
-        <div class="dropdown">
-            <div class="profile-group">
-                <div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
-                <div class="profile"><p class="dropbtn">Profile</p></div>
-            </div>
+        @auth
+       
+       <div class="dropdown">
+           <div class="profile-group">
+               <div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
+               <div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
+           </div>
 
-            <div class="dropdown-content">
-                <a href="#">Account Settings</a>
-                <a href="#">Sign Out</a>
-            </div>
-        </div>
+           <div class="dropdown-content">
+               <a href="#">Account Settings</a>
+               <a href="#">Sign Out</a>
+           </div>
+
+
+       </div>
+
+       @endauth
         
     </div>
 </div>
@@ -65,14 +71,16 @@
                 </div>
                 
                 <div class="the-query">
-                    <form id="addquery" class="well form-horizontal" action="{{ route('appointment.store') }}">
+                    <form id="addquery" class="well form-horizontal" method="post" action="{{ route('appointment.store') }}" enctype="multipart/form-data">
                         @csrf
+
+                        
                         <div class="form-group">
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="inpute-groupe">
                                     <span class="inpute-groupe-addon"></span>
-                                    <label>Name</label></br>
-                                    <input  id="fullname" name="fullname" placeholder="Full name *" class="form-control"  type="text" Required>
+                                    <label>Client ID</label></br>
+                                    <input  id="buyerCode" name="buyerCode" placeholder="Client ID *" class="form-control"  type="text" Required>
                                 </div>
                             </div>
                         </div>
@@ -81,7 +89,7 @@
                                 <div class="inpute-groupe">
                                     <span class="inpute-groupe-addon"></span>
                                     <label>Appointment purpose</label></br>
-                                    <input  id="appointmentpurpose" name="appointmentpurpose" placeholder="Appointment purpose *" class="form-control"  type="text" Required>
+                                    <input  id="appPurpose" name="appPurpose" placeholder="Appointment purpose *" class="form-control"  type="text" Required>
                                 </div>
                             </div>
                         </div>
@@ -92,7 +100,7 @@
                                     <div class="inpute-grouep">
                                         <span class="inpute-groupe-addon"></span>
                                         <label>Appointment date</label></br>
-                                        <input  id="appointmentdate" name="appointmentdate" placeholder="Appointment date *" class="form-control"  type="date" Required>
+                                        <input  id="appDate" name="appDate" placeholder="Appointment date *" class="form-control"  type="date" Required>
                                     </div>
                                 </div>
                             </div>
@@ -101,22 +109,27 @@
                                     <div class="inpute-groupe">
                                         <span class="inpute-groupe-addon"></span>
                                         <label>Appointment time</label></br>
-                                        <input  id="appointmenttime" name="appointmenttime" class="form-control"  type="time" Required>
+                                        <input  id="appTime" name="appTime" class="form-control"  type="time" Required>
                                     </div>
                                 </div>
                             </div>
                         </div>
 
+                        <input  id="appStatus" name="appStatus" type="text" value="Awaiting" hidden>
+
 
                         <div class="form-group">
                         <label class="col-md-4 control-label"></label>
                         <div class="col-md-4">
-                            <!-- <button type="submit" onclick="viewReply()" class="button buttonview" >View replies</button> -->
                             <button type="submit" id="submit" class="button buttonsubmit" >Submit Request</button>
                         </div>
+
                     </div>
                     </form>
                 </div>
+
+
+                
             </div>
            
         </div>

@@ -10,11 +10,22 @@ class Appointment extends Model
 {
     use HasFactory;
 
+    protected $table = "appointment";
+    protected $primaryKey = "appID";
     protected $fillable = [
-        'buyerCode',
+        'appID',
         'appDate',
         'appPurpose',
         'appStatus',
-        'appTime'
+        'appTime',
+        'buyerCode'
     ];
+
+    public $timestamps = false;
+
+    public function getClient() {
+        return $this->belongsTo(client::class, 'buyerCode','buyerCode');
+    }
+
 }
+

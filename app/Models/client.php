@@ -14,7 +14,6 @@ class client extends Model
         'buyerCode',
         'authorizationCodeOrName',
         'buyerAddress',
-        'appStatus',
         'buyerCorrespondentOrName',
         'buyerName',
         'buyerSectionCodeOrName',

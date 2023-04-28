@@ -8,11 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class design extends Model
 {
     public $table = 'design';
+    protected $primaryKey = "designID";
     use HasFactory;
 
     protected $fillable = [
-        'designID',
-        'buyerCode',
+        // 'designID',
         'designConfirmationStatus',
         'goodsStock',
         'noOfCavities',
@@ -26,6 +26,15 @@ class design extends Model
         'POQty',
         'rawMaterialMain',
         'size',
-        'thickness'
+        'thickness',
+        'buyerCode'
     ];
+
+    public function getClient() {
+        return $this->belongsTo(client::class, 'buyerCode','buyerCode');
+    }
+
+    public function getOrder() {
+        return $this->belongsTo(order::class, 'unitPrice','unitPrice');
+    }
 }

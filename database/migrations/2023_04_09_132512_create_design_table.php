@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('design', function (Blueprint $table) {
             $table->id('designID');
-            $table->string('buyerCode');
             $table->string('designConfirmationStatus');
             $table->integer('goodsStock')->nullable();
             $table->string('noOfCavities')->nullable();
@@ -28,8 +27,14 @@ return new class extends Migration
             $table->string('rawMaterialMain')->nullable();
             $table->string('size')->nullable();
             $table->string('thickness')->nullable();
+            $table->string('buyerCode');
             $table->timestamps();
         });
+
+        Schema::table('design', function(Blueprint $table){
+            $table->foreign('buyerCode')->references('buyerCode')->on('client')->onDelete('cascade');
+        });
+
     }
 
     /**
@@ -40,3 +45,4 @@ return new class extends Migration
         Schema::dropIfExists('design');
     }
 };
+

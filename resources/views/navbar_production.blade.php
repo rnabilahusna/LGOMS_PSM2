@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Login Page</title>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="css/navbarstyle.css" >
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
+	<title>Appointment List</title>
 </head>
 <body>
 
@@ -21,17 +23,23 @@
             <div class="design_list">Design List</div>
         </div>
 
+        @auth
+       
         <div class="dropdown">
             <div class="profile-group">
                 <div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
-                <div class="profile"><p class="dropbtn">Profile</p></div>
+                <div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
             </div>
 
             <div class="dropdown-content">
                 <a href="#">Account Settings</a>
                 <a href="#">Sign Out</a>
             </div>
+
+
         </div>
+
+        @endauth
         
     </div>
 </div>

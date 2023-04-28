@@ -16,21 +16,27 @@
 
         <div class="links">
             <div class="home">Home</div>
-            <div class="my_designs">My Designs</div>
+            <div class="my_designs"><a href="{{ route('client.myDesignsListPage') }}" class="btn btn-primary btn-sm float-end" style="color:black; text-decoration:none">My Designs</a></div>
             <div class="my_orders">My Orders</div>
         </div>
 
+        @auth
+       
         <div class="dropdown">
             <div class="profile-group">
                 <div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
-                <div class="profile"><p class="dropbtn">Profile</p></div>
+                <div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
             </div>
 
             <div class="dropdown-content">
                 <a href="#">Account Settings</a>
                 <a href="#">Sign Out</a>
             </div>
+
+
         </div>
+
+        @endauth
         
     </div>
 </div>

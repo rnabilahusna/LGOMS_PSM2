@@ -1,11 +1,5 @@
 
-@if($message = Session::get('success'))
 
-<div class="alert alert-info">
-{{ $message }}
-</div>
-
-@endif
 
 <!DOCTYPE html>
 <html lang="en">
@@ -41,28 +35,44 @@
             </div>
         </div>
 
+@if(session()->has('success'))
+<div class="alert alert-success alert-dismissible fade show" role="alert">
+    {{session('success')}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
+@if(session()->has('loginError'))
+<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    {{session('loginError')}}
+    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+@endif
+
 <div class="wrapper_big">
         <div class="wrapper">
             <div class="form-box login">
                 <img src="images/profile_picture_default.png" alt="profile pic" style="width:90px;height:90px;">
-                <form action="{{ route('user.validate_login') }}" method="post">
+                <form action="/login" method="post"> 
                     @csrf
+
+                    
                     <div class="input-box">
                         <span class="icon"><ion-icon name="mail"></ion-icon></span>
-                        <input type="email" placeholder="Email" style="background-color: #FF6161;">
-                        @if($errors->has('email'))
-							<span class="text-danger">{{ $errors->first('email') }}</span>
-						@endif
-                        <label hidden>Email</label>
+                        <input name="email" type="email" placeholder="Email" style="color:white; background-color: #FF6161;" class="form-control @error('email') is-invalid @enderror" required>
+                        <div class="invalid-feedback">
+                            
+                        </div>
                     </div>
+
+
                     <div class="input-box">
                         <span class="icon"><ion-icon name="lock-closed"></ion-icon></span>
-                        <input type="password" placeholder="Password" style="background-color: #FF6161;">
-                        @if($errors->has('password'))
-							<span class="text-danger">{{ $errors->first('password') }}</span>
-						@endif
-                        <label hidden>Password</label>
+                        <input name="password" class="form-control" type="password" placeholder="Password" style="color:white; background-color: #FF6161;" required>
+                        
                     </div>
+
+
                     <div class="remember-forgot">
                         <label><input type="checkbox">Remember me</label>
                         <a href="#">Forgot password?</a>
@@ -73,7 +83,7 @@
             </div>
         </div>
 
-        @yield('content')
+        
     
     </div>
     </div>
