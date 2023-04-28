@@ -1,29 +1,60 @@
-@extends('navbar_sales')
-
-@section('content')
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Signup Page</title>
-    <!-- <link rel="stylesheet" href="css/navbarstyle.css" > -->
+    <link rel="stylesheet" href="css/navbarstyle.css" >
     <link rel="stylesheet" href="css/signupstyle_1.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
+<div class="menu-container">
+    <div class="menu">
+        <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
+
+        <div class="links">
+            <div class="home">Home</div>
+            <div class="register_user">Register User</div>
+            <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</div>
+            <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
+        </div>
+
+		@auth
+       
+		<div class="dropdown">
+			<div class="profile-group">
+				<div class="profile-pic"><img  src="/images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
+				<div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
+			</div>
+
+			<div class="dropdown-content">
+				<a href="#">Account Settings</a>
+				<a href="#">Sign Out</a>
+			</div>
 
 
+		</div>
+
+		@endauth
+        
+    </div>
+</div>
+
+@if($message = Session::get('success'))
+
+<div class="alert alert-success">
+    {{ $message }}
+</div>
+
+@endif
 
 <div class="smaller_body">
     <div class="bg">
         <img src="images/bg_1.jpg" alt="">
     </div>
 </div>
-
 <div class="container-contents-right">
 
                 <div class="btnrole">
@@ -48,7 +79,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerCode" placeholder="00011111/AAAA *" class="form-control"  type="text" Required>
+                                    <input  name="buyerCode" placeholder="Buyer Code *" class="form-control"  type="text" Required>
                                 </div>
                             </div>
                         </div>
@@ -57,7 +88,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerName" placeholder="AAAA *" class="form-control"  type="text" Required>
+                                    <input  name="buyerName" placeholder="Buyer Name *" class="form-control"  type="text" Required>
                                 </div>
                             </div>
                         </div>
@@ -66,7 +97,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <textarea  name="buyerAddress" placeholder="Full Address *" class="form-control"  type="textarea" Required></textarea>
+                                    <textarea  name="buyerAddress" placeholder="Buyer Address *" class="form-control"  type="textarea" Required></textarea>
                                 </div>
                             </div>
                         </div>
@@ -75,7 +106,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerSectionCodeOrName" placeholder="AAAA HA (MFG)" class="form-control"  type="text" >
+                                    <input  name="buyerSectionCodeOrName" placeholder="Buyer Section Code or Name" class="form-control"  type="text" >
                                 </div>
                             </div>
                         </div>
@@ -84,7 +115,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerCorrespondentOrName" placeholder="Purchasing Department " class="form-control"  type="text">
+                                    <input  name="buyerCorrespondentOrName" placeholder="Buyer Correspondent or Name " class="form-control"  type="text">
                                 </div>
                             </div>
                         </div>
@@ -93,7 +124,7 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="authorizationCode" placeholder="00011111 " class="form-control"  type="text">
+                                    <input  name="authorizationCodeOrName" placeholder="Authorization Code or Name" class="form-control"  type="text">
                                 </div>
                             </div>
                         </div>
@@ -114,7 +145,7 @@
                       
                   </div>
 
-                  <div class="PI-right">
+                  <div class="PI-right" style="padding-top: 40px">
 
                         <!-- <div class="form-group">
                                 <div class="col-md-4 inputGroupContainer">
@@ -126,8 +157,8 @@
                             </div> -->
                             
                             <div class="form-group">
-                                <label for="country" style="color: grey">Country or region</label>
-                                <select class="country" id="country" name="country" autocomplete="country" enterkeyhint="done" style="width:94%; height:40px; color:grey; padding-left: 10px" required>
+                                <!-- <label for="country" style="color: grey">Country or region</label> -->
+                                <select class="country" id="country" name="originCountry" autocomplete="country" enterkeyhint="done" style="width:94%; height:40px; color:grey; padding-left: 10px" required>
                                     <option>--Choice of country origin--</option>
                                     <option value="AF">Afghanistan</option>
                                     <option value="AX">Åland Islands</option>
@@ -385,7 +416,7 @@
                                 <div class="col-md-4 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
-                                            <input type="tel" class="form-control" name="contactNum" placeholder="+6012-34567890" pattern="+601-[0-9]{9}" required>
+                                            <input type="tel" class="form-control" name="contactNum" placeholder="Contact Number" pattern="+601-[0-9]{9}" required>
                                     </div>
                                 </div>
                         </div>
@@ -422,9 +453,6 @@
             </form>
         </div>
 
-@yield('content')
-    
 </body>
 </html>
 
-@endsection('content')

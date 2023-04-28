@@ -89,7 +89,7 @@
 							<form method="post" action="{{ route('appointment.destroy', $row->appID) }}">
 								@csrf
 								@method('DELETE')
-								<a href="{{ route('appointment.show', $row->appID) }}" class="btn btn-primary btn-sm">View</a>
+								<a href="{{ route('appointment.showForProdP', $row->appID) }}" class="btn btn-primary btn-sm">View</a>
 								<input type="submit" class="btn btn-danger btn-sm" value="Delete" />
 							</form>
 						</td>

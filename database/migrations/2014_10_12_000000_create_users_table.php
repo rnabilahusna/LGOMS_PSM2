@@ -19,6 +19,11 @@ return new class extends Migration
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('ICNo');
+            $table->string('citizenship');
+            $table->string('contactNum');
+            $table->string('staffID');
+            $table->string('department');
             $table->rememberToken();
             $table->timestamps();
         });

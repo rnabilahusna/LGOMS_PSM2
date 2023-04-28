@@ -14,14 +14,14 @@ class orderController extends Controller
      */
     public function index()
     {
-        // $data = order::latest()->paginate(5);
-        // return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        $data = order::latest()->paginate(5);
+        return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
         // $data = order::latest()->paginate(5);
         // return view('prod.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
         // $data = order::latest()->paginate(5);
         // return view('store.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
-        $data = order::latest()->paginate(5);
-        return view('qc.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        // $data = order::latest()->paginate(5);
+        // return view('qc.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
          // $data = order::latest()->paginate(5);
         // return view('client.myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
@@ -99,17 +99,17 @@ class orderController extends Controller
         return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
-    public function updateOrderInfo(Request $request, order $order)
+    public function updateOrderStatusInfo(Request $request, order $order)
     {
         $request->validate([
             'orderStatus'          =>  'required',
-            'paymentStatus'        =>  'nullable'
+            'paymentStatus'          =>  'required'
         ]);
 
         $order = order::find($request->hidden_id);
 
         $order->orderStatus = $request->orderStatus; 
-        $order->paymentStatus = $request->paymentStatus;  
+        $order->paymentStatus = $request->paymentStatus; 
 
         $order->save();
 

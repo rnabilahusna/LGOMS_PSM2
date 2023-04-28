@@ -1,8 +1,10 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 
 return new class extends Migration
 {
@@ -46,10 +48,12 @@ return new class extends Migration
             $table->timestamps();
         });
 
+
         Schema::table('order', function(Blueprint $table){
             $table->foreign('buyerCode')->references('buyerCode')->on('client')->onDelete('cascade');
         });
     }
+
 
     /**
      * Reverse the migrations.
@@ -59,4 +63,3 @@ return new class extends Migration
         Schema::dropIfExists('order');
     }
 };
-

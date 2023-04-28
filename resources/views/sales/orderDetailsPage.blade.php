@@ -4,8 +4,8 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/mydesignsliststyle.css" >
-    <link rel="stylesheet" href="css/navbarstyle.css" >
+	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
+    <link rel="stylesheet" href="/css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	<title>Orders List</title>
@@ -13,12 +13,12 @@
 <body>
 <div class="menu-container">
     <div class="menu">
-        <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
+        <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
             <div class="home">Home</div>
             <div class="register_user">Register User</div>
-            <div class="order_list">Order List</div>
+            <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</div>
             <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>
 
@@ -26,7 +26,7 @@
        
 		<div class="dropdown">
 			<div class="profile-group">
-				<div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
+				<div class="profile-pic"><img  src="/images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
 				<div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
 			</div>
 
@@ -69,28 +69,8 @@
 
 			<div class="leftinfo">
 				<div><img src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="75" /></div>
-				<form method="post" action="{{ route('order.updateOrderInfo', $order->id) }}" >
-					
-					@csrf
-					@method('PUT')
-					<select name="orderStatus" class="form-group" style="width:85%; height:40px; color:grey; padding-left: 10px">
-						<option>-- Update Order Status --</option>
-						<option name="orderStatus" value="NEW"> New </option>
-						<option name="orderStatus" value="PRODUCTION IN PROGRESS"> Production In Progress </option>
-						<option name="orderStatus" value="INSPECTION"> Inspection </option>
-						<option name="orderStatus" value="PACKING"> Packing </option>
-						<option name="orderStatus" value="SHIPPED"> Shipped </option>
-						<option name="orderStatus" value="DELIVERED"> Delivered </option>
-					</select>
-					<div class="text-center">
-				    <input type="hidden" name="hidden_id" value="{{ $order->id }}" />
-				    <input type="submit" class="btn btn-primary" value="Update status" />
-			    </div>
 				
-
-
-				@if($order->paymentStatus == 'SUBMITTED')
-				
+               
 					<div class="row mb-3">
 						<label class="col-sm-2 col-label-form"><b>Payment proof: </b></label>
 						<div class="col-sm-10">
@@ -98,25 +78,53 @@
 						</div>
 					</div> 
 
-					<div class="row mb-4">
-               
+					
+
+			@if($order->paymentStatus == 'PAID')
+            
+            
+                <div class="row mb-4">
+                    <label class="col-sm-2 col-label-form"><b>What is the current order status?</b></label>
+            
+                    <form method="post" action="{{ route('order.updateOrderStatusInfo', $order->id) }}" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
+                        
+                        <select name="orderStatus" class="form-group" value="{{$order->orderStatus}} style="width:85%; height:40px; color:grey; padding-left: 10px">
+                        <option>-- Update Order Status --</option>
+                        <option name="orderStatus" value="NEW"> New </option>
+                        <option name="orderStatus" value="PRODUCTION IN PROGRESS"> Production In Progress </option>
+                        <option name="orderStatus" value="INSPECTION"> Inspection </option>
+                        <option name="orderStatus" value="PACKING"> Packing </option>
+                        <option name="orderStatus" value="SHIPPED"> Shipped </option>
+                        <option name="orderStatus" value="DELIVERED"> Delivered </option>
+                    </select>
+                    <div class="text-center">
                         <input type="hidden" name="hidden_id" value="{{ $order->id }}" />
-                        <input name="paymentStatus" type="submit" class="btn btn-success" value="PAID" />
-                        <input name="paymentStatus" type="submit" class="btn btn-danger" value="PAYMENT REJECTED" />
-                    
-				
+						<input type="hidden" name="paymentStatus" value="{{ $order->paymentStatus }}" />
+                        <input type="submit" class="btn btn-primary" value="Update status" />
+                    </div>
 
-				@else
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Payment Status: </b></label>
-					<div class="col-sm-10">
-						{{ $order->paymentStatus }}
-					</div>
-				</div>
-
-				@endif
-				</form>
+                    </form>
                 </div>
+            
+            @elseif($order->paymentStatus == 'PAYMENT REJECTED')
+
+
+			@else
+			<!-- payment status == submitted -->
+				<form method="post" action="{{ route('order.updateOrderStatusInfo', $order->id) }}" >
+                    
+                    @csrf
+                    @method('PUT')
+                    <input type="hidden" name="hidden_id" value="{{ $order->id }}"/>
+					<input type="hidden" name="orderStatus" value="{{ $order->orderStatus }}" />
+                    <input name="paymentStatus" type="submit" class="btn btn-success" value="PAID" />
+                    <input name="paymentStatus" type="submit" class="btn btn-danger" value="PAYMENT REJECTED" />
+                </form>
+
+
+			@endif
 
 			</div>
 
@@ -124,6 +132,13 @@
 
 
 			<div class="centerinfo">
+				
+			<div class="row mb-3">
+					<label class="col-sm-2 col-label-form"><b>Payment Status: </b></label>
+					<div class="col-sm-10">
+						{{ $order->paymentStatus }}
+					</div>
+				</div>
 				<div class="row mb-3">
 					<label class="col-sm-2 col-label-form"><b>P/O No:</b></label>
 					<div class="col-sm-10">

@@ -14,7 +14,7 @@ class appointmentController extends Controller
     public function index()
     {
         $data = appointment::latest()->paginate(5);
-        return view('prod.appointmentListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        return view('prod.appointmentsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
     /**
@@ -105,6 +105,36 @@ class appointmentController extends Controller
         $data = design::latest()->paginate(5);
         return view('client.myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
+
+
+    //PRODUCTION PERSONNEL FUNCTIONS
+
+    public function getProdAppointmentsListPage()
+    {
+        $data = appointment::latest()->paginate(5);
+        return view('prod.appointmentsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+    }
+
+    public function showForProdP(appointment $appointment)
+    {
+        return view('prod.AppointmentDetailsPage', compact('appointment'));
+    }
     
+    public function updateAppointmentInfo(Request $request, design $design)
+    {
+        
+        $request->validate([
+            'appStatus'          =>  'required'
+        ]);
+
+        $appointment = appointment::find($request->hidden_id);
+
+        $appointment->appStatus = $request->appStatus;  
+
+        $appointment->save();
+
+        return redirect()->route('prod.appointmentsListPage')->with('success', 'Appointment info has been updated successfully');
+
+    }
 }
 

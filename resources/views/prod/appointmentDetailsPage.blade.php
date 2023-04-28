@@ -4,8 +4,9 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="css/mydesignsliststyle.css" >
-    <link rel="stylesheet" href="css/navbarstyle.css" >
+	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
+    <link rel="stylesheet" href="/css/navbarstyle.css" >
+    <link rel="stylesheet" href="/css/appointmentdetailspage.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	<title>Appointment List</title>
@@ -15,7 +16,7 @@
 
 <div class="menu-container">
     <div class="menu">
-        <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
+        <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
             <div class="home">Home</div>
@@ -28,7 +29,7 @@
        
 	   <div class="dropdown">
 		   <div class="profile-group">
-			   <div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
+			   <div class="profile-pic"><img  src="/images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
 			   <div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
 		   </div>
 
@@ -59,67 +60,77 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Appointments Details</b></div>
-				
-				<a href="{{ route('appointment.index') }}" class="btn btn-primary btn-sm float-end">View All</a>
-			</div>
+				<div class="col col-md-6">
+				    <a href="{{ route('prod.appointmentsListPage') }}" class="btn btn-success btn-sm float-end" id="requestbutton">View All</a>
+                </div>
+            </div>
 			</div>
 		</div>
 
 	
 		<div class="cardbody">
-            <div class="row mb-3">
-                <label class="col-sm-2 col-label-form"><b>Company Name</b></label>
-                <div class="col-sm-10">
-					{{ $appointment->getClient->buyerName }}
+
+            <div class="theleft">
+
+            
+                <div class="details" id="buyerName"><b>Company Name:</b>&nbsp&nbsp 
+                        {{ $appointment->getClient->buyerName }}
                 </div>
-            </div>
-			<div class="row mb-3">
-                <label class="col-sm-2 col-label-form"><b>Client ID</b></label>
-                <div class="col-sm-10">
-					{{ $appointment->getClient->buyerCode }}
+           
+           
+                <div class="details" id="buyerCode"><b>Client ID:</b>&nbsp&nbsp 
+                        {{ $appointment->getClient->buyerCode }}
                 </div>
-            </div>
-			<div class="row mb-3">
-                <label class="col-sm-2 col-label-form"><b>Contact No.</b></label>
-                <div class="col-sm-10">
-					{{ $appointment->getClient->contactNum }}
+       
+           
+                <div class="details" id="contactNum"><b>Contact No.:</b>&nbsp&nbsp 
+                        {{ $appointment->getClient->contactNum }}
                 </div>
-            </div>
-            <div class="row mb-3">
-                <label class="col-sm-2 col-label-form"><b>Appointment Purpose</b></label>
-                <div class="col-sm-10">
-                    {{ $appointment->appPurpose }}
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label class="col-sm-2 col-label-form"><b>App Date</b></label>
-                <div class="col-sm-10">
-                    {{ $appointment->appDate }}
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label class="col-sm-2 col-label-form"><b>Email</b></label>
-                <div class="col-sm-10">
-                    {{ $appointment->getClient->email }}
-                </div>
-            </div>
-            <div class="row mb-4">
-                <label class="col-sm-2 col-label-form"><b>Appointment Time</b></label>
-                <div class="col-sm-10">
-                    {{ $appointment->appTime }}
+       
+          
+                <div class="details" id="buyerName"><b>Email:</b>&nbsp&nbsp 
+                        {{ $appointment->getClient->email }}
                 </div>
             </div>
 
-			<div class="row mb-4">
-			<form method="post" action="{{ route('appointment.update', $appointment->appID) }}" enctype="multipart/form-data">
-				@csrf
-				@method('PUT')
-				
-				<input type="hidden" name="hidden_id" value="{{ $appointment->appID }}" />
-				<input name="appStatus" type="submit" class="btn btn-success" value="Accepted" />
-				<input name="appStatus" type="submit" class="btn btn-danger" value="Rejected" />
-			</form>
+
+
+            <div class="theright">
+
+                <div class="details" id="appPurpose"><b>Appointment Purpose:</b>&nbsp&nbsp 
+                        {{ $appointment->appPurpose }}
+                </div>
+
+                <div class="details" id="appDate"><b>Appointment Date:</b>&nbsp&nbsp 
+                        {{ $appointment->appDate }}
+                </div>
+
+                <div class="details" id="appTime"><b>Appointment Time:</b>&nbsp&nbsp 
+                        {{ $appointment->appTime }}
+                </div>
+
+                <div class="details" id="appStatus"><b>Appointment Status:</b>&nbsp&nbsp 
+                        {{ $appointment->appStatus }}
+                </div>
+
+
+
+                @if($appointment->appStatus == 'PENDING')
+                
+                <form method="post" action="{{ route('appointment.updateAppointmentInfo', $appointment->appID) }}" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <label for=""><b>Do you want to accept the appointment request?</b></label>&nbsp&nbsp
+                    <input type="hidden" name="hidden_id" value="{{ $appointment->appID }}" />
+                    <input name="appStatus" type="submit" class="btn btn-success" value="ACCEPTED" />
+                    <input name="appStatus" type="submit" class="btn btn-danger" value="REJECTED" />
+                </form>
+           
             </div>
+
+                @else 
+
+                @endif
 
 
 			

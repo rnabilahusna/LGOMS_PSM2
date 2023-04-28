@@ -18,7 +18,7 @@
 			<div class="links">
 				<div class="home">Home</div>
 				<div class="my_designs">My Designs</div>
-				<div class="my_orders">My Orders</div>
+				<div class="my_orders"><a href="{{ route('client.myOrdersListPage') }}" style="color:black; text-decoration:none">My Orders</a></div>
 			</div>
 
 			@auth

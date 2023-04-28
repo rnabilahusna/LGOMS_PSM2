@@ -1,6 +1,4 @@
-@extends('navbar_sales')
 
-@section('content')
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,12 +6,51 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Signup Page</title>
-    <!-- <link rel="stylesheet" href="css/navbarstyle.css" > -->
+    <link rel="stylesheet" href="css/navbarstyle.css" >
     <link rel="stylesheet" href="css/signupstyle.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
+<div class="menu-container">
+    <div class="menu">
+        <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
+
+        <div class="links">
+            <div class="home">Home</div>
+            <div class="register_user">Register User</div>
+            <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</div>
+            <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
+        </div>
+
+		@auth
+       
+		<div class="dropdown">
+			<div class="profile-group">
+				<div class="profile-pic"><img  src="/images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
+				<div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
+			</div>
+
+			<div class="dropdown-content">
+				<a href="#">Account Settings</a>
+				<a href="#">Sign Out</a>
+			</div>
+
+
+		</div>
+
+		@endauth
+        
+    </div>
+</div>
+
+@if($message = Session::get('success'))
+
+<div class="alert alert-success">
+    {{ $message }}
+</div>
+
+@endif
 
 <div class="smaller_body">
     <div class="bg">
@@ -157,10 +194,7 @@
             </form>
         </div>
 
-@yield('content')
-    
+
 </body>
 </html>
 
-
-@endsection('content')

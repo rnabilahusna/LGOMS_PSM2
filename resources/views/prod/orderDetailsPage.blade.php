@@ -6,6 +6,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="/css/navbarstyle.css" >
+    <link rel="stylesheet" href="/css/orderdetailspagestyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	<title>Designs List</title>
@@ -71,7 +72,7 @@
 <div class="cardbody">
 
     <div class="leftinfo">
-        <div><img src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="75" /></div>
+        <div><img src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="250" /></div>
         
     </div>
 
@@ -79,6 +80,11 @@
 
 
     <div class="centerinfo">
+
+        <div class="details" id="appStatus"><b>P/O No:</b>&nbsp&nbsp 
+            {{ $order->PONo }}
+        </div>
+
         <div class="row mb-3">
             <label class="col-sm-2 col-label-form"><b>P/O No:</b></label>
             <div class="col-sm-10">

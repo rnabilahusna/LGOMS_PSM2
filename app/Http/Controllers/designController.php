@@ -14,12 +14,12 @@ class designController extends Controller
      */
     public function index()
     {
-        // $data = design::latest()->paginate(5);
-        // return view('client.myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        $data = design::latest()->paginate(5);
+        return view('client.myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
         // $data = design::latest()->paginate(5);
         // return view('sales.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
-        $data = design::latest()->paginate(5);
-        return view('prod.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        // $data = design::latest()->paginate(5);
+        // return view('prod.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
         // $data = design::latest()->paginate(5);
         // return view('store.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
         // $data = design::latest()->paginate(5);

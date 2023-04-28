@@ -60,14 +60,21 @@ Route::resource('design', designController::class);
 Route::resource('order', orderController::class);
 
 
-Route::get('sales.orderDetailsPage/{order}', [orderController::class, 'showSales'])->name('order.showSales');
+
 
 
 
 Route::controller(appointmentController::class)->group(function(){
 
+    //client
     Route::get('client.appointmentForm','requestAppointment')->name('appointment.requestAppointment');
     Route::get('client.myDesignsListPage','getMyDesignsListPage')->name('client.getMyDesignsListPage');
+
+    //production
+    Route::get('prod.appointmentsListPage','getProdAppointmentsListPage')->name('prod.appointmentsListPage');
+    Route::put('prod.appointmentDetailsPage/{appointment}','updateAppointmentInfo')->name('appointment.updateAppointmentInfo');
+    Route::get('prod.appointmentDetailsPage/{appointment}', 'showForProdP')->name('appointment.showForProdP');
+
     
 });
 
@@ -105,7 +112,7 @@ Route::controller(orderController::class)->group(function(){
     //sales 
     Route::get('sales.orderDetailsPage/{order}', 'showForSalesP')->name('order.showForSalesP'); //details
     Route::get('sales.ordersListPage','getSalesOrdersListPage')->name('sales.ordersListPage'); //list
-    Route::put('sales.orderDetailsPage/{order}','updateOrderInfo')->name('order.updateOrderInfo'); //update
+    Route::put('sales.orderDetailsPage/{order}','updateOrderStatusInfo')->name('order.updateOrderStatusInfo'); //update
 
     //production
     Route::get('prod.ordersListPage','getProdOrdersListPage')->name('prod.ordersListPage');
