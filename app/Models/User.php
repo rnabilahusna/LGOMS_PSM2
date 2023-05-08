@@ -19,13 +19,12 @@ class User extends Authenticatable
      */
     protected $fillable = [
         'name',
-        'ICNo',
-        'citizenship',
-        'contactNum',
-        'staffID',
-        'department',
+        'role',
         'email',
         'password',
+        'contactNum',
+        'buyerCode',
+        'staffID',
     ];
 
     /**
@@ -46,4 +45,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function getStaff() {
+        return $this->belongsTo(staff::class, 'staffID','staffID');
+    }
+
+    public function getClient() {
+        return $this->belongsTo(client::class, 'buyerCode','buyerCode');
+    }
+
+    
 }

@@ -16,17 +16,26 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('role');
             $table->string('email')->unique();
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('ICNo');
-            $table->string('citizenship');
             $table->string('contactNum');
-            $table->string('staffID');
-            $table->string('department');
+            $table->string('buyerCode')->nullable();
+            $table->string('staffID')->nullable();
             $table->rememberToken();
+            $table->timestamp('email_verified_at')->nullable();
             $table->timestamps();
         });
+
+        // Schema::table('users', function(Blueprint $table){
+        //     $table->foreign('buyerCode')->references('buyerCode')->on('client')->onDelete('cascade');
+        // });
+
+        // Schema::table('users', function(Blueprint $table){
+        //     $table->foreign('staffID')->references('staffID')->on('staff')->onDelete('cascade');
+        // });
+
+
     }
 
     /**

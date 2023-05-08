@@ -1,0 +1,31 @@
+.cardbody
+{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.partDesignImage{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+    margin: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.tworightcolumn{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.input-group{width: 20%;}
+
+.rightinfo
+{
+    padding-left:30px;
+}
+
+.leftinfo{ padding-right: 30px;}
+
+.details{padding-top:20px}

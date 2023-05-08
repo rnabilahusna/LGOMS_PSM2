@@ -52,5 +52,9 @@ class order extends Model
         return $this->belongsTo(design::class, 'designID','designID');
     }
 
+    public function getMyOrder(){
+        return $this->hasMany(order::class,'id')->with('row');
+    }
+
     
 }

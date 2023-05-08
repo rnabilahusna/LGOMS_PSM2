@@ -1,12 +1,30 @@
+
 .cardbody
 {
-    margin-top: 30px;
-    display: flex;
-    justify-content: space-evenly;
-    align-items: center;
+    /* margin-top: 5%; */
+    margin:auto;
 }
 
-.details 
+#cardbody
 {
-    margin-bottom: 20px;
+    display: flex;
+    justify-content: center;
 }
+
+.rightonly
+{
+    padding-left: 100px;
+}
+
+.details
+{
+    padding-top:20px
+}
+
+#appStatus
+{
+    padding-bottom: 30px;
+}
+
+.buttonsConfirm {padding-top:15px}
+

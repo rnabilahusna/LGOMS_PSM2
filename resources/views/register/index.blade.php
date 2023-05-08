@@ -5,7 +5,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Signup Page</title>
+    <title>Signup Staff</title>
     <link rel="stylesheet" href="css/navbarstyle.css" >
     <link rel="stylesheet" href="css/signupstyle.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
@@ -17,7 +17,7 @@
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+        <div class="home"><a href="{{ route('sales.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="register_user">Register User</div>
             <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</div>
             <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
@@ -32,8 +32,7 @@
 			</div>
 
 			<div class="dropdown-content">
-				<a href="#">Account Settings</a>
-				<a href="#">Sign Out</a>
+				<a href="logout">Sign Out</a>
 			</div>
 
 
@@ -62,7 +61,7 @@
 
                 <div class="btnrole">
                             <button type="submit" class="btnstaff" onclick="#">Staff</button>
-                            <button type="submit" class="btnclient" >Client</button>
+                            <button type="submit" class="btnclient"><a href="{{ route('register.signUpPageClient') }}" style="color:white; text-decoration:none">Client</a></button>
                 </div>
 
                 <p style="color: grey;font-size:20px;text-align:center;padding-top: 20px;">Sign up for Staff</p>
@@ -72,6 +71,8 @@
                 <div class="contents-right">
                   <div class="PI-left">
                       <p style="text-decoration:underline;color: grey;">Personal Information</p>
+
+
 
                         <div class="form-group">
                             <div class="col-md-4 inputGroupContainer">
@@ -138,13 +139,28 @@
                             <label for="department" class="form-group">Department</label>
                             <select name="department" class="form-group" style="width:85%; height:40px; color:grey; padding-left: 10px">
                                    
-                                                <option name="department" value="Sales"> Sales </option>
+                                                <option name="department" value="Sales"> Sales department</option>
                                         
-                                                <option name="department" value="Store"> Store </option>
+                                                <option name="department" value="Store"> Store department</option>
                                             
-                                                <option name="department" value="QC"> Quality Control </option>
+                                                <option name="department" value="QC"> Quality Control department</option>
                                         
-                                                <option name="department" value="production">  Production </option>
+                                                <option name="department" value="Production">  Production department</option>
+                                        
+                            </select>
+                        </div>
+
+                        <div class="role">
+                            <label for="role" class="form-group">Role</label>
+                            <select name="role" class="form-group" style="width:85%; height:40px; color:grey; padding-left: 10px">
+                                   
+                                                <option name="role" value="Sales"> Sales personnel</option>
+                                        
+                                                <option name="role" value="Store"> Store personnel</option>
+                                            
+                                                <option name="role" value="QC"> Quality Control personnel</option>
+                                        
+                                                <option name="role" value="Production">  Production personnel</option>
                                         
                             </select>
                         </div>
@@ -156,6 +172,8 @@
                   
                   <p style="text-decoration:underline;color: grey;"> Login Info </p>
 
+                        
+                  
                         <div class="form-group">
                                 <div class="col-md-4 inputGroupContainer">
                                     <div class="input-group">
@@ -182,7 +200,7 @@
                                 </div>
                             </div>
 
-                            
+                        <!-- <input  id="role" name="role" value="staff" type="hidden"> -->
                         <button type="submit" id="registerbutton" class="button buttonregister" >Register</button>
                              
 

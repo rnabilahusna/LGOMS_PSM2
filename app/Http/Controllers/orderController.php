@@ -6,6 +6,8 @@ use App\Models\order;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
+
 
 class orderController extends Controller
 {
@@ -126,8 +128,11 @@ class orderController extends Controller
 
     public function getClientOrdersListPage()
     {
-        $data = order::latest()->paginate(5);
-        return view('client.myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        // $data = order::latest()->paginate(5);
+        // return view('client.myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        $data = order::where('buyerCode',Auth::user()->buyerCode)->get();
+
+        return view('client.myOrdersListPage', compact('data'));
     }
 
     public function updatePaymentInfo(Request $request, order $order)
@@ -155,6 +160,8 @@ class orderController extends Controller
         return redirect()->route('client.myOrdersListPage')->with('success', 'Order payment proof info has been sent successfully');
 
     }
+
+
  
 
     //PRODUCTION PERSONNEL FUNCTIONS

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>My Designs List</title>
+	<title>My Design List</title>
 </head>
 <body>
 	<div class="menu-container">
@@ -16,7 +16,7 @@
 			<div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
 			<div class="links">
-				<div class="home">Home</div>
+            <div class="home"><a href="{{ route('client.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
 				<div class="my_designs">My Designs</div>
 				<div class="my_orders"><a href="{{ route('client.myOrdersListPage') }}" style="color:black; text-decoration:none">My Orders</a></div>
 			</div>
@@ -30,14 +30,13 @@
 				</div>
 
 				<div class="dropdown-content">
-					<a href="#">Account Settings</a>
-					<a href="#">Sign Out</a>
+					<a href="logout">Sign Out</a>
 				</div>
 
 
 			</div>
 
-			@endauth
+			
 			
 		</div>
 	</div>
@@ -72,8 +71,9 @@
 			</tr>
 			
 			@if(count($data) > 0)
+			
 
-				@foreach($data as $row)
+				@foreach($data as $key=>$row)
 
 					<tr>
 						
@@ -96,14 +96,14 @@
 				@endif
 
 		</table>
-		{!! $data->links() !!}
+	
 
 		</div>
 
 
 		
 	</div>
-
+	@endauth
 </body>
 </html>
 

@@ -11,6 +11,54 @@
 </head>
 <body>
 <div class="menu-container">
+ @auth
+
+ @if( auth()->user()->getStaff->department == 'sales' )
+
+
+ <div class="menu-container">
+    <div class="menu">
+        <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
+
+        <div class="links">
+            <div class="home">Home</div>
+            <div class="register_user"><a href="{{ route('register.index') }}" style="color:black; text-decoration:none">Register User</a></div>
+            <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</a></div>
+            <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
+        </div>
+
+	
+       
+		<div class="dropdown">
+			<div class="profile-group">
+				<div class="profile-pic"><img  src="/images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
+				<div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
+			</div>
+
+			<div class="dropdown-content">
+				<a href="#">Account Settings</a>
+				<a href="#">Sign Out</a>
+			</div>
+		</div>
+    </div>
+</div>
+
+<div class="card">
+		<div class="cardheader">
+			<div class="row">
+				<div class="col col-md-6" id="thetitle">
+                    <b>Welcome back, Sales personnel: {{ auth()->user()->name }}</b>
+                </div>
+			</div>
+		</div>
+</div>
+
+
+@else
+
+
+
+<!-- default -->
 
     <div class="menu">
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
@@ -22,7 +70,7 @@
             <div class="design_list">Design List</div>
         </div>
 
-        @auth
+       
        
         <div class="dropdown">
             <div class="profile-group">
@@ -34,7 +82,7 @@
             @csrf
             <div class="dropdown-content">
                 <!-- <a href="#">Account Settings</a> -->
-               <a href="#">Sign Out</a>
+               <a href="/logout">Sign Out</a>
             </div>
         </form>
 
@@ -51,7 +99,7 @@
 			</div>
 		</div>
 </div>
-
+@endif
 @endauth
 </body>
 </html>

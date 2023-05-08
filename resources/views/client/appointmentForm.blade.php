@@ -14,7 +14,7 @@
 <body>
 
 
-@if($errors->any())
+<!-- @if($errors->any())
 
 <div class="alert alert-danger">
 	<ul>
@@ -26,14 +26,14 @@
 	</ul>
 </div>
 
-@endif
+@endif -->
 
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+            <div class="home"><a href="{{ route('client.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="my_designs"><a href="{{ route('client.myDesignsListPage') }}" style="color:black; text-decoration:none">My Designs</a></div>
             <div class="my_orders"><a href="{{ route('client.myOrdersListPage') }}" style="color:black; text-decoration:none">My Orders</a></div>
         </div>
@@ -47,17 +47,26 @@
            </div>
 
            <div class="dropdown-content">
-               <a href="#">Account Settings</a>
-               <a href="#">Sign Out</a>
+               <a href="logout">Sign Out</a>
            </div>
 
 
        </div>
 
-       @endauth
+       
         
     </div>
 </div>
+
+@if($message = Session::get('success'))
+
+<div class="alert alert-success">
+    {{ $message }}
+</div>
+
+@endif
+
+
 
 <div class="content-container">
             
@@ -80,7 +89,7 @@
                                 <div class="inpute-groupe">
                                     <span class="inpute-groupe-addon"></span>
                                     <label>Client ID</label></br>
-                                    <input  id="buyerCode" name="buyerCode" placeholder="Client ID *" class="form-control"  type="text" Required>
+                                    <input  id="buyerCode" name="buyerCode" placeholder="Client ID *" class="form-control"  value="{{ auth()->user()->getClient->buyerCode }}" type="text" readonly>
                                 </div>
                             </div>
                         </div>
@@ -115,7 +124,7 @@
                             </div>
                         </div>
 
-                        <input  id="appStatus" name="appStatus" type="text" value="Awaiting" hidden>
+                        <input  id="appStatus" name="appStatus" type="text" value="PENDING" hidden>
 
 
                         <div class="form-group">
@@ -134,6 +143,7 @@
            
         </div>
 
-    
+    @endauth
+
 </body>
 </html>

@@ -18,7 +18,7 @@
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+            <div class="home"><a href="{{ route('prod.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="appointment_list"><a href="{{ route('appointment.index') }}" style="text-decoration:none; color:black">Appointment List</a></div>
             <div class="order_list"><a href="{{ route('prod.ordersListPage') }}" style="color:black;text-decoration:none">Order List</a></div>
             <div class="design_list"><a href="{{ route('prod.designsListPage') }}" style="text-decoration:none; color:black">Design List</a></div>
@@ -33,8 +33,7 @@
 		   </div>
 
 		   <div class="dropdown-content">
-			   <a href="#">Account Settings</a>
-			   <a href="#">Sign Out</a>
+			   <a href="logout">Sign Out</a>
 		   </div>
 
 
@@ -123,7 +122,7 @@
                         <div class="form-group">
                             <label class="col-md-4 control-label"></label>
                             <div class="col-md-4">
-                                <button type="submit" id="submit" class="button buttonsubmit" >Upload</button>
+                                <button id="requestbutton" type="submit" id="submit" class="button buttonsubmit" >Upload</button>
                             </div>
 
                         </div>

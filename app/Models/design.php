@@ -37,4 +37,10 @@ class design extends Model
     public function getOrder() {
         return $this->belongsTo(order::class, 'unitPrice','unitPrice');
     }
+
+    public function getMyDesign(){
+        return $this->hasMany(design::class,'designID')->with('row');
+    }
+
+ 
 }

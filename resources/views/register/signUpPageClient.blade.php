@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Signup Page</title>
+    <title>Signup Client</title>
     <link rel="stylesheet" href="css/navbarstyle.css" >
     <link rel="stylesheet" href="css/signupstyle_1.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
@@ -15,7 +15,7 @@
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+        <div class="home"><a href="{{ route('sales.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="register_user">Register User</div>
             <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</div>
             <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
@@ -30,8 +30,7 @@
 			</div>
 
 			<div class="dropdown-content">
-				<a href="#">Account Settings</a>
-				<a href="#">Sign Out</a>
+				<a href="logout">Sign Out</a>
 			</div>
 
 
@@ -58,13 +57,14 @@
 <div class="container-contents-right">
 
                 <div class="btnrole">
-                            <button type="submit" class="btnstaff" onclick="#">Staff</button>
+                            <button type="submit" class="btnstaff" ><a href="{{ route('register.index') }}" style="color:white; text-decoration:none">Staff</a></button>
                             <button type="submit" class="btnclient" >Client</button>
                 </div>
 
                 <p style="color: grey;font-size:20px;text-align:center;padding-top: 20px;">Sign up for Client</p>
                 
-              <form id="registerFormP" onsubmit ="verifyPassword()" class="well form-horizontal" method="post">
+                <form id="registerFormP" class="well form-horizontal" action="/register.signUpPageClient" method="post">
+                @csrf
                 <div class="contents-right">
                   <div class="PI-left">
                       <p style="text-decoration:underline;color: grey;">Company Information</p>
@@ -79,7 +79,10 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerCode" placeholder="Buyer Code *" class="form-control"  type="text" Required>
+                                    <input  name="buyerCode" placeholder="Buyer Code *" class="form-control"  type="text" Required value="{{old('buyerCode')}}">
+                                    @if($errors->has('buyerCode'))
+                                        <span class="text-danger" style="color:red">{{ $errors->first('buyerCode') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -88,7 +91,10 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerName" placeholder="Buyer Name *" class="form-control"  type="text" Required>
+                                    <input  name="buyerName" placeholder="Buyer Name *" class="form-control"  type="text" Required value="{{old('buyerName')}}">
+                                    @if($errors->has('buyerName'))
+                                        <span class="text-danger" style="color:red">{{ $errors->first('buyerName') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -97,7 +103,10 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <textarea  name="buyerAddress" placeholder="Buyer Address *" class="form-control"  type="textarea" Required></textarea>
+                                    <textarea  name="buyerAddress" placeholder="Buyer Address *" class="form-control"  type="textarea" Required value="{{old('buyerAddress')}}"></textarea>
+                                    @if($errors->has('buyerAddress'))
+                                        <span class="text-danger" style="color:red">{{ $errors->first('buyerAddress') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -106,7 +115,10 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerSectionCodeOrName" placeholder="Buyer Section Code or Name" class="form-control"  type="text" >
+                                    <input  name="buyerSectionCodeOrName" placeholder="Buyer Section Code or Name" class="form-control"  type="text" required value="{{old('buyerSectionCodeOrName')}}">
+                                    @if($errors->has('buyerSectionCodeOrName'))
+                                        <span class="text-danger" style="color:red">{{ $errors->first('buyerSectionCodeOrName') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -115,7 +127,10 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="buyerCorrespondentOrName" placeholder="Buyer Correspondent or Name " class="form-control"  type="text">
+                                    <input  name="buyerCorrespondentOrName" placeholder="Buyer Correspondent or Name " class="form-control"  type="text" required value="{{old('buyerCorrespondentOrName')}}">
+                                    @if($errors->has('buyerCorrespondentOrName'))
+                                        <span class="text-danger" style="color:red">{{ $errors->first('buyerCorrespondentOrName') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -124,7 +139,10 @@
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
                                     <span class="input-group-addon"></span>
-                                    <input  name="authorizationCodeOrName" placeholder="Authorization Code or Name" class="form-control"  type="text">
+                                    <input  name="authorizationCodeOrName" placeholder="Authorization Code or Name" class="form-control"  type="text" required value="{{old('authorizationCodeOrName')}}">
+                                    @if($errors->has('authorizationCodeOrName'))
+                                        <span class="text-danger" style="color:red">{{ $errors->first('authorizationCodeOrName') }}</span>
+                                    @endif
                                 </div>
                             </div>
                         </div>
@@ -410,14 +428,20 @@
                                     <option value="ZM">Zambia</option>
                                     <option value="ZW">Zimbabwe</option>
                                 </select> 
+                                @if($errors->has('originCountry'))
+                                        <span class="text-danger" style="color:red">{{ $errors->first('originCountry') }}</span>
+                                    @endif
                             </div>
 
                         <div class="form-group">
                                 <div class="col-md-4 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
-                                            <input type="tel" class="form-control" name="contactNum" placeholder="Contact Number" pattern="+601-[0-9]{9}" required>
-                                    </div>
+                                        <input type="text" class="form-control" name="contactNum" placeholder="012-34567890" required value="{{old('contactNum')}}">
+                                            @if($errors->has('contactNum'))
+                                                <span class="text-danger" style="color:red">{{ $errors->first('contactNum') }}</span>
+                                            @endif
+                                        </div>
                                 </div>
                         </div>
 
@@ -425,7 +449,22 @@
                                 <div class="col-md-4 inputGroupContainer">
                                     <div class="input-group">
                                         <span class="input-group-addon"></span>
-                                        <input  name="email" placeholder="Email *" class="form-control"  type="text" Required>
+                                        <input  name="name" placeholder="Name *" class="form-control"  type="text" Required value="{{old('name')}}">
+                                        @if($errors->has('name'))
+                                            <span class="text-danger" style="color:red">{{ $errors->first('name') }}</span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+
+                        <div class="form-group">
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"></span>
+                                        <input  name="email" placeholder="Email *" class="form-control"  type="text" required value="{{old('email')}}">
+                                        @if($errors->has('email'))
+                                            <span class="text-danger" style="color:red">{{ $errors->first('email') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
@@ -437,11 +476,14 @@
                                         <span class="input-group-addon"></span>
                                         <input  id="password" name="password" placeholder="Password *" class="form-control"  type="password" Required>
                                         <span id="message" style="color:red"> </span> <br>
+                                        @if($errors->has('password'))
+                                            <span class="text-danger" style="color:red">{{ $errors->first('password') }}</span>
+                                        @endif
                                     </div>
                                 </div>
                             </div>
 
-                            
+                        <input  id="role" name="role" value="Client" type="hidden">
                         <button type="submit" id="registerbutton" class="button buttonregister" style="margin-top:100px">Register</button>
                              
 

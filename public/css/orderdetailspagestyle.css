@@ -2,6 +2,54 @@
 {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin: auto;
+}
+
+.newPaymentProof, .partNo, .partName, .ordeStatus, .currencyCode, 
+.shippingMode, .placeOfDelivery, .quantityPerPackageUOM,
+.unitPrice, .referenceDateETD, .amount, 
+.UOM, .deliveryDateETA, .RONo
+{
+    padding-top: 10px;
+}
+
+.orderSubmitted { padding-top: 20px; }
+
+.shippingTerm { padding-top: 40px; }
+
+.salesUnitPriceBasisUOM { padding-top: 40px; }
+
+.remark { padding-top: 130px; }
+
+.paymentTerm { padding-top: 70px; }
+
+.quantity { padding-top: 30px;}
+
+.totalAmount { padding-top: 20px; }
+
+.paymentStatus { padding-top: 80px; }
+
+/* .partDesign { box-shadow: 0 3px 10px rgb(0 0 0 / 0.5); } */
+
+.buttonsubmit
+{
+    padding-top: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.partNo{
+    font-size: 30px;
+}
+
+.partName{
+    font-size: 20px;
+}
+
+.partDesignImage{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+    margin: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
 }

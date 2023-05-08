@@ -27,5 +27,9 @@ class Appointment extends Model
         return $this->belongsTo(client::class, 'buyerCode','buyerCode');
     }
 
+    public function getUser() {
+        return $this->belongsTo(user::class, 'buyerCode','buyerCode');
+    }
+
 }
 

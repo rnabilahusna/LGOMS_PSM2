@@ -1,0 +1,36 @@
+.cardbody
+{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.newPaymentProof, .partNo, .partDescription, .orderStatus, .currencyCode, 
+.shippingMode, .placeofDelivery, .quantityPerPackageUOM,.salesUnitPriceBasisUOM,
+.unitPrice, .referenceDateETD, .amount, .shippingTerm, .remark,
+.paymentTerm, .quantity ,.UOM, .deliveryDateETA, .RONo, .createdDate, .IssuedDate
+{
+    padding-top: 20px;
+}
+
+.totalAmount { padding-top: 20px; font-weight: 500; }
+
+
+.PONo{
+    font-size: 30px;
+}
+
+.partDesignImage{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+    margin: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.updateStatusForm, .paymentConfirmationForm
+{
+    padding-top:20px
+}
+

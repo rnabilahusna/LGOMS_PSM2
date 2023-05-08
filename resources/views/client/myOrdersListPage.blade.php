@@ -16,7 +16,7 @@
 			<div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
 			<div class="links">
-				<div class="home">Home</div>
+            <div class="home"><a href="{{ route('client.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
                 <div class="my_designs"><a href="{{ route('client.myDesignsListPage') }}" style="color:black; text-decoration:none">My Designs</a></div>
 				<div class="my_orders">My Orders</div>
 			</div>
@@ -30,8 +30,7 @@
 				</div>
 
 				<div class="dropdown-content">
-					<a href="#">Account Settings</a>
-					<a href="#">Sign Out</a>
+					<a href="logout">Sign Out</a>
 				</div>
 
 
@@ -72,7 +71,7 @@
 			
 			@if(count($data) > 0)
 
-				@foreach($data as $row)
+				@foreach($data as $key=>$row)
 
 					<tr>
 						<td>{{ $row->PONo }}</td>
@@ -96,7 +95,6 @@
 				@endif
 
 		</table>
-		{!! $data->links() !!}
 
 		</div>
 

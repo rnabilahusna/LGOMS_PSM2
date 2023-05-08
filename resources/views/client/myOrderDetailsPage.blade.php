@@ -5,10 +5,11 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
+	<link rel="stylesheet" href="/css/orderdetailspagestyle.css" >
     <link rel="stylesheet" href="/css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>Orders List</title>
+	<title>My Orders Details Page</title>
 </head>
 <body>
 <div class="menu-container">
@@ -16,7 +17,7 @@
 			<div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
 			<div class="links">
-				<div class="home">Home</div>
+            <div class="home"><a href="{{ route('client.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
                 <div class="my_designs"><a href="{{ route('client.myDesignsListPage') }}" style="color:black; text-decoration:none">My Designs</a></div>
 				<div class="my_orders"><a href="{{ route('client.myOrdersListPage') }}" style="color:black; text-decoration:none">My Orders</a></div>
 			</div>
@@ -30,8 +31,7 @@
 				</div>
 
 				<div class="dropdown-content">
-					<a href="#">Account Settings</a>
-					<a href="#">Sign Out</a>
+					<a href="logout">Sign Out</a>
 				</div>
 
 
@@ -54,8 +54,8 @@
 
 		<div class="cardheader">
 			<div class="row">
-				<div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
-				<a href="{{ route('client.myOrdersListPage') }}" class="btn btn-primary btn-sm float-end">View All Orders</a>
+				<div class="col col-md-6" id="thetitle"><b>My Order</b></div>
+				<a href="{{ route('client.myOrdersListPage') }}" style="width:250px"  class="btn btn-primary btn-sm float-end" id="requestbutton">View All Orders</a>
 			</div>
 			</div>
 		</div>
@@ -64,111 +64,91 @@
 		<div class="cardbody">
 
 			<div class="leftinfo">
-				<div><img src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="75" /></div>
+				<div class="partDesign"><img class="partDesignImage" src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="275" /></div>
+
+				<div class="paymentStatus">
+					<label>PAYMENT PROOF:&nbsp&nbsp</label>
+						{{ $order->paymentStatus }}
+				</div>
+				
+				@if($order->paymentStatus == 'SUBMITTED' || $order->paymentStatus == 'PAYMENT REJECTED')
 				<form method="post" action="{{ route('order.updatePaymentInfo', $order->id) }}" enctype="multipart/form-data">
 					
 					@csrf
 					@method('PUT')
 					
-                    <div class="row mb-4">
-                            <label class="col-sm-2 col-label-form">Payment proof:</label>
-                            <div class="col-sm-10">
+                    <div class="newPaymentProof">
+                            <label>Payment proof:&nbsp&nbsp</label>
                                 <input type="file" name="paymentProof" />
-                            </div>
                         </div>
 
-					<div class="text-center">
-                    <input type="hidden" name="paymentStatus" value="SUBMITTED" />
-				    <input type="hidden" name="hidden_id" value="{{ $order->id }}" />
-				    <input type="submit" class="btn btn-primary" value="Submit payment proof" />
-			    </div>
+					<div class="text-center buttonsubmit">
+						<input type="hidden" class="submitbutton" name="paymentStatus" value="SUBMITTED" />
+						<input type="hidden" name="hidden_id" value="{{ $order->id }}" />
+						<input type="submit" class="btn btn-primary btn-sm float-end" id="requestbutton" value="Submit payment proof" />
+			    	</div>
 				</form>
+				@else
+				@endif
 			</div>
 
 			<div class="centerinfo">
-            <div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Payment proof:</b></label>
-					<div class="col-sm-10">
-					<img src="{{ asset('images/' . $order->paymentProof) }}" width="75" />
-					</div>
+				<div class="partNo">
+					<label><b>PART NO.:&nbsp</label>
+						{{ $order->partNo }}</b>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Payment status:</b></label>
-					<div class="col-sm-10">
-						{{ $order->paymentStatus }}
-					</div>
+            	<!-- <div class="paymentProof">
+					<label><b>Payment proof:</b></label>
+					<img src="{{ asset('images/' . $order->paymentProof) }}" width="275" />
+				</div> -->
+				
+				<div class="partName">
+					<label>PART NAME:&nbsp</label>
+						{{ $order->getDesign->partDescription }}
 				</div>
-				<div class="row mb-3">
+				<!-- <div class="row mb-3">
 					<label class="col-sm-2 col-label-form"><b>P/O No:</b></label>
-					<div class="col-sm-10">
 						{{ $order->PONo }}
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Order Status: </b></label>
-					<div class="col-sm-10">
+				</div> -->
+				<div class="ordeStatus">
+					<label>Order Status:&nbsp</label>
 						{{ $order->orderStatus }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Currency Code:</b></label>
-					<div class="col-sm-10">
+				<div class="currencyCode">
+					<label>Currency Code:&nbsp</label>
 						{{ $order->currencyCode }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Shipping Mode:</b></label>
-					<div class="col-sm-10">
+				<div class="shippingMode">
+					<label>Shipping Mode:&nbsp</label>
 						{{ $order->shippingMode }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Place of Delivery:</b></label>
-					<div class="col-sm-10">
+				<div class="placeOfDelivery">
+					<label>Place of Delivery:&nbsp</label>
 						{{ $order->placeofDelivery }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Shipping Term:</b></label>
-					<div class="col-sm-10">
+				<div class="shippingTerm">
+					<label>Shipping Term:&nbsp</label>
 						{{ $order->shippingTerm }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Part No:</b></label>
-					<div class="col-sm-10">
-						{{ $order->partNo }}
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Sales Unit Price Basis (UOM):</b></label>
-					<div class="col-sm-10">
+				<div class="salesUnitPriceBasisUOM">
+					<label>Sales Unit Price Basis (UOM):&nbsp</label>
 						{{ $order->salesUnitPriceBasisUOM }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Quantity Per Package (UOM):</b></label>
-					<div class="col-sm-10">
+				<div class="quantityPerPackageUOM">
+					<label>Quantity Per Package (UOM):&nbsp</label>
 						{{ $order->quantityPerPackageUOM }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Unit Price:</b></label>
-					<div class="col-sm-10">
+				<div class="unitPrice">
+					<label>Unit Price:&nbsp</label>
 						{{ $order->unitPrice }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Reference Date/ETA:</b></label>
-					<div class="col-sm-10">
+				<div class="referenceDateETD">
+					<label>Reference Date/ETA:&nbsp</label>
 						{{ $order->referenceDateETD }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Amount:</b></label>
-					<div class="col-sm-10">
+				<div class="amount">
+					<label>Amount:&nbsp</label>
 						{{ $order->amount }}
-					</div>
 				</div>
 			
 			</div>
@@ -176,67 +156,44 @@
 
 			<div class="rightinfo">
 
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Creation Date:</b></label>
-					<div class="col-sm-10">
+				<div class="orderSubmitted">
+					<label>ORDER SUBMITTED:&nbsp</label>
 						{{ $order->created_at }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Issued Date:</b></label>
-					<div class="col-sm-10">
+				<!-- <div class="IssuedDate">
+					<label>Issued Date:</label>
 						{{ $order->IssuedDate }}
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Remark:</b></label>
-					<div class="col-sm-10">
+				</div> -->
+				<div class="remark">
+					<label>Remark:&nbsp</label>
 						{{ $order->remark }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Payment Term:</b></label>
-					<div class="col-sm-10">
+				<div class="paymentTerm">
+					<label>Payment Term:&nbsp</label>
 						{{ $order->paymentTerm }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Part Description:</b></label>
-					<div class="col-sm-10">
-						{{ $order->partDescription }}
-					</div>
-				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Quantity:</b></label>
-					<div class="col-sm-10">
+				<div class="quantity">
+					<label>Quantity:&nbsp</label>
 						{{ $order->quantity }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>UOM:</b></label>
-					<div class="col-sm-10">
+				<div class="UOM">
+					<label>UOM:&nbsp</label>
 						{{ $order->UOM }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Delivery Date/ETA:</b></label>
-					<div class="col-sm-10">
+				<div class="deliveryDateETA">
+					<label>Delivery Date/ETA:&nbsp</label>
 						{{ $order->deliveryDateETA }}
-					</div>
 				</div>
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>R/O No:</b></label>
-					<div class="col-sm-10">
+				<div class="RONo">
+					<label>R/O No:&nbsp</label>
 						{{ $order->RONo }}
-					</div>
 				</div>
 
-				<div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>Total Amount:</b></label>
-					<div class="col-sm-10">
-						
-					</div>
+				<div class="totalAmount">
+					<label><b>Total Amount:&nbsp</b></label>
 				</div>
+
+
 			</div>
         </div>
 	

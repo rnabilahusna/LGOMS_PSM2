@@ -23,32 +23,25 @@ use App\Http\Controllers\mainWindowController;
 
 Route::get('/', function () {
     // return view('login.index');
-    return view('welcome');
+    return view('login.index');
 });
 
-Route::controller(userController::class)->group(function(){
-
-    Route::get('loginPage','index')->name('loginPage');
-
-    Route::get('registration','signUpPageStaff')->name('registration');
-
-    // Route::get('signUpPageStaff','signUpPageStaff')->name('signUpPageStaff');
-
-    Route::get('logout','logout')->name('logout');
-
-    Route::post('validate_registration', 'validate_registration')->name('user.validate_registration');
-
-    Route::post('validate_login', 'validate_login')->name('user.validate_login');
-
-    Route::get('dashboard', 'dashboard')->name('dashboard');
-
-});
 
 Route::get('/register', [registerController::class, 'index'])->name('register.index');
 Route::post('/register', [registerController::class, 'store']);
+Route::get('/register.signUpPageClient', [registerController::class, 'signUpPageClient'])->name('register.signUpPageClient');
+Route::post('/register.signUpPageClient', [registerController::class, 'storeClient']);
+Route::get('logout', [loginController::class, 'logout'])->name('logout');
+
+
 
 Route::get('/login', [loginController::class, 'index'])->middleware('guest');
 Route::post('/login', [loginController::class, 'authenticate']);
+Route::get('prod.mainWindow',[loginController::class, 'mainWindowProd'])->name('prod.mainWindow')->middleware('auth');
+Route::get('sales.mainWindow',[loginController::class, 'mainWindowSales'])->name('sales.mainWindow')->middleware('auth');
+Route::get('store.mainWindow',[loginController::class, 'mainWindowStore'])->name('store.mainWindow')->middleware('auth');
+Route::get('qc.mainWindow',[loginController::class, 'mainWindowQC'])->name('qc.mainWindow')->middleware('auth');
+Route::get('client.mainWindow',[loginController::class, 'mainWindowClient'])->name('client.mainWindow')->middleware('auth');
 
 
 Route::get('/mainWindow', [mainWindowController::class, 'index'])->middleware('auth');
@@ -58,10 +51,6 @@ Route::resource('appointment', appointmentController::class);
 Route::resource('design', designController::class);
 
 Route::resource('order', orderController::class);
-
-
-
-
 
 
 Route::controller(appointmentController::class)->group(function(){

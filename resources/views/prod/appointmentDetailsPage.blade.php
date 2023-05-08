@@ -5,11 +5,12 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
+    <!-- <link rel="stylesheet" href="/css/designdetailspagestyle.css" > -->
     <link rel="stylesheet" href="/css/navbarstyle.css" >
     <link rel="stylesheet" href="/css/appointmentdetailspage.css">
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>Appointment List</title>
+	<title>Appointment Details</title>
 </head>
 <body>
 
@@ -19,7 +20,7 @@
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+        <div class="home"><a href="{{ route('prod.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="appointment_list"><a href="{{ route('appointment.index') }}" style="text-decoration:none; color:black">Appointment List</a></div>
             <div class="order_list"><a href="{{ route('prod.ordersListPage') }}" style="color:black;text-decoration:none">Order List</a></div>
             <div class="design_list"><a href="{{ route('prod.designsListPage') }}" style="text-decoration:none; color:black">Design List</a></div>
@@ -34,8 +35,7 @@
 		   </div>
 
 		   <div class="dropdown-content">
-			   <a href="#">Account Settings</a>
-			   <a href="#">Sign Out</a>
+			   <a href="logout">Sign Out</a>
 		   </div>
 
 
@@ -68,48 +68,48 @@
 		</div>
 
 	
-		<div class="cardbody">
+		<div class="cardbody" id=cardbody>
 
-            <div class="theleft">
+            <div class="leftonly">
 
-            
-                <div class="details" id="buyerName"><b>Company Name:</b>&nbsp&nbsp 
+                <div class="details" id="buyerName">Company Name:&nbsp&nbsp 
                         {{ $appointment->getClient->buyerName }}
                 </div>
            
            
-                <div class="details" id="buyerCode"><b>Client ID:</b>&nbsp&nbsp 
+                <div class="details" id="buyerCode">Client ID:&nbsp&nbsp 
                         {{ $appointment->getClient->buyerCode }}
                 </div>
        
            
-                <div class="details" id="contactNum"><b>Contact No.:</b>&nbsp&nbsp 
-                        {{ $appointment->getClient->contactNum }}
+                <div class="details" id="contactNum">Contact No.:&nbsp&nbsp 
+                        {{ $appointment->getUser->contactNum }}
                 </div>
        
           
-                <div class="details" id="buyerName"><b>Email:</b>&nbsp&nbsp 
-                        {{ $appointment->getClient->email }}
+                <div class="details" id="buyerName">Email:&nbsp&nbsp 
+                        {{ $appointment->getUser->email }}
                 </div>
+
             </div>
 
 
 
-            <div class="theright">
+            <div class="rightonly">
 
-                <div class="details" id="appPurpose"><b>Appointment Purpose:</b>&nbsp&nbsp 
+                <div class="details" id="appPurpose">Appointment Purpose:&nbsp&nbsp 
                         {{ $appointment->appPurpose }}
                 </div>
 
-                <div class="details" id="appDate"><b>Appointment Date:</b>&nbsp&nbsp 
+                <div class="details" id="appDate">Appointment Date:&nbsp&nbsp 
                         {{ $appointment->appDate }}
                 </div>
 
-                <div class="details" id="appTime"><b>Appointment Time:</b>&nbsp&nbsp 
+                <div class="details" id="appTime">Appointment Time:&nbsp&nbsp 
                         {{ $appointment->appTime }}
                 </div>
 
-                <div class="details" id="appStatus"><b>Appointment Status:</b>&nbsp&nbsp 
+                <div class="details" id="appStatus">Appointment Status:&nbsp&nbsp 
                         {{ $appointment->appStatus }}
                 </div>
 
@@ -120,10 +120,13 @@
                 <form method="post" action="{{ route('appointment.updateAppointmentInfo', $appointment->appID) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    <label for=""><b>Do you want to accept the appointment request?</b></label>&nbsp&nbsp
+                    <label for="">Do you want to accept the appointment request?</label>&nbsp&nbsp
                     <input type="hidden" name="hidden_id" value="{{ $appointment->appID }}" />
-                    <input name="appStatus" type="submit" class="btn btn-success" value="ACCEPTED" />
-                    <input name="appStatus" type="submit" class="btn btn-danger" value="REJECTED" />
+                    <div class="buttonsConfirm">
+                        <input name="appStatus" type="submit" style="width:40%" class="confirmbtn btn btn-success" value="ACCEPTED" />&nbsp&nbsp&nbsp&nbsp
+                        <input name="appStatus" type="submit" style="width:40%" class="confirmbtn btn btn-danger" value="REJECTED" /> 
+                    </div>
+                    
                 </form>
            
             </div>

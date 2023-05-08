@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>Designs List</title>
+	<title>Order List</title>
 </head>
 <body>
 
@@ -18,7 +18,7 @@
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+        	<div class="home"><a href="{{ route('prod.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="appointment_list"><a href="{{ route('appointment.index') }}" style="text-decoration:none; color:black">Appointment List</a></div>
             <div class="order_list">Order List</div>
             <div class="design_list"><a href="{{ route('prod.designsListPage') }}" style="text-decoration:none; color:black">Design List</a></div>
@@ -33,8 +33,7 @@
 		   </div>
 
 		   <div class="dropdown-content">
-			   <a href="#">Account Settings</a>
-			   <a href="#">Sign Out</a>
+			   <a href="logout">Sign Out</a>
 		   </div>
 
 
@@ -82,7 +81,7 @@
                         <td>{{ $row->partNo }} / {{ $row->partDescription }}</td>
 						<td>{{ $row->orderStatus }}</td>
                         <td>{{ $row->deliveryDateETA }}</td>
-						<td><a style="text-decoration:none" class="viewbutton" href="{{ route('order.showForProdP', $row->id) }}" class="btn btn-primary btn-sm">View order</a></td>
+						<td><a style="text-decoration:none; color:white" class="viewbutton" href="{{ route('order.showForProdP', $row->id) }}" class="btn btn-primary btn-sm">View order</a></td>
 					</tr>
 
 				@endforeach

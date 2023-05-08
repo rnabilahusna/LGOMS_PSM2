@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Designs List</title>
+    <title>Design List</title>
     <link rel="stylesheet" href="css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
@@ -16,7 +16,7 @@
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+        	<div class="home"><a href="{{ route('qc.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="order_list"><a href="{{ route('qc.ordersListPage') }}" style="color:black; text-decoration:none">Order List</a></div>
             <div class="design_list">Design List</div>
         </div>
@@ -31,8 +31,7 @@
             </div>
 
             <div class="dropdown-content">
-                <a href="#">Account Settings</a>
-                <a href="#">Sign Out</a>
+                <a href="logout">Sign Out</a>
             </div>
 
 

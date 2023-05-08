@@ -17,9 +17,8 @@ class client extends Model
         'buyerCorrespondentOrName',
         'buyerName',
         'buyerSectionCodeOrName',
-        'contactNum',
-        'email',
         'originCountry',
-        'password'
     ];
+
+   
 }

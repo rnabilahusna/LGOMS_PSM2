@@ -1,0 +1,18 @@
+.cardbody_qc
+{
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.right{ padding-left:7%}
+
+.details{padding-top:20px}
+
+.partDesignImage{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+    margin: auto;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}

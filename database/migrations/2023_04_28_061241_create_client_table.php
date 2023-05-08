@@ -20,10 +20,7 @@ return new class extends Migration
             $table->string('buyerCorrespondentOrName');
             $table->string('buyerName');
             $table->string('buyerSectionCodeOrName');
-            $table->string('contactNum');
-            $table->string('email');
             $table->string('originCountry');
-            $table->string('password');
             $table->timestamps();
         });
     }

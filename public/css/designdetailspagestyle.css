@@ -1,0 +1,72 @@
+/* .card
+{
+    display: flex;
+    justify-content: center;
+    margin-top: 5%;
+} */
+
+.cardbody
+{
+    /* margin-top: 5%; */
+    margin:auto;
+}
+
+#cardbody
+{
+    display: flex;
+    justify-content: center;
+}
+
+.partDesign
+{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+}
+
+.leftonly
+{
+    padding-top: 15px;
+}
+
+.rightonly
+{
+    padding-left: 80px;
+}
+
+.partNo
+{
+    font-size: 40px;
+}
+
+.partName
+{
+    /* padding-top: 3px; */
+    font-size: 35px;
+}
+
+.dateCreated
+{
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.size
+{
+    padding-top: 10px;
+    font-size: 20px;
+}
+
+.designConfirmationStatus
+{
+    padding-top: 40px;
+}
+
+.buttons
+{
+    padding-top: 20px;
+}
+
+.btn
+{
+    width: 40%;
+}
+

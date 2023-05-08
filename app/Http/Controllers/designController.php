@@ -6,6 +6,7 @@ use App\Models\design;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Auth;
 
 class designController extends Controller
 {
@@ -245,9 +246,17 @@ class designController extends Controller
 
     public function getClientDesignsListPage()
     {
-        $data = design::latest()->paginate(5);
-        return view('client.myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        // $data = design::latest()->paginate(5);
+        // return view('client.myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        
+        $data = design::where('buyerCode',Auth::user()->buyerCode)->get();
+        
+
+        // dd($data,Auth::user()->buyerCode);
+        return view('client.myDesignsListPage', compact('data'));
+        // ->with('i', (request()->input('page',1)-1)*5);
     }
+
 
 
 }

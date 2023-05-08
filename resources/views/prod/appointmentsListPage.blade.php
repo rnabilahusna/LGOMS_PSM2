@@ -18,7 +18,7 @@
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
         <div class="links">
-            <div class="home">Home</div>
+        <div class="home"><a href="{{ route('prod.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="appointment_list">Appointment List</div>
             <div class="order_list"><a href="{{ route('prod.ordersListPage') }}" style="color:black;text-decoration:none">Order List</a></div>
             <div class="design_list"><a href="{{ route('prod.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
@@ -33,8 +33,7 @@
 		   </div>
 
 		   <div class="dropdown-content">
-			   <a href="#">Account Settings</a>
-			   <a href="#">Sign Out</a>
+			   <a href="logout">Sign Out</a>
 		   </div>
 
 
@@ -68,11 +67,11 @@
 		<table class="table table-bordered" style="width:100%">
 			<tr>
 				<th width="10%">Client ID</th>
-				<th width="15%">Client Name</th>
+				<th width="15%">Company Name</th>
+				<th width="15%">Representative </th>
 				<th width="20%">Request Date & Time</th>
 				<th width="17%">Appointment Status</th>
-                <th width="20%">Updated</th>
-				<th width="20%"></th>
+				<th width="10%"></th>
 			</tr>
 			
 			@if(count($data) > 0)
@@ -81,10 +80,21 @@
 
 					<tr>
 						<td>{{ $row->buyerCode }}</td>
-						<td>{{ $row->getClient->buyerName }}</td>
+						<td>{{ $row->getClient->buyerCorrespondentOrName }}</td>
+						<td>{{ $row->getUser->name }}</td>
 						<td>{{ $row->appDate }} {{ $row->appTime }}</td>
-						<td>{{ $row->appStatus }}</td>
-                        <td>{{ $row->updated_at }}</td>
+
+						@if($row->appStatus == 'PENDING')
+						<td><div style="border-radius:5px; background-color:#FBD347; color:white">{{ $row->appStatus }}</div></td>
+
+						@elseif($row->appStatus == 'ACCEPTED')
+						<td><div style="border-radius:5px; background-color:#00CC6A; color:white">{{ $row->appStatus }}</div></td>
+
+						@elseif($row->appStatus == 'REJECTED')
+						<td><div style="border-radius:5px; background-color:#FF6363; color:white">{{ $row->appStatus }}</div></td>
+
+						@endif
+
 						<td>
 							<form method="post" action="{{ route('appointment.destroy', $row->appID) }}">
 								@csrf
