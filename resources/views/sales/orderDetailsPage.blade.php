@@ -57,9 +57,8 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
 				
-				<a href="{{ route('sales.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:13%">View All Orders</a>&nbsp
-				<a href="" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:10%">View PDR</a>&nbsp
-				<a href="" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:10%">View JO</a>
+				<a href="{{ route('sales.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:19%">View All Orders</a>&nbsp
+				<a href="{{ route('pdr.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:19%">View PDR</a>&nbsp
 			</div>
 			</div>
 		</div>
@@ -111,7 +110,7 @@
                     </form>
                 </div>
             
-            @elseif($order->paymentStatus == 'PAYMENT REJECTED')
+            @elseif($order->paymentStatus == 'PAYMENT REJECTED' || $order->paymentStatus == 'PENDING')
 
 
 			@else

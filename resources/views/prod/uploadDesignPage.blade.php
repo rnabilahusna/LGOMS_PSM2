@@ -114,6 +114,15 @@
                                     </div>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <div class="col-md-4 inputGroupContainer">
+                                    <div class="inpute-groupe">
+                                        <span class="inpute-groupe-addon"></span>
+                                        <label>Unit Price:</label></br>
+                                        <input  id="unitPrice" name="unitPrice" class="form-control" type="number" step="0.01" Required value="{{old('unitPrice')}}">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
 
                         <input  id="designConfirmationStatus" name="designConfirmationStatus" type="text" value="PENDING" hidden>

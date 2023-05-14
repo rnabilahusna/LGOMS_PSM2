@@ -46,4 +46,6 @@ class joborder extends Model
         'stockUpdatedDate',
         'stockUpdatedQty',
     ];
+
+    
 }

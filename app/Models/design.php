@@ -27,6 +27,7 @@ class design extends Model
         'rawMaterialMain',
         'size',
         'thickness',
+        'unitPrice',
         'buyerCode'
     ];
 

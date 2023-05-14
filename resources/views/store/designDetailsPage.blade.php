@@ -109,6 +109,11 @@
 					{{ $design->goodsStock }}
             </div>
 
+            <div class="details" id="unitPrice">
+                <label>Unit Price:</label>
+					{{ $design->unitPrice }}
+            </div>
+
             <div class="details" id="noOfCavities">
                 <label>No of cavities: </label>
 					{{ $design->noOfCavities }}

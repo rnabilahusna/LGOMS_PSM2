@@ -71,7 +71,7 @@
 						{{ $order->paymentStatus }}
 				</div>
 				
-				@if($order->paymentStatus == 'SUBMITTED' || $order->paymentStatus == 'PAYMENT REJECTED')
+				@if($order->paymentStatus == 'SUBMITTED' || $order->paymentStatus == 'PAYMENT REJECTED' || $order->paymentStatus == 'PENDING')
 				<form method="post" action="{{ route('order.updatePaymentInfo', $order->id) }}" enctype="multipart/form-data">
 					
 					@csrf

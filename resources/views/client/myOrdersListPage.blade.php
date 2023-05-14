@@ -11,7 +11,7 @@
 	<title>My Order List</title>
 </head>
 <body>
-		<div class="menu-container">
+	<div class="menu-container">
 		<div class="menu">
 			<div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
 
@@ -82,7 +82,8 @@
 						<td>
                             <button class="viewbutton">
                             <a style="text-decoration:none;color:white" href="{{ route('order.showForClient', $row->id) }}" >View order</a>
-                            </button>
+							<a style="text-decoration:none;color:white" href="{{ route('order.showForClient', $row->id) }}" >Reorder</a>
+							</button>
                         </td>
 					</tr>
 

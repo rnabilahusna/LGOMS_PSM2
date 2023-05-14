@@ -13,18 +13,20 @@ class pdr extends Model
     protected $fillable = [
         'refNo',
         'JONo',
+        'orderID',
         'PONo',
+        'acceptedBy',
         'approvedBy',
-        'approvedDate',
-        'approvedTime',
-        'clientName',
-        'dateOfIssue',
+        'balance',
+        'buyerName',
+        'IssuedDate',
         'daysDelayed',
         'deliveredDate',
         'deliveryDate',
         'deliveryQuantity',
         'DINo',
-        'DONoSales',
+        'DONoSales1',
+        'DONoSales2',
         'jobOrderDate',
         'month',
         'no',
@@ -33,4 +35,11 @@ class pdr extends Model
         'reportDate',
         'stock'
     ];
+
+    public function getOrder() {
+        return $this->belongsTo(order::class, 'id','id');
+    }
+    public function getClient() {
+        return $this->belongsTo(order::class, 'buyerCode','buyerCode');
+    }
 }

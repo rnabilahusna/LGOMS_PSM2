@@ -9,6 +9,8 @@ use App\Http\Controllers\orderController;
 use App\Http\Controllers\registerController;
 use App\Http\Controllers\loginController;
 use App\Http\Controllers\mainWindowController;
+use App\Http\Controllers\pdrController;
+use App\Http\Controllers\joborderController;
 
 /*
 |--------------------------------------------------------------------------
@@ -93,6 +95,8 @@ Route::controller(designController::class)->group(function(){
     Route::get('client.myDesignDetailsPage/{design}','showForClient')->name('design.showForClient'); //details
     Route::get('client.myDesignsListPage','getClientDesignsListPage')->name('client.myDesignsListPage'); //list
     Route::put('client.myDesignDetailsPage/{design}','updateMyDesignInfo')->name('design.updateMyDesignInfo'); //confirm design
+    Route::get('client.makeOrderPage/{design}', 'getMakeOrderPage')->name('client.makeOrderPage');
+
 });
 
 
@@ -120,6 +124,50 @@ Route::controller(orderController::class)->group(function(){
     Route::get('client.myOrdersListPage','getClientOrdersListPage')->name('client.myOrdersListPage');
     Route::put('client.orderDetailsPage/{order}','updatePaymentInfo')->name('order.updatePaymentInfo');
     
+
+    Route::post('client.makeOrderPage','submitOrder')->name('order.submitOrder');
+
+    
 });
+
+
+Route::controller(pdrController::class)->group(function(){
+
+    //sales 
+    Route::get('sales.PDRFormPage/{order}', 'getPDRFormPageForSalesP')->name('pdr.getPDRFormPageForSalesP'); //details
+    Route::put('sales.orderDetailsPage/{order}','updatePDRFormPageForSalesP')->name('pdr.updatePDRFormPageForSalesP'); //update
+
+
+    //store
+    Route::get('store.PDRFormPage/{order}', 'getPDRFormPageForStoreP')->name('pdr.getPDRFormPageForStoreP'); //details
+    Route::put('store.orderDetailsPage/{order}','updatePDRFormPageForStoreP')->name('pdr.updatePDRFormPageForStoreP'); //update
+
+
+    //production
+    Route::get('prod.PDRFormPage/{order}', 'getPDRFormPageForProdP')->name('pdr.getPDRFormPageForProdP'); //details
+    Route::put('prod.orderDetailsPage/{pdr}','updatePDRFormPageForProdP')->name('pdr.updatePDRFormPageForProdP'); //update
+    
+});
+
+Route::controller(joborderController::class)->group(function(){
+
+    //qc 
+    Route::get('qc.jobOrderFormPage/{joborder}', 'getJobOrderFormPageForQCP')->name('joborder.getJobOrderFormPageForQCP'); //details
+    Route::put('qc.orderDetailsPage/{joborder}','updateJobOrderFormPageForQCP')->name('joborder.updateJobOrderFormPageForQCP'); //update
+
+
+    //store
+    Route::get('store.jobOrderFormPage/{joborder}', 'getJobOrderFormPageForStoreP')->name('joborder.getJobOrderFormPageForStoreP'); //details
+    Route::put('store.orderDetailsPage/{joborder}','updateJobOrderFormPageForStoreP')->name('joborder.updateJobOrderFormPageForStoreP'); //update
+
+
+    //prod
+    Route::get('prod.jobOrderFormPage/{joborder}', 'getJobOrderFormPageForProdP')->name('joborder.getJobOrderFormPageForProdP'); //details
+    Route::put('prod.orderDetailsPage/{joborder}','updateJobOrderFormPageForProdP')->name('joborder.updateJobOrderFormPageForProdP'); //update
+
+    
+    
+});
+
 
 

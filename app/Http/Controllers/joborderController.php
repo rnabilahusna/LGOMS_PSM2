@@ -63,4 +63,40 @@ class joborderController extends Controller
     {
         //
     }
+
+
+    //QC PERSONNEL FUNCTIONS
+    public function getJobOrderFormPageForQCP(joborder $joborder)
+    {
+        return view('qc.jobOrderFormPage', compact('joborder'));
+    }
+
+    public function updateJobOrderFormPageForQCP(Request $request, joborder $joborder){
+        //
+    }
+
+
+
+    //STORE PERSONNEL FUNCTIONS
+    public function getJobOrderFormPageForStoreP(joborder $joborder)
+    {
+        return view('store.jobOrderFormPage', compact('joborder'));
+    }
+
+    public function updateJobOrderFormPageForStoreP(Request $request, joborder $joborder){
+        //
+    }
+
+
+    //PRODUCTION PERSONNEL FUNCTIONS
+    public function getJobOrderFormPageForProdP(joborder $joborder)
+    {
+        return view('prod.jobOrderFormPage', compact('joborder'));
+    }
+
+    public function updateJobOrderFormPageForProdP(Request $request, joborder $joborder){
+        //
+    }
+
+
 }

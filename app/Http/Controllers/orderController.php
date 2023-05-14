@@ -39,9 +39,81 @@ class orderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function submitOrder(Request $request)
     {
-        //
+
+        $request->validate([
+            
+            'PONo'              =>   'nullable',
+            'actionCode'        =>   'required',
+            'amount'            =>   'nullable',
+            'comment'           =>   'nullable',
+            'creationDate'      =>   'required',
+            'currencyCode'      =>   'nullable',
+            'deliveryDateETA'   =>   'nullable',
+            'IssuedDate'        =>   'required',
+            'lineNo'            =>   'nullable',
+            'orderStatus'       =>   'nullable',
+            'partDescription'   =>   'required',
+            'partNo'            =>   'required',
+            'paymentStatus'     =>   'required',
+            'paymentTerm'       =>   'nullable',
+            'placeOfDelivery'   =>   'nullable',
+            'quantity'          =>   'nullable',
+            'quantityPerPackageUOM' =>   'nullable',
+            'QuotationNo'       =>   'nullable',
+            'referenceDateETD'  =>   'nullable',
+            'remark'            =>   'nullable',
+            'RONo'              =>   'nullable',
+            'salesUnitPriceBasisUOM'    =>   'nullable',
+            'shippingMode'      =>   'nullable',
+            'shippingTerm'      =>   'nullable',
+            'termOfPayment'     =>   'nullable',
+            'unitPrice'         =>   'nullable',
+            'UOM'               =>   'nullable',
+            'buyerCode'         =>   'required',
+            'designID'          =>   'required',
+        ]);
+
+        // dd('hello');
+
+        $order = new order;
+
+        $order->PONo = $request->PONo;
+        $order->actionCode = $request->actionCode;
+        $order->amount = $request->amount;
+        $order->comment = $request->comment;
+        $order->creationDate = $request->creationDate;
+        $order->currencyCode = $request->currencyCode;
+        $order->deliveryDateETA = $request->deliveryDateETA;
+        $order->IssuedDate = $request->IssuedDate;
+        $order->lineNo = $request->lineNo;
+        $order->orderStatus = $request->orderStatus;
+        $order->partDescription = $request->partDescription;
+        $order->partNo = $request->partNo;
+        $order->paymentStatus = $request->paymentStatus;
+        $order->paymentTerm = $request->paymentTerm;
+        $order->placeOfDelivery = $request->placeOfDelivery;
+        $order->quantity = $request->quantity;
+        $order->quantityPerPackageUOM = $request->quantityPerPackageUOM;
+        $order->QuotationNo = $request->QuotationNo;
+        $order->referenceDateETD = $request->referenceDateETD;
+        $order->remark = $request->remark;
+        $order->RONo = $request->RONo;
+        $order->salesUnitPriceBasisUOM = $request->salesUnitPriceBasisUOM;
+        $order->shippingMode = $request->shippingMode;
+        $order->shippingTerm = $request->shippingTerm;
+        $order->termOfPayment = $request->termOfPayment;
+        $order->unitPrice = $request->unitPrice;
+        $order->UOM = $request->UOM;
+        $order->buyerCode = $request->buyerCode;
+        $order->designID = $request->designID;
+
+        // dd('hellow');
+        $order->save();
+
+        return redirect()->route('client.myDesignsListPage')->with('success', 'Order submitted successfully.');
+    
     }
 
     /**
@@ -76,7 +148,7 @@ class orderController extends Controller
 
         $order->save();
 
-        return redirect()->route('order.index')->with('success', 'Order status info has been updated successfully');
+        return redirect()->route('sales.ordersListPage')->with('success', 'Order status info has been updated successfully');
     }
 
     /**
@@ -160,6 +232,7 @@ class orderController extends Controller
         return redirect()->route('client.myOrdersListPage')->with('success', 'Order payment proof info has been sent successfully');
 
     }
+    
 
 
  

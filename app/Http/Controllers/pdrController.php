@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\pdr;
+use App\Models\order;
 use Illuminate\Http\Request;
 
 class pdrController extends Controller
@@ -63,4 +64,41 @@ class pdrController extends Controller
     {
         //
     }
+
+
+
+    //SALES PERSONNEL FUNCTIONS
+    public function getPDRFormPageForSalesP(order $order)
+    {
+        return view('sales.PDRFormPage', compact('order'));
+    }
+
+    public function updatePDRFormPageForSalesP(Request $request, pdr $pdr){
+        //
+    }
+
+
+
+    //STORE PERSONNEL FUNCTIONS
+    public function getPDRFormPageForStoreP(order $order)
+    {
+        return view('store.PDRFormPage', compact('order'));
+    }
+
+    public function updatePDRFormPageForStoreP(Request $request, pdr $pdr){
+        //
+    }
+
+
+    //PRODUCTION PERSONNEL FUNCTIONS
+    public function getPDRFormPageForProdP(pdr $pdr)
+    {
+        return view('prod.PDRFormPage', compact('pdr'));
+    }
+
+    public function updatePDRFormPageForProdP(Request $request, pdr $pdr){
+        //
+    }
+
+    
 }

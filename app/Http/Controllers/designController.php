@@ -108,6 +108,7 @@ class designController extends Controller
             'rawMaterialMain'          =>  'nullable',
             'size'                     =>  'nullable',
             'thickness'                =>  'nullable',
+            'unitPrice'                =>  'required',
             'buyerCode'                =>  'required',
         ]);
 
@@ -115,7 +116,7 @@ class designController extends Controller
         request()->partDesign->move(public_path('images'), $file_name);
 
         $design = new design;
-
+       
         $design->designConfirmationStatus = $request->designConfirmationStatus;
         $design->goodsStock = $request->goodsStock;
         $design->noOfCavities = $request->noOfCavities;
@@ -130,6 +131,7 @@ class designController extends Controller
         $design->rawMaterialMain = $request->rawMaterialMain;
         $design->size = $request->size;
         $design->thickness = $request->thickness;
+        $design->unitPrice = $request->unitPrice;
         $design->buyerCode = $request->buyerCode;
 
         $design->save();
@@ -154,6 +156,7 @@ class designController extends Controller
         $design->rawMaterialMain = $request->rawMaterialMain;
         $design->size = $request->size;
         $design->thickness = $request->thickness;
+        $design->unitPrice = $request->unitPrice;
         $design->buyerCode = $request->buyerCode;
 
 
@@ -257,6 +260,11 @@ class designController extends Controller
         // ->with('i', (request()->input('page',1)-1)*5);
     }
 
+    
+    public function getMakeOrderPage(design $design)
+    {
+        return view('client.makeOrderPage', compact('design'));
+    }
 
 
 }

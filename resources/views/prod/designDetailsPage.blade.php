@@ -112,6 +112,10 @@
 
                     <div class="rightinfo">
 
+                        <div class="input-group details" id="unitPrice">Unit Price:&nbsp&nbsp&nbsp&nbsp
+                            <input  name="unitPrice" placeholder="Unit Price (RM)" class="form-control"  type="number" step="0.01" value="{{ $design->unitPrice }}">
+                        </div>
+
                         <div class="input-group details" id="noOfCavities">No of cavities:&nbsp&nbsp&nbsp&nbsp
                             <input  name="noOfCavities" placeholder="No of cavities"  class="form-control"  type="text" value="{{ $design->noOfCavities }}">
                         </div>

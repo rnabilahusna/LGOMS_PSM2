@@ -38,7 +38,7 @@
         </div>
 
         
-        
+      @endauth  
     </div>
 </div>
 
@@ -80,7 +80,7 @@
                         <b>{{ $design->partNo }}</b>
                 </div>
 
-                <div class="partName">
+                <div class="partName" style="text-transform: uppercase;">
                     <label>PART NAME:</label>
                         {{ $design->partDescription }}
                 </div>
@@ -91,8 +91,8 @@
                 </div>
 
                 <div class="size">
-                    <label>Size:</label>
-                        {{ $design->size }}
+                    <label>UNIT PRICE:</label>
+                        {{ $design->unitPrice }}
                 </div>
                 
                 
@@ -116,33 +116,10 @@
                 
                 @else
                 <!-- STORE NEW ORDER IN ORDER TABLE -->
-                <div class="forecast">
-                        <label><b>Forecast for:</b></label>
-                </div>
+                <br><br>
+				    <a href="{{ route('client.makeOrderPage',$design->designID) }}" style="width:50%" class="btn btn-success btn-sm float-end" id="requestbutton" class="reorderbutton">Order design</a>
                 
-                    <!-- <div class="row mb-4">
-                        <form method="post" action="{{ route('design.updateMyDesignInfo', $design->designID) }}" enctype="multipart/form-data">
-                            @csrf
-                            @method('PUT')
-                            
-                            <input type="hidden" name="hidden_id" value="{{ $design->designID }}" />
-                            <input name="designConfirmationStatus" type="submit" class="btn btn-success" value="ACCEPTED" />
-                            <input name="designConfirmationStatus" type="submit" class="btn btn-danger" value="REJECTED" />
-
-
-                            <div class="form-group">
-                                <div class="col-md-4 inputGroupContainer">
-                                    <div class="inpute-grouep">
-                                        <span class="inpute-groupe-addon"></span>
-                                        <label>Forecast for:</label></br>
-                                        <input  id="appDate" name="appDate" placeholder="Appointment date *" class="form-control"  type="date" Required>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                        </form>
-                    </div> -->
+                   
 
                 @endif
 
@@ -151,6 +128,6 @@
         
 
 </div>
-@endauth
+
 </body>
 </html>
