@@ -6,7 +6,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="/css/navbarstyle.css" >
-    <link rel="stylesheet" href="/css/qcdesigndetailspagestyle.css" >
+    <!-- <link rel="stylesheet" href="/css/qcdesigndetailspagestyle.css" > -->
+    <link rel="stylesheet" href="/css/updatePDR.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	<title>Design Details</title>
@@ -65,23 +66,24 @@
 	
 		<div class="cardbody">
 
-        <form id="PDRForm" method="post" action="{{ route('pdr.updateFormPageForSalesP', $order->id) }}" enctype="multipart/form-data">
+        <form id="PDRForm" method="post" action="{{ route('pdr.createPDRFormPageForSalesP') }}" enctype="multipart/form-data">
                 @csrf
+                @method('POST')
 
         <div class="bigrow">
             <div class="leftonly">
 
                 <div class="input-group details"> CUSTOMER NAME:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="buyerName" value="{{$order->getClient->buyerName}} " class="form-control"  type="text">
+                    <input  name="buyerName" value="{{$order->getClient->buyerCorrespondentOrName}} " class="form-control"  type="text">
                 </div>
                 <div class="input-group details"> MONTH:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="month" value="{{old('month')}} " class="form-control"  type="month">
+                    <input  name="month" value="{{ old('month')}} " class="form-control"  type="month">
                 </div>
             </div>
 
             <div class="rightonly">
                 <div class="input-group details"> DATE OF ISSUE:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="IssuedDate" value="{{old('IssuedDate')}} " class="form-control"  type="date">
+                    <input  name="IssuedDate" class="form-control"  type="date" value="{{ $order->IssuedDate }}" >
                 </div>
                 <div class="input-group details"> REPORT DATE:&nbsp&nbsp&nbsp&nbsp
                     <input  name="reportDate" value="{{old('reportDate')}} " class="form-control"  type="date">
@@ -93,47 +95,68 @@
         
         </div>
 
-    
+    <hr>
         <table>
             <tr>
-                <th>NO.</th>
-                <th>PART ID/PART NAME</th>
-                <th>STOCK</th>
-                <th>DLV QTY</th>
-                <th>BAL</th>
-                <th>DELIVERY DATE</th>
-                <th>DI NO</th>
-                <th>JOB ORDER NO.</th>
-                <th>DO NO</th>
-                <th>JOB ORDER DATE</th>
-                <th>DELIVERED DATE</th>
-                <th>DAYS DELAYED</th>
-                <th>DO NO</th>
+                <th class="column colone">NO.</th>
+                <th class="column coltwo">PART ID/PART NAME</th>
+                <th class="column colthree">PO NO</th>
+                <th class="column colfour">STOCK</th>
+                <th class="column colfive">DLV QTY</th>
+                <th class="column colsix">BAL</th>
+                <th class="column colseven">DELIVERY DATE</th>
+                <th class="column coleight">DI NO</th>
+                <th class="column colnine">JOB ORDER NO.</th>
+                <th class="column colten">DO NO</th>
+                <th class="column coleleven">JOB ORDER DATE</th>
+                <th class="column coltwelve">DELIVERED DATE</th>
+                <th class="column colonethree">DAYS DELAYED</th>
+                <th class="column colonefour">DO NO</th>
             </tr>
             <tr>
                 <td><input  name="no" class="form-control"  type="number" value="{{ old('no') }}"></td>
-                <td><input  name="partIDOrName" class="form-control"  type="text" value="{{$order->partNo}}/{{$order->getDesign->partDescription}}" readonly></td>
-                <td><input  name="PONo" class="form-control"  type="text" value="{{ $order->PONo }}" readonly></td>
-                <td><input  name="stock" class="form-control"  type="number" value="{{ $order->stock }}" readonly></td>
-                <td><input  name="deliveryQuantity" class="form-control"  type="number" value="{{ old('deliveryQuantity') }}"></td>
-                <td><input  name="balance" class="form-control"  type="number" value="{{ old('balance') }}"></td>
-                <td><input  name="deliveryDate" class="form-control"  type="date" value="{{ $order->deliveryDate }}" readonly></td>
-                <td><input  name="DINo" class="form-control"  type="text" value="{{ old('DINo') }}"></td>
-                <td><input  name="JONo" class="form-control"  type="text" value="{{ old('JONo') }}"></td>
-                <td><input  name="DONoSales" class="form-control"  type="text" value="{{ old('DONoSales') }}"></td>
+                <td><input  name="partIDOrName" class="form-control"  type="text" value="{{$order->partNo}}/{{$order->getDesign->partDescription}}"></td>
+                <td><input  name="PONo" class="form-control"  type="text" value="{{ $order->PONo }}" ></td>
+                <td><input  name="stock" class="form-control"  type="number" value="/" readonly></td>
+                <td><input  name="deliveryQuantity" class="form-control"  type="number" value="/" readonly></td>
+                <td><input  name="balance" class="form-control"  type="number" value="/" readonly></td>
+                <td><input  name="deliveryDate" class="form-control"  type="date" value="{{ $order->deliveryDateETA }}" ></td>
+                <td><input  name="DINo" class="form-control"  type="text" value="/" readonly></td>
+                <td><input  name="JONo" class="form-control"  type="text" value="/" readonly></td>
+                <td><input  name="DONoSales1" class="form-control"  type="text" value="/" readonly></td>
                 <td><input  name="jobOrderDate" class="form-control"  type="date" value="{{ old('jobOrderDate') }}"></td>
                 <td><input  name="deliveredDate" class="form-control"  type="date" value="{{ old('deliveredDate') }}"></td>
                 <td><input  name="daysDelayed" class="form-control"  type="number" value="{{ old('daysDelayed') }}"></td>
-                <td><input  name="DONoSales" class="form-control"  type="number" value="{{ old('DONoSales') }}"></td>
+                <td><input  name="DONoSales2" class="form-control"  type="number" value="{{ old('DONoSales2') }}"></td>
             </tr>
         </table>
+        
+        <hr>
+
+        <div class="lastrow">
+            <div>
+                <b>PRODUCED BY:</b>
+                <input  name="producedBy" class="form-control"  type="text" value="/">
+            </div>
+            <div>
+                <b>APPROVED BY:</b>
+                <input  name="approvedBy" class="form-control"  type="text" value="/">
+            </div>
+            <div>
+                <b>ACCEPTED BY:</b>
+                <input  name="acceptedBy" class="form-control"  type="text" value="/">
+            </div>
         </div>
 
 
 
         <div class="text-center">
             <!-- <input type="hidden" name="hidden_id" value="" /> -->
-            <input type="submit" class="btn btn-primary float-end" value="Update" />
+            <input type="hidden" name="id" value="{{$order->id}}" />
+            <input type="hidden" name="orderID" value="{{$order->id}}" />
+            <input type="hidden" name="buyerCode" value="{{$order->getClient->buyerCode}}" />
+            <br>
+            <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Create" />
 		</div>
             
 		</form>	

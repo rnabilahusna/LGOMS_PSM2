@@ -57,8 +57,9 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
 				
-				<a href="{{ route('sales.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:19%">View All Orders</a>&nbsp
-				<a href="{{ route('pdr.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:19%">View PDR</a>&nbsp
+				<a href="{{ route('sales.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View All Orders</a>&nbsp
+				<a href="{{ route('pdr.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">Create PDR</a>&nbsp
+				<a href="{{ route('sales.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View PDR</a>&nbsp
 			</div>
 			</div>
 		</div>

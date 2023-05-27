@@ -52,8 +52,8 @@
 	<div class="card">
 		<div class="cardheader">
 			<div class="row">
-				<div class="col col-md-6" id="thetitle"><b>My Order List</b></div>
-				<a href="{{ route('client.getClientOrdersHistoryListPage') }}" style="width:20%" class="btn btn-success btn-sm float-end" id="requestbutton">Order History</a>
+				<div class="col col-md-6" id="thetitle"><b>My Order History</b></div>
+                <a href="{{ route('client.myOrdersListPage') }}" style="width:150px" class="btn btn-success btn-sm float-end" id="requestbutton">Back</a>
 			</div>
 		</div>
 
@@ -69,8 +69,10 @@
                 <th width="9%">Payment Status</th>
                 <th width="6%"></th>
 			</tr>
-			
-			@if(count($data) > 0)
+
+            
+            @if(count($data) > 0 )
+
 
 				@foreach($data as $key=>$row)
 
@@ -82,7 +84,7 @@
 						<td>{{ $row->paymentStatus }}</td>
 						<td>
                             <button class="viewbutton">
-                            <a style="text-decoration:none;color:white" href="{{ route('order.showForClient', $row->id) }}" >View order</a>
+							<a style="text-decoration:none;color:white" href="{{ route('client.reorderPage',$row->id) }}" >Reorder</a>
 							</button>
                         </td>
 					</tr>
@@ -94,6 +96,7 @@
 					<td colspan="5" class="text-center">No Data Found</td>
 				</tr>
 				@endif
+
 
 		</table>
 

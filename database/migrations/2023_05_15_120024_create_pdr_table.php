@@ -13,28 +13,28 @@ return new class extends Migration
     {
         Schema::create('pdr', function (Blueprint $table) {
             $table->id();
-            $table->string('refNo');
+            $table->string('refNo')->nullable();
             $table->string('JONo')->nullable();
             $table->unsignedBigInteger('orderID');
-            $table->string('PONo');
+            $table->string('PONo')->nullable();
             $table->string('acceptedBy')->nullable();
-            $table->string('approvedBy');
+            $table->string('approvedBy')->nullable();
             $table->bigInteger('balance')->nullable();
             $table->string('buyerCode');
-            $table->string('buyerName');
-            $table->date('IssuedDate');
+            $table->string('buyerName')->nullable();
+            $table->date('IssuedDate')->nullable();
             $table->bigInteger('daysDelayed')->nullable();
             $table->date('deliveredDate')->nullable();
-            $table->date('deliveryDate');
-            $table->string('deliveryQuantity');
-            $table->string('DINo');
+            $table->date('deliveryDate')->nullable();
+            $table->string('deliveryQuantity')->nullable();
+            $table->string('DINo')->nullable();
             $table->string('DONoSales1')->nullable();
             $table->string('DONoSales2')->nullable();
             $table->date('jobOrderDate')->nullable();
             $table->string('month')->nullable();
-            $table->bigInteger('no');
+            $table->bigInteger('no')->nullable();
             $table->string('partIDOrName');
-            $table->string('producedBy');
+            $table->string('producedBy')->nullable();
             $table->date('reportDate')->nullable();
             $table->bigInteger('stock')->nullable();
             $table->timestamps();
@@ -43,7 +43,6 @@ return new class extends Migration
         Schema::table('pdr', function(Blueprint $table){
             $table->foreign('buyerCode')->references('buyerCode')->on('client')->onDelete('cascade');
             $table->foreign('orderID')->references('id')->on('order')->onDelete('cascade');
-
         });
     }
 

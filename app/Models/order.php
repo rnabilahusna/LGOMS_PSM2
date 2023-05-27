@@ -56,5 +56,14 @@ class order extends Model
         return $this->hasMany(order::class,'id')->with('row');
     }
 
+    public function getPDR() {
+        return $this->belongsTo(pdr::class, 'id','id');
+    }
+
+    public function getJO() {
+        return $this->belongsTo(joborder::class, 'id','id');
+    }
+
+
     
 }

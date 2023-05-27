@@ -190,6 +190,11 @@ class orderController extends Controller
         return redirect()->route('sales.ordersListPage')->with('success', 'Order status info has been updated successfully');
     }
 
+    public function getPDRFormPageForSalesP(order $order)
+    {
+        return view('sales.PDRFormPage', compact('order'));
+    }
+
 
     //CLIENT FUNCTIONS
     public function showForClient(order $order)
@@ -205,6 +210,15 @@ class orderController extends Controller
         $data = order::where('buyerCode',Auth::user()->buyerCode)->get();
 
         return view('client.myOrdersListPage', compact('data'));
+    }
+
+    public function getClientOrdersHistoryListPage()
+    {
+        // $data = order::latest()->paginate(5);
+        // return view('client.myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        $data = order::where('orderStatus','DELIVERED')->where('buyerCode',Auth::user()->buyerCode)->get();
+
+        return view('client.orderHistoryPage', compact('data'));
     }
 
     public function updatePaymentInfo(Request $request, order $order)
@@ -232,6 +246,11 @@ class orderController extends Controller
         return redirect()->route('client.myOrdersListPage')->with('success', 'Order payment proof info has been sent successfully');
 
     }
+
+    public function getReorderPage(order $order)
+    {
+        return view('client.reorderPage', compact('order'));
+    }
     
 
 
@@ -250,6 +269,11 @@ class orderController extends Controller
         return view('prod.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
+    public function getPDRFormPageForProdP(order $order)
+    {
+        return view('prod.PDRFormPage', compact('order'));
+    }
+
 
     //STORE PERSONNEL FUNCTIONS
     public function showForStoreP(order $order)
@@ -262,6 +286,17 @@ class orderController extends Controller
     {
         $data = order::latest()->paginate(5);
         return view('store.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+    }
+
+    public function getPDRFormPageForStoreP(order $order)
+    {
+        return view('store.PDRFormPage', compact('order'));
+    }
+
+
+    public function getJobOrderFormPageForStoreP(order $order)
+    {
+        return view('store.jobOrderFormPage', compact('order'));
     }
 
 

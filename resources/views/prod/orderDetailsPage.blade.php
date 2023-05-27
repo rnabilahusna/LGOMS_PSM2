@@ -60,8 +60,7 @@
         <div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
      
         <a href="{{ route('prod.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width: 15%">View All Orders</a>&nbsp&nbsp
-        <a href="{{ route('pdr.getPDRFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View PDR</a>&nbsp
-        <a href="{{ route('joborder.getJobOrderFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width: 15%;">View JO</a>
+        <a href="{{ route('pdr.getPDRFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View PDR</a>&nbsp
     </div>
     </div>
 </div>

@@ -58,7 +58,7 @@
                 <div class="">
                     <div class="col col-md-6" id="thetitle"><b>JOB ORDER</b></div>
                     
-                    <a href="{{route('order.showForStoreP',$order->id)}}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">Back</a>
+                    <a href="{{route('order.showForStoreP',$joborder->id)}}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">Back</a>
                 </div>
                 
         </div>
@@ -66,29 +66,31 @@
         
             <div class="cardbody">
     
-                <form id="JobOrderForm" method="post" action="{{ route('joborder.createJobOrderFormPageForStoreP') }}" enctype="multipart/form-data">
+                <form id="JobOrderForm" method="post" action="{{ route('store.updateJobOrderFormPageForStoreP', $joborder->id) }}" enctype="multipart/form-data">
                         @csrf
-                        @method('POST')
+                        @method('PUT')
+                       
                         
+
                         <div class="theheader">
                             <div class="leftheader">
                                 <div class="input-group details"> <b>PO NO:</b>&nbsp&nbsp&nbsp&nbsp
-                                    <input  name="PONo" value="{{$order->getPDR->PONo}}" class="form-control"  type="text" >
+                                    <input  name="PONo" value="{{$joborder->PONo}}" class="form-control"  type="text" >
                                 </div>
                                 <div class="input-group details"> STOCK:&nbsp&nbsp&nbsp&nbsp
-                                    <input  name="stock" value="{{old('stock')}}" class="form-control"  type="number" >
+                                    <input  name="stock" value="{{$joborder->stock}}" class="form-control"  type="number" >
                                 </div>
                             </div>
 
                             <div class="rightheader">
                                 <div class="input-group details"> <b>DATE:</b>&nbsp&nbsp&nbsp&nbsp
-                                    <input  name="JODate" value="{{old('JODate')}}" class="form-control"  type="date" >
+                                    <input  name="JODate" value="{{$joborder->JODate}}" class="form-control"  type="date" >
                                 </div>
                                 <div class="input-group details"> J.O NO:&nbsp&nbsp&nbsp&nbsp
-                                    <input  name="JONo" value="{{old('JONo')}}" class="form-control"  type="text" >
+                                    <input  name="JONo" value="{{$joborder->JONo}}" class="form-control"  type="text" >
                                 </div>
                                 <div class="input-group details">RAW MATERIAL APPROVED:&nbsp&nbsp&nbsp&nbsp
-                                    <input  name="rawMaterialApproved" value="{{old('rawMaterialApproved')}}" class="form-control"  type="text" >
+                                    <input  name="rawMaterialApproved" value="{{$joborder->rawMaterialApproved}}" class="form-control"  type="text" >
                                 </div>
                             </div>
                         </div>
@@ -105,43 +107,43 @@
                         </tr>
                         <tr>
                             <td>CUSTOMER NAME:</td>
-                            <td><input  name="buyerCode" value="{{$order->getPDR->buyerCode}}" class="form-control"  type="text" readonly></td>
+                            <td><input  name="buyerCode" value="{{$joborder->buyerCode}}" class="form-control"  type="text" readonly></td>
                         </tr>
                         <tr>
                             <td>PRODUCT NAME:</td>
-                            <td><input  name="partDescription" value="{{$order->partDescription}}" class="form-control"  type="text" readonly></td>
+                            <td><input  name="partDescription" value="{{$joborder->partDescription}}" class="form-control"  type="text" readonly></td>
                         </tr>
                         <tr>
                             <td>PRODUCT CODE:</td>
-                            <td><input  name="partNo" value="{{$order->partNo}}" class="form-control"  type="text" readonly></td>
+                            <td><input  name="partNo" value="{{$joborder->partNo}}" class="form-control"  type="text" readonly></td>
                         </tr>
                         <tr>
                             <td>PRODUCT J O QTY:</td>
-                            <td><input  name="productJOQuantity" value="{{old('productJOQuantity')}}" class="form-control"  type="number" ></td>
+                            <td><input  name="productJOQuantity" value="{{$joborder->productJOQuantity}}" class="form-control"  type="number" ></td>
                         </tr>
                         <tr>
                             <td>PRODUCT READY DATE:</td>
-                            <td><input  name="productReadyDate" value="{{old('productReadyDate')}}" class="form-control"  type="date" ></td>
+                            <td><input  name="productReadyDate" value="{{$joborder->productReadyDate}}" class="form-control"  type="date" ></td>
                         </tr>
                         <tr>
                             <td>JOB START DATE:</td>
-                            <td><input  name="jobStartDate" value="{{old('jobStartDate')}}" class="form-control"  type="date" ></td>
+                            <td><input  name="jobStartDate" value="{{$joborder->jobStartDate}}" class="form-control"  type="date" ></td>
                         </tr>
                         <tr>
                             <td>JOB END DATE:</td>
-                            <td><input  name="jobEndDate" value="{{old('jobEndDate')}}" class="form-control"  type="date" ></td>
+                            <td><input  name="jobEndDate" value="{{$joborder->jobEndDate}}" class="form-control"  type="date" ></td>
                         </tr>
                         <tr>
                             <td>SAMPLE AVAILABLE:</td>
-                            <td><input  name="sampleAvailable" value="{{old('sampleAvailable')}}" class="form-control"  type="text" ></td>
+                            <td><input  name="sampleAvailable" value="{{$joborder->sampleAvailable}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>FILM AVAILABLE:</td>
-                            <td><input  name="filmAvailable" value="{{old('filmAvailable')}}" class="form-control"  type="text" ></td>
+                            <td><input  name="filmAvailable" value="{{$joborder->filmAvailable}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>PO RECEIVED DATE:</td>
-                            <td><input  name="POReceivedDate" value="{{old('POReceivedDate')}}" class="form-control"  type="date" ></td>
+                            <td><input  name="POReceivedDate" value="{{$joborder->POReceivedDate}}" class="form-control"  type="date" ></td>
                         </tr>
                         
                     </table>
@@ -157,43 +159,43 @@
                         </tr>
                         <tr>
                             <td>RAW MATERIAL-MAIN:</td>
-                            <td><input  name="rawMaterialMain" value="{{$order->getDesign->rawMaterialMain}}" class="form-control"  type="text" ></td>
+                            <td><input  name="rawMaterialMain" value="{{$joborder->rawMaterialMain}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>THICKNESS:</td>
-                            <td><input  name="thickness" value="{{$order->getDesign->thickness}}" class="form-control"  type="text" ></td>
+                            <td><input  name="thickness" value="{{$joborder->thickness}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>SIZE:</td>
-                            <td><input  name="size" value="{{$order->getDesign->size}}" class="form-control"  type="text" ></td>
+                            <td><input  name="size" value="{{$joborder->size}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>NO OF SHEETS:</td>
-                            <td><input  name="noOfSheets" value="{{$order->getDesign->noOfSheets}}" class="form-control"  type="number" ></td>
+                            <td><input  name="noOfSheets" value="{{$joborder->noOfSheets}}" class="form-control"  type="number" ></td>
                         </tr>
                         <tr>
                             <td>NO OF CAVITIES:</td>
-                            <td><input  name="noOfCavities" value="{{$order->getDesign->noOfCavities}}" class="form-control"  type="number" ></td>
+                            <td><input  name="noOfCavities" value="{{$joborder->noOfCavities}}" class="form-control"  type="number" ></td>
                         </tr>
                         <tr>
                             <td>OTHER MATERIALS:</td>
-                            <td><input  name="otherMaterials" value="{{$order->getDesign->otherMaterials}}" class="form-control"  type="text" ></td>
+                            <td><input  name="otherMaterials" value="{{$joborder->otherMaterials}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>ADHESIVE APPLIED:</td>
-                            <td><input  name="adhesiveApplied" value="{{old('adhesiveApplied')}}" class="form-control"  type="text" ></td>
+                            <td><input  name="adhesiveApplied" value="{{$joborder->adhesiveApplied}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>PE FILM APPLIED:</td>
-                            <td><input  name="PEFilmApplied" value="{{$order->getDesign->PEFilmApplied}}" class="form-control"  type="text" ></td>
+                            <td><input  name="PEFilmApplied" value="{{$joborder->PEFilmApplied}}" class="form-control"  type="text" ></td>
                         </tr>
                         <tr>
                             <td>NO OF ENVELOPE:</td>
-                            <td><input  name="noOfEnvelope" value="{{$order->getDesign->noOfEnvelope}}" class="form-control"  type="number" ></td>
+                            <td><input  name="noOfEnvelope" value="{{$joborder->noOfEnvelope}}" class="form-control"  type="number" ></td>
                         </tr>
                         <tr>
                             <td>PO QUANTITY:</td>
-                            <td><input  name="POQuantity" value="{{old('POQuantity')}}" class="form-control"  type="number" ></td>
+                            <td><input  name="POQuantity" value="{{$joborder->POQuantity}}" class="form-control"  type="number" ></td>
                         </tr>
                         
                     </table>
@@ -202,55 +204,61 @@
                 
 
                 <div class="middletable">
-                    <table class="newrow">
-                        <tr>
-                            <th>NO</th>
-                            <th>DATE IN</th>
-                            <th>QTY IN</th>
-                            <th>PROCESSESS CARRIED OUT</th>
-                            <th>DATE OUT</th>
-                            <th>OUTPUT</th>
-                            <th>OTY NO GOOD</th>
-                            <th>BALANCE</th>
-                            <th>OPERATOR NAME</th>
-                            <th>OPERATOR SIGNATURE</th>
-                        </tr>
-                        <tr>
-                            <td><input type="number" class="form-control" name="no[]" value="{{old('no')}}"></td>
-                            <td><input type="date" class="form-control" name="dateIn[]" value="{{old('dateIn')}}"></td>
-                            <td><input type="number" class="form-control" name="qtyIn[]" value="{{old('qtyIn')}}"></td>
-                            <td><input type="text" class="form-control" name="processesCarriedOut[]" value="{{old('processesCarriedOut')}}"></td>
-                            <td><input type="date" class="form-control" name="dateOut[]" value="{{old('dateOut')}}"></td>
-                            <td><input type="text" class="form-control" name="output[]" value="{{old('output')}}"></td>
-                            <td><input type="text" class="form-control" name="otyNoGood[]" value="{{old('otyNoGood')}}"></td>
-                            <td><input type="number" class="form-control" name="balance[]" value="{{old('balance')}}"></td>
-                            <td><input type="text" class="form-control" name="operatorName[]" value="{{old('operatorName')}}"></td>
-                            <td><input type="text" class="form-control" name="operatorSign[]" value="{{old('operatorSign')}}"></td>
-                            <td class="" ><a href="#" class="addnewrow">Add row</a></td>
-                        </tr>
-                       
-                        
-                        
-                    </table>
+                <table class="newrow">
+                <tr>
+                    <th>NO</th>
+                    <th>DATE IN</th>
+                    <th>QTY IN</th>
+                    <th>PROCESSESS CARRIED OUT</th>
+                    <th>DATE OUT</th>
+                    <th>OUTPUT</th>
+                    <th>OTY NO GOOD</th>
+                    <th>BALANCE</th>
+                    <th>OPERATOR NAME</th>
+                    <th>OPERATOR SIGNATURE</th>
+                </tr>
+
+
+                @foreach($joborder->getJO as $jo)
+                <tr>
+                    <td><input type="number" class="form-control" name="no[]" value="{{$jo->no}}"></td>
+                    <td><input type="date" class="form-control" name="dateIn[]" value="{{$jo->dateIn}}"></td>
+                    <td><input type="number" class="form-control" name="qtyIn[]" value="{{$jo->qtyIn}}"></td>
+                    <td><input type="text" class="form-control" name="processesCarriedOut[]" value="{{$jo->processesCarriedOut}}"></td>
+                    <td><input type="date" class="form-control" name="dateOut[]" value="{{$jo->dateOut}}"></td>
+                    <td><input type="text" class="form-control" name="output[]" value="{{$jo->output}}"></td>
+                    <td><input type="text" class="form-control" name="otyNoGood[]" value="{{$jo->otyNoGood}}"></td>
+                    <td><input type="number" class="form-control" name="balance[]" value="{{$jo->balance}}"></td>
+                    <td><input type="text" class="form-control" name="operatorName[]" value="{{$jo->operatorName}}"></td>
+                    <td><input type="text" class="form-control" name="operatorSign[]" value="{{$jo->operatorSign}}"></td>
+                    @if($loop->iteration == 1)        
+                    <td class="" ><a href="#" class="addnewrow">Add row</a></td>
+                    @endif        
+                </tr>
+
+                @endforeach
+
+
+                </table>
                 </div>
 
                 <div class="bottomtables">
                     <table>
                         <tr>
                             <td>PRODUCED QTY</td>
-                            <td><input type="number" class="form-control" name="producedQty" value="{{old('producedQty')}}"></td>
+                            <td><input type="number" class="form-control" name="producedQty" value="{{$joborder->producedQty}}"></td>
                         </tr>
                         <tr>
                             <td>REJECTED QTY</td>
-                            <td><input type="number" class="form-control" name="rejectedQty" value="{{old('rejectedQty')}}"></td>
+                            <td><input type="number" class="form-control" name="rejectedQty" value="{{$joborder->rejectedQty}}"></td>
                         </tr>
                         <tr>
                             <td>STOCK UPDATED QTY</td>
-                            <td><input type="number" class="form-control" name="stockUpdatedQty" value="{{old('stockUpdatedQty')}}"></td>
+                            <td><input type="number" class="form-control" name="stockUpdatedQty" value="{{$joborder->stockUpdatedQty}}"></td>
                         </tr>
                         <tr>
                             <td>STOCK UPDATED DATE</td>
-                            <td><input type="date" class="form-control" name="stockUpdatedDate" value="{{old('stockUpdatedDate')}}"></td>
+                            <td><input type="date" class="form-control" name="stockUpdatedDate" value="{{$joborder->stockUpdatedDate}}"></td>
                         </tr>
                     </table>
 
@@ -260,35 +268,43 @@
                             <th>DATE</th>
                             <th>QTY</th>
                         </tr>
+
+                        @foreach($joborder->getJO as $jo)
+                        @if(!is_null($jo->AMQty))
                         <tr>
-                            <td><input type="date" class="form-control" name="AMDate[]" value="{{old('AMDate')}}"></td>
-                            <td><input type="text" class="form-control" name="AMQty[]" value="{{old('AMQty')}}"></td>
+                            <td><input type="date" class="form-control" name="AMDate[]" value="{{$jo->AMDate}}"></td>
+                            <td><input type="text" class="form-control" name="AMQty[]" value="{{$jo->AMQty}}"></td>
                             <td class="" ><a href="#" class="addnewrow2">Add row</a></td>
                         </tr>
+                        @endif
+                        @endforeach
                     </table>
                 </div>
 
+                
+
                 <div class="input-group details"> <b>ISSUED BY:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="IssuedBy" value="{{old('IssuedBy')}}" class="form-control"  type="text" >
+                    <input  name="IssuedBy" value="{{$joborder->IssuedBy}}" class="form-control"  type="text" >
                 </div>
                 <div class="input-group details"> <b>ISSUED DATE:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="IssuedDate" value="{{old('IssuedDate')}}" class="form-control"  type="date" >
+                    <input  name="IssuedDate" value="{{$joborder->IssuedDate}}" class="form-control"  type="date" >
                 </div>
                 <div class="input-group details"> <b>AUTHORISED BY:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="AuthorisedBy" value="{{old('AuthorisedBy')}}" class="form-control"  type="text" >
+                    <input  name="AuthorisedBy" value="{{$joborder->AuthorisedBy}}" class="form-control"  type="text" >
                 </div>
                 <div class="input-group details"> <b>AUTHORISED BY:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="AuthorisedDate" value="{{old('AuthorisedDate')}}" class="form-control"  type="date" >
+                    <input  name="AuthorisedDate" value="{{$joborder->AuthorisedDate}}" class="form-control"  type="date" >
                 </div>
 
+              
+               
 
                 <div class="text-center">
-                <!-- <input type="hidden" name="hidden_id" value="" /> -->
-                <input type="hidden" name="id" value="{{$order->id}}" />
-                <input type="hidden" name="orderID" value="{{$order->id}}" />
-                <input type="hidden" name="PDRID" value="{{$order->id}}" />
-                <input type="hidden" name="buyerCode" value="{{$order->buyerCode}}" />
-                <input  name="designID" value="{{$order->getDesign->designID}}" type="hidden" >
+                <input type="hidden" name="hidden_id" value="{{$joborder->PDRID}}" />
+                <input type="hidden" name="id" value="{{$joborder->id}}" />
+                <input type="hidden" name="orderID" value="{{$joborder->orderID}}" />
+                <input type="hidden" name="designID" value="{{$joborder->designID}}" />
+                <input type="hidden" name="PDRID" value="{{$joborder->PDRID}}" />
                 
                 <input type="submit" class="btn btn-primary float-end" value="Update" />
                 </div>

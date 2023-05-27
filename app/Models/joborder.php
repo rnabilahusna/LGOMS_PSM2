@@ -15,6 +15,8 @@ class joborder extends Model
         'PONo',
         'buyerCode',
         'designID',
+        'orderD',
+        'PDRID',
         'AMDate',
         'AMQty',
         'AuthorisedBy',
@@ -29,23 +31,53 @@ class joborder extends Model
         'jobStartDate',
         'JODate',
         'no',
+        'noOfCavities',
+        'noOfEnvelope',
+        'noOfSheets',
+        'otherMaterials',
+        'adhesiveApplied',
+        'PEFilmApplied',
+        'POQuantity',
         'operatorName',
         'operatorSign',
         'output',
+        'otyNoGood',
+        'partDescription',
+        'partNo',
         'POReceivedDate',
         'processesCarriedOut',
         'producedQty',
         'productJOQuantity',
         'productReadyDate',
         'qtyIn',
-        'qtyNoGood',
         'rawMaterialApproved',
+        'rawMaterialMain',
         'rejectedQty',
         'sampleAvailable',
+        'size',
         'stock',
         'stockUpdatedDate',
         'stockUpdatedQty',
+        'thickness'
     ];
 
+    public function getOrder() {
+        return $this->belongsTo(order::class, 'id','id');
+    }
+    public function getClient() {
+        return $this->belongsTo(client::class, 'buyerCode','buyerCode');
+    }
+
+    public function getDesign() {
+        return $this->belongsTo(design::class, 'designID','designID');
+    }
+    public function getPDR() {
+        return $this->belongsTo(pdr::class, 'JONo','JONo');
+    }
+
+    public function getJO() {
+        return $this->hasMany(joborder::class, 'PDRID');
+    }
+   
     
 }

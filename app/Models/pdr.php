@@ -18,6 +18,7 @@ class pdr extends Model
         'acceptedBy',
         'approvedBy',
         'balance',
+        'buyerCode',
         'buyerName',
         'IssuedDate',
         'daysDelayed',
@@ -40,6 +41,6 @@ class pdr extends Model
         return $this->belongsTo(order::class, 'id','id');
     }
     public function getClient() {
-        return $this->belongsTo(order::class, 'buyerCode','buyerCode');
+        return $this->belongsTo(client::class, 'buyerCode','buyerCode');
     }
 }

@@ -13,7 +13,7 @@ class joborderController extends Controller
     public function index()
     {
         $data = order::latest()->paginate(5);
-        return view('qc.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        return view('store.jobOrderFormPage', compact('data'));
     }
 
     /**
@@ -78,13 +78,251 @@ class joborderController extends Controller
 
 
     //STORE PERSONNEL FUNCTIONS
-    public function getJobOrderFormPageForStoreP(joborder $joborder)
+    public function getJobOrderFormPageForStoreP(joborder $joborder) 
     {
-        return view('store.jobOrderFormPage', compact('joborder'));
+        $joborder = joborder::with('getJO')->where('PDRID',$joborder->PDRID)->first();
+        // dd($joborder);
+        return view('store.updateJobOrderFormPage', compact('joborder'));
+    }
+
+   
+
+    public function createJobOrderFormPageForStoreP(Request $request)
+    {
+        $data = $request->all();
+        // dd($data);
+        $request->validate([
+            'id'                        =>  'required',
+            'JONo'                      =>  'nullable',
+            'PONo'                      =>  'nullable',
+            'buyerCode'                 =>  'nullable',
+            'designID'                  =>  'nullable',
+            'orderID'                   =>  'nullable',
+            'PDRID'                     =>  'nullable',
+            'AMDate'                    =>  'nullable',
+            'AMQty'                     =>  'nullable',
+            'AuthorisedBy'              =>  'nullable',
+            'AuthorisedDate'            =>  'nullable',
+            'balance'                   =>  'nullable',
+            'dateIn'                    =>  'nullable',
+            'dateOut'                   =>  'nullable',
+            'filmAvailable'             =>  'nullable',
+            'IssuedBy'                  =>  'nullable',
+            'IssuedDate'                =>  'nullable',
+            'jobEndDate'                =>  'nullable',
+            'JODate'                    =>  'nullable',
+            'jobStartDate'              =>  'nullable',
+            'JODate'                    =>  'nullable',
+            'no'                        =>  'nullable',
+            'noOfCavities'              =>  'nullable',
+            'noOfEnvelope'              =>  'nullable',
+            'noOfSheets'                =>  'nullable',
+            'otherMaterials'            =>  'nullable',
+            'adhesiveApplied'           =>  'nullable',
+            'PEFilmApplied'             =>  'nullable',
+            'POQuantity'                =>  'nullable',
+            'operatorName'              =>  'nullable',
+            'operatorSign'              =>  'nullable',
+            'output'                    =>  'nullable',
+            'otyNoGood'                 =>  'nullable',
+            'partDescription'           =>  'nullable',
+            'partNo'                    =>  'nullable',
+            'POReceivedDate'            =>  'nullable',
+            'processesCarriedOut'       =>  'nullable',
+            'producedQty'               =>  'nullable',
+            'productJOQuantity'         =>  'nullable',
+            'productReadyDate'          =>  'nullable',
+            'qtyIn'                     =>  'nullable',
+            'rawMaterialApproved'       =>  'nullable',
+            'rawMaterialMain'           =>  'nullable',
+            'rejectedQty'               =>  'nullable',
+            'sampleAvailable'           =>  'nullable',
+            'size'                      =>  'nullable',
+            'stock'                     =>  'nullable',
+            'stockUpdatedDate'          =>  'nullable',
+            'stockUpdatedQty'           =>  'nullable',
+            'thickness'                 =>  'nullable'
+        ]);
+
+
+        $joborder = new joborder;
+        $joborder->id = $request->id;
+        $joborder->JONo = $request->JONo;
+        $joborder->PONo = $request->PONo;
+        $joborder->buyerCode = $request->buyerCode;
+        $joborder->designID = $request->designID;
+        $joborder->orderID = $request->orderID;
+        $joborder->PDRID = $request->PDRID;
+        $joborder->AuthorisedBy = $request->AuthorisedBy;
+        $joborder->AuthorisedDate = $request->AuthorisedDate;
+        $joborder->filmAvailable = $request->filmAvailable;
+        $joborder->IssuedBy = $request->IssuedBy;
+        $joborder->IssuedDate = $request->IssuedDate;
+        $joborder->jobEndDate = $request->jobEndDate;
+        $joborder->JODate = $request->JODate;
+        $joborder->jobStartDate = $request->jobStartDate;
+        $joborder->JODate = $request->JODate;
+        $joborder->noOfCavities = $request->noOfCavities;
+        $joborder->noOfEnvelope = $request->noOfEnvelope;
+        $joborder->noOfSheets = $request->noOfSheets;
+        $joborder->otherMaterials = $request->otherMaterials;
+        $joborder->adhesiveApplied = $request->adhesiveApplied;
+        $joborder->PEFilmApplied = $request->PEFilmApplied;
+        $joborder->POQuantity = $request->POQuantity;
+        $joborder->partDescription = $request->partDescription;
+        $joborder->partNo = $request->partNo;
+        $joborder->POReceivedDate = $request->POReceivedDate;
+        $joborder->producedQty = $request->producedQty;
+        $joborder->productJOQuantity = $request->productJOQuantity;
+        $joborder->productReadyDate = $request->productReadyDate;
+        $joborder->rawMaterialApproved = $request->rawMaterialApproved;
+        $joborder->rawMaterialMain = $request->rawMaterialMain;
+        $joborder->rejectedQty = $request->rejectedQty;
+        $joborder->sampleAvailable = $request->sampleAvailable;
+        $joborder->size = $request->size;
+        $joborder->stock = $request->stock;
+        $joborder->stockUpdatedDate = $request->stockUpdatedDate;
+        $joborder->stockUpdatedQty = $request->stockUpdatedQty;
+        $joborder->thickness = $request->thickness;
+        
+        
+        $joborder->save();
+
+        if(count($data['no']) > 0){
+            foreach($data['no'] as $item => $value){
+                $data2 = array(
+                    'JONo' => $data['JONo'],
+                    'PDRID' => $data['PDRID'],
+                    'no' => $data['no'][$item],
+                    'dateIn' => $data['dateIn'][$item],
+                    'qtyIn' => $data['qtyIn'][$item],
+                    'processesCarriedOut' => $data['processesCarriedOut'][$item],
+                    'dateOut' => $data['dateOut'][$item],
+                    'output' => $data['output'][$item],
+                    'otyNoGood' => $data['otyNoGood'][$item],
+                    'balance' => $data['balance'][$item],
+                    'operatorName' => $data['operatorName'][$item],
+                    'operatorSign' => $data['operatorSign'][$item],
+                );
+                joborder::create($data2);
+            }
+        }
+
+        if(count($data['AMDate'])>0){
+            foreach($data['AMDate'] as $item=>$value){
+                $data4 = array(
+                    'JONo' => $data['JONo'],
+                    'PDRID' => $data['PDRID'],
+                    'AMDate' => $data['AMDate'][$item],
+                    'AMQty' => $data['AMQty'][$item],
+                );
+                joborder::create($data4);
+            }
+        }
+
+       
+
+        return redirect()->route('store.ordersListPage')->with('success', 'Job order created successfully.');
+
     }
 
     public function updateJobOrderFormPageForStoreP(Request $request, joborder $joborder){
-        //
+        $data = $request->all();
+        // dd($data);
+        $joborder = joborder::find($request->PDRID);
+
+        $joborder->id = $request->id;
+        $joborder->JONo = $request->JONo;
+        $joborder->PONo = $request->PONo;
+        $joborder->buyerCode = $request->buyerCode;
+        $joborder->designID = $request->designID;
+        $joborder->orderID = $request->orderID;
+        $joborder->PDRID = $request->PDRID;
+        // $joborder->AMDate = $request->AMDate;
+        // $joborder->AMQty = $request->AMQty;
+        $joborder->AuthorisedBy = $request->AuthorisedBy;
+        $joborder->AuthorisedDate = $request->AuthorisedDate;
+        // $joborder->balance = $request->balance;
+        // $joborder->dateIn = $request->dateIn;
+        // $joborder->dateOut = $request->dateOut;
+        $joborder->filmAvailable = $request->filmAvailable;
+        $joborder->IssuedBy = $request->IssuedBy;
+        $joborder->IssuedDate = $request->IssuedDate;
+        $joborder->jobEndDate = $request->jobEndDate;
+        $joborder->JODate = $request->JODate;
+        $joborder->jobStartDate = $request->jobStartDate;
+        $joborder->JODate = $request->JODate;
+        // $joborder->no = $request->no;
+        $joborder->noOfCavities = $request->noOfCavities;
+        $joborder->noOfEnvelope = $request->noOfEnvelope;
+        $joborder->noOfSheets = $request->noOfSheets;
+
+
+        $joborder->otherMaterials = $request->otherMaterials;
+        $joborder->adhesiveApplied = $request->adhesiveApplied;
+        $joborder->PEFilmApplied = $request->PEFilmApplied;
+        $joborder->POQuantity = $request->POQuantity;
+        // $joborder->operatorName = $request->operatorName;
+        // $joborder->operatorSign = $request->operatorSign;
+        // $joborder->output = $request->output;
+        // $joborder->otyNoGood = $request->otyNoGood;
+        $joborder->partDescription = $request->partDescription;
+        $joborder->partNo = $request->partNo;
+        $joborder->POReceivedDate = $request->POReceivedDate;
+        // $joborder->processesCarriedOut = $request->processesCarriedOut;
+        $joborder->producedQty = $request->producedQty;
+        $joborder->productJOQuantity = $request->productJOQuantity;
+        $joborder->productReadyDate = $request->productReadyDate;
+        // $joborder->qtyIn = $request->qtyIn;
+        $joborder->rawMaterialApproved = $request->rawMaterialApproved;
+        $joborder->rawMaterialMain = $request->rawMaterialMain;
+        $joborder->rejectedQty = $request->rejectedQty;
+        $joborder->sampleAvailable = $request->sampleAvailable;
+        $joborder->size = $request->size;
+        $joborder->stock = $request->stock;
+        $joborder->stockUpdatedDate = $request->stockUpdatedDate;
+        $joborder->stockUpdatedQty = $request->stockUpdatedQty;
+        $joborder->thickness = $request->thickness;
+        
+        
+        $joborder->save();
+
+        if(count($data['no']) > 0){
+            foreach($data['no'] as $item => $value){
+                $data2 = array(
+                    'JONo' => $data['JONo'],
+                    'PDRID' => $data['PDRID'],
+                    'no' => $data['no'][$item],
+                    'dateIn' => $data['dateIn'][$item],
+                    'qtyIn' => $data['qtyIn'][$item],
+                    'processesCarriedOut' => $data['processesCarriedOut'][$item],
+                    'dateOut' => $data['dateOut'][$item],
+                    'output' => $data['output'][$item],
+                    'otyNoGood' => $data['otyNoGood'][$item],
+                    'balance' => $data['balance'][$item],
+                    'operatorName' => $data['operatorName'][$item],
+                    'operatorSign' => $data['operatorSign'][$item],
+                );
+                joborder::create($data2);
+            }
+        }
+
+        if(count($data['AMDate'])>0){
+            foreach($data['AMDate'] as $item=>$value){
+                $data4 = array(
+                    'JONo' => $data['JONo'],
+                    'PDRID' => $data['PDRID'],
+                    'AMDate' => $data['AMDate'][$item],
+                    'AMQty' => $data['AMQty'][$item],
+                );
+                joborder::create($data4);
+            }
+        }
+
+       
+
+        return redirect()->route('store.ordersListPage')->with('success', 'Job order updated successfully.');
+
     }
 
 

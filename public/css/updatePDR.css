@@ -1,0 +1,41 @@
+.cardbody
+{
+    width:90%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.lastrow{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.details{
+    margin-top: 0.5%;
+}
+
+.bigrow{
+    display: flex;
+    justify-content: space-between;
+}
+
+.column{ font-size:small; }
+
+.colone{width:3%}
+.coltwo{width:12%}
+.colthree{width:6%}
+.colfour{width:4%}
+.colfive{width:4%}
+.colsix{width:4%}
+.colseven{width:7%}
+.coleight{width:4%}
+.colnine{width:4%}
+.colten{width:4%}
+.coleleven{width:3%}
+.coltwelve{width:3%}
+.colonethree{width:4%}
+.colonefour{width:3%}
+
+.details{font-weight: bold;}
