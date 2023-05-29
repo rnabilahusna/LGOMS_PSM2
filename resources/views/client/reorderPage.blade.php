@@ -5,8 +5,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>My Design Details Page</title>
     <link rel="stylesheet" href="/css/navbarstyle.css" >
+    <link rel="stylesheet" href="/css/updateJO.css" >
     <!-- <link rel="stylesheet" href="/css/designdetailspagestyle.css" > -->
-    <!-- <link rel="stylesheet" href="/css/mydesignsliststyle.css" > -->
+    <link rel="stylesheet" href="/css/mydesignsliststyle.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
@@ -85,6 +86,11 @@
                 <div class="input-group details"> Buyer Section Code / Name:&nbsp&nbsp&nbsp&nbsp
                     <input  name="buyerSectionCodeOrName" value="{{$order->getClient->buyerSectionCodeOrName}} " class="form-control"  type="text" readonly>
                 </div>
+                
+
+            </div>
+            
+            <div class="rightonly firstrow">
                 <div class="input-group details"> Buyer Correspondent / Name:&nbsp&nbsp&nbsp&nbsp
                     <input  name="buyerCode" value="{{$order->getClient->buyerCode}} " class="form-control"  type="text" readonly>
                 </div>
@@ -97,11 +103,6 @@
                 <div class="input-group details"> Email:&nbsp&nbsp&nbsp&nbsp
                     <input  name="email" value="{{auth()->user()->email}} " class="form-control"  type="email" readonly>
                 </div>
-
-            </div>
-            
-            <div class="rightonly firstrow">
-                
 
             </div>
         </div>
@@ -176,19 +177,19 @@
         <div class="fourthbigrow">
         <table>
             <tr>
-                <th>Line No</th>
-                <th>Action Code</th>
-                <th>Part No</th>
-                <th>Part Description</th>
-                <th>Sales Unit Price Basis (UOM)</th>
-                <th>Quantity Per Package (UOM)</th>
-                <th>Unit Price</th>
-                <th>Quantity</th>
-                <th>UOM</th>
-                <th>Reference Data / ETD</th>
-                <th>Delivery Date / ETA</th>
-                <th>Amount</th>
-                <th>R/O No</th>
+                <th class="column colone">Line No</th>
+                <th class="column coltwo">Action Code</th>
+                <th class="column colthree" style="width:10%">Part No</th>
+                <th class="column colfour">Part Description</th>
+                <th class="column colfive">Sales Unit Price Basis (UOM)</th>
+                <th class="column colsix">Quantity Per Package (UOM)</th>
+                <th class="column colseven">Unit Price</th>
+                <th class="column coleight">Quantity</th>
+                <th class="column colnine">UOM</th>
+                <th class="column colten">Reference Data / ETD</th>
+                <th class="column coleleven">Delivery Date / ETA</th>
+                <th class="column coltwelve">Amount</th>
+                <th class="column colonethree">R/O No</th>
             </tr>
             <tr>
                 <td><input  name="lineNo" placeholder="Line No" class="form-control"  type="number" value="{{ $order->lineNo }}"></td>
@@ -211,7 +212,8 @@
         <div class="text-center">
             <input type="hidden" name="paymentStatus" value="PENDING" />          
             <input type="hidden" name="designID" value="{{ $order->getDesign->designID }}" />
-            <input type="submit" class="btn btn-primary float-end" value="Submit Order" />
+            <br>
+            <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Submit Order" />
 		</div>
 
 

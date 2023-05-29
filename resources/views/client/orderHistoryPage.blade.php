@@ -81,7 +81,18 @@
 						<td>{{ $row->partNo }} / {{ $row->partDescription}}</td>
                         <td>{{ $row->orderStatus }}</td>
                         <td>{{ $row->updated_at }}</td>
-						<td>{{ $row->paymentStatus }}</td>
+
+						@if($row->paymentStatus == 'SUBMITTED')
+						<td><div style="border-radius:5px; background-color:#FBD347; color:white">{{ $row->paymentStatus }}</div></td>
+
+						@elseif($row->paymentStatus == 'PAID')
+						<td><div style="border-radius:5px; background-color:#00CC6A; color:white">{{ $row->paymentStatus }}</div></td>
+
+						@elseif($row->paymentStatus == 'PAYMENT REJECTED')
+						<td><div style="border-radius:5px; background-color:#FF6363; color:white">{{ $row->paymentStatus }}</div></td>
+
+						@endif
+
 						<td>
                             <button class="viewbutton">
 							<a style="text-decoration:none;color:white" href="{{ route('client.reorderPage',$row->id) }}" >Reorder</a>

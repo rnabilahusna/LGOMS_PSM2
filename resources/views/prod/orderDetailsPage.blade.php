@@ -61,6 +61,7 @@
      
         <a href="{{ route('prod.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width: 15%">View All Orders</a>&nbsp&nbsp
         <a href="{{ route('pdr.getPDRFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View PDR</a>&nbsp
+        <a href="{{ route('joborder.getJobOrderFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View JO</a>
     </div>
     </div>
 </div>

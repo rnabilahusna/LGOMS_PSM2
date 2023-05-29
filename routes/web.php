@@ -170,7 +170,7 @@ Route::controller(joborderController::class)->group(function(){
     
     //qc 
     Route::get('qc.jobOrderFormPage/{joborder}', 'getJobOrderFormPageForQCP')->name('joborder.getJobOrderFormPageForQCP'); //details
-    Route::put('qc.orderDetailsPage/{joborder}','updateJobOrderFormPageForQCP')->name('joborder.updateJobOrderFormPageForQCP'); //update
+    Route::put('qc.jobOrderFormPage/{joborder}','updateJobOrderFormPageForQCP')->name('joborder.updateJobOrderFormPageForQCP'); //update
 
 
     //prod

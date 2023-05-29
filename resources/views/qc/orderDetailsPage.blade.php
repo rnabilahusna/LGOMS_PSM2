@@ -62,7 +62,7 @@
         <div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
         
         <a href="{{ route('qc.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="color:white;width:15%">View All Orders</a>&nbsp&nbsp
-        <a href="" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View JO</a>
+        <a href="{{ route('joborder.getJobOrderFormPageForQCP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View JO</a>
     </div>
     </div>
 </div>

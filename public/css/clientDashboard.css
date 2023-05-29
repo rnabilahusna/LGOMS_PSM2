@@ -1,0 +1,29 @@
+.theImages{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+}
+
+
+.leftimage:hover, .rightimage:hover{
+    transform: scale(1.1) translateX(10px) translateY(-10px);
+}
+
+.theimage{
+    filter: blur(0.6px);
+    border: 5px white solid;
+    border-radius: 2%;
+    box-shadow:20px 20px 50px 15px grey;
+}
+
+.viewbutton{
+    display: flex;
+    justify-content: center;
+    position: relative;
+    z-index: 1;
+    text-decoration: none;
+    color: white;
+}
+
+.viewbutton:hover{color:white}

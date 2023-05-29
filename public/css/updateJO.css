@@ -1,0 +1,103 @@
+.cardbody
+{
+    width:90%;
+    display: flex;
+    justify-content: center;
+    margin: auto;
+}
+
+.cardheader {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+    padding: 10px;
+}
+
+#thetitle {
+    margin-right:600px;
+    font-size: 250%; color:#B00000;
+}
+
+#requestbutton {
+    /* margin-left:80px; */
+    border-radius: 20px 20px 20px 20px;
+    color: white;
+    padding: 5px 30px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: #FF6161;
+    box-shadow: 1px 1px #888888;
+    border: none;
+    margin-bottom: 5%;
+}
+
+#requestbutton:hover {
+    background-color: red;
+    color: white;
+}
+
+button {
+    border:none;
+}
+            
+button:hover {
+    background-color: red;
+    color: white;
+}
+
+.theheader{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.uppertables{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-top: 2%;
+}
+
+.bottomtables{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+    margin-top: 2%;
+}
+
+.column{ font-size:small; }
+
+.lastrow{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.details{margin-top: 1%;}
+
+
+.firstbigrow{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.secondbigrow{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.thirdbigrow{
+    display: flex;
+    justify-content: space-between;
+    margin: auto;
+}
+
+.firstrow,.secondrow,.thirdrow{width:40%}

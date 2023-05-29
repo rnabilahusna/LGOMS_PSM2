@@ -4,9 +4,10 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
+	<!-- <link rel="stylesheet" href="/css/mydesignsliststyle.css" > -->
     <link rel="stylesheet" href="/css/navbarstyle.css" >
-    <link rel="stylesheet" href="/css/stafforderdetailspagestyle.css" >
+    <link rel="stylesheet" href="/css/updateJO.css" >
+    <!-- <link rel="stylesheet" href="/css/stafforderdetailspagestyle.css" > -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	<title>Order Details</title>
@@ -71,7 +72,7 @@
                         @method('POST')
                         
                         <div class="theheader">
-                            <div class="leftheader">
+                            <div class="leftheader" style="width:35%">
                                 <div class="input-group details"> <b>PO NO:</b>&nbsp&nbsp&nbsp&nbsp
                                     <input  name="PONo" value="{{$order->getPDR->PONo}}" class="form-control"  type="text" >
                                 </div>
@@ -80,7 +81,7 @@
                                 </div>
                             </div>
 
-                            <div class="rightheader">
+                            <div class="rightheader" style="width:35%">
                                 <div class="input-group details"> <b>DATE:</b>&nbsp&nbsp&nbsp&nbsp
                                     <input  name="JODate" value="{{old('JODate')}}" class="form-control"  type="date" >
                                 </div>
@@ -93,15 +94,14 @@
                             </div>
                         </div>
                     
-
+                <hr>
                 <div class="uppertables">
-                    <div class = "firsttable">
-                    <table>
+                    <table class="firsttable" style="width:35%">
                         <tr>
-                            <td colspan="2"><b>J O INFORMATION</b></td>
+                            <td colspan="2" style="text-align:center"><b>J O INFORMATION</b></td>
                         </tr>
                         <tr>
-                            <td colspan="2"></td>
+                            <td colspan="2"> </td>
                         </tr>
                         <tr>
                             <td>CUSTOMER NAME:</td>
@@ -145,12 +145,10 @@
                         </tr>
                         
                     </table>
-                    </div>
 
-                    <div class = "secondtable">
-                    <table>
+                    <table class="secondtable" style="width:35%">
                         <tr>
-                            <td colspan="2"><b>RAW MATERIAL USED</b></td>
+                            <td colspan="2" style="text-align:center"><b>RAW MATERIAL USED</b></td>
                         </tr>
                         <tr>
                             <td colspan="2"></td>
@@ -197,23 +195,22 @@
                         </tr>
                         
                     </table>
-                    </div>
                 </div>
                 
-
+                <hr>
                 <div class="middletable">
                     <table class="newrow">
                         <tr>
-                            <th>NO</th>
-                            <th>DATE IN</th>
-                            <th>QTY IN</th>
-                            <th>PROCESSESS CARRIED OUT</th>
-                            <th>DATE OUT</th>
-                            <th>OUTPUT</th>
-                            <th>OTY NO GOOD</th>
-                            <th>BALANCE</th>
-                            <th>OPERATOR NAME</th>
-                            <th>OPERATOR SIGNATURE</th>
+                            <th class="column colone">NO</th>
+                            <th class="column coltwo">DATE IN</th>
+                            <th class="column colthree">QTY IN</th>
+                            <th class="column colfour">PROCESSESS CARRIED OUT</th>
+                            <th class="column colfive">DATE OUT</th>
+                            <th class="column colsix">OUTPUT</th>
+                            <th class="column colseven">OTY NO GOOD</th>
+                            <th class="column coleight">BALANCE</th>
+                            <th class="column colnine">OPERATOR NAME</th>
+                            <th class="column colten">OPERATOR SIGNATURE</th>
                         </tr>
                         <tr>
                             <td><input type="number" class="form-control" name="no[]" value="{{old('no')}}"></td>
@@ -230,32 +227,32 @@
                         </tr>
                        
                         
-                        
                     </table>
                 </div>
+                <hr>
 
                 <div class="bottomtables">
-                    <table>
+                    <table class="bottomtables1" style="width:35%">
                         <tr>
-                            <td>PRODUCED QTY</td>
+                            <td><b>PRODUCED QTY</b></td>
                             <td><input type="number" class="form-control" name="producedQty" value="{{old('producedQty')}}"></td>
                         </tr>
                         <tr>
-                            <td>REJECTED QTY</td>
+                            <td><b>REJECTED QTY</b></td>
                             <td><input type="number" class="form-control" name="rejectedQty" value="{{old('rejectedQty')}}"></td>
                         </tr>
                         <tr>
-                            <td>STOCK UPDATED QTY</td>
+                            <td><b>STOCK UPDATED QTY</b></td>
                             <td><input type="number" class="form-control" name="stockUpdatedQty" value="{{old('stockUpdatedQty')}}"></td>
                         </tr>
                         <tr>
-                            <td>STOCK UPDATED DATE</td>
+                            <td><b>STOCK UPDATED DATE</b></td>
                             <td><input type="date" class="form-control" name="stockUpdatedDate" value="{{old('stockUpdatedDate')}}"></td>
                         </tr>
                     </table>
 
-                    <table class="newrow2">
-                        <tr><td colspan="2">ADVANCE MOVEMENT</td></tr>
+                    <table class="newrow2 bottomtables2" style="width:35%">
+                        <tr><td colspan="2" style="text-align:center"><b>ADVANCE MOVEMENT</b></td></tr>
                         <tr>
                             <th>DATE</th>
                             <th>QTY</th>
@@ -267,19 +264,31 @@
                         </tr>
                     </table>
                 </div>
+                <hr>
 
-                <div class="input-group details"> <b>ISSUED BY:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="IssuedBy" value="{{old('IssuedBy')}}" class="form-control"  type="text" >
+                <div class="lastrow">
+                    
+                    <div style="width:35%">
+                        <div class="input-group details"> <b>ISSUED BY:</b>&nbsp&nbsp&nbsp&nbsp
+                            <input  name="IssuedBy" value="{{old('IssuedBy')}}" class="form-control"  type="text" >
+                        </div>
+                        <div class="input-group details"> <b>ISSUED DATE:</b>&nbsp&nbsp&nbsp&nbsp
+                            <input  name="IssuedDate" value="{{old('IssuedDate')}}" class="form-control"  type="date" >
+                        </div>
+                    </div>
+
+                    <div style="width:35%">
+                       <div class="input-group details"> <b>AUTHORISED BY:</b>&nbsp&nbsp&nbsp&nbsp
+                            <input  name="AuthorisedBy" value="{{old('AuthorisedBy')}}" class="form-control"  type="text" >
+                        </div>
+                        <div class="input-group details"> <b>AUTHORISED BY:</b>&nbsp&nbsp&nbsp&nbsp
+                            <input  name="AuthorisedDate" value="{{old('AuthorisedDate')}}" class="form-control"  type="date" >
+                        </div> 
+                    </div>
+                    
                 </div>
-                <div class="input-group details"> <b>ISSUED DATE:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="IssuedDate" value="{{old('IssuedDate')}}" class="form-control"  type="date" >
-                </div>
-                <div class="input-group details"> <b>AUTHORISED BY:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="AuthorisedBy" value="{{old('AuthorisedBy')}}" class="form-control"  type="text" >
-                </div>
-                <div class="input-group details"> <b>AUTHORISED BY:</b>&nbsp&nbsp&nbsp&nbsp
-                    <input  name="AuthorisedDate" value="{{old('AuthorisedDate')}}" class="form-control"  type="date" >
-                </div>
+
+                
 
 
                 <div class="text-center">
@@ -289,8 +298,8 @@
                 <input type="hidden" name="PDRID" value="{{$order->id}}" />
                 <input type="hidden" name="buyerCode" value="{{$order->buyerCode}}" />
                 <input  name="designID" value="{{$order->getDesign->designID}}" type="hidden" >
-                
-                <input type="submit" class="btn btn-primary float-end" value="Update" />
+                <br>
+                <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Create" />
                 </div>
 
 

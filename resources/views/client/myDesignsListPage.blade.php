@@ -78,7 +78,7 @@
 					<tr>
 						
 						<td>{{ $row->partNo }}</td>
-						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="75" /></td>
+						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="100" /></td>
 						<td>{{ $row->goodsStock }}</td>
 						<td>
 							
