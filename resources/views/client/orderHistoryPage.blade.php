@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>My Order List</title>
+	<title>My Order History</title>
 </head>
 <body>
 	<div class="menu-container">
@@ -81,17 +81,15 @@
 						<td>{{ $row->partNo }} / {{ $row->partDescription}}</td>
                         <td>{{ $row->orderStatus }}</td>
                         <td>{{ $row->updated_at }}</td>
-
-						@if($row->paymentStatus == 'SUBMITTED')
-						<td><div style="border-radius:5px; background-color:#FBD347; color:white">{{ $row->paymentStatus }}</div></td>
-
-						@elseif($row->paymentStatus == 'PAID')
-						<td><div style="border-radius:5px; background-color:#00CC6A; color:white">{{ $row->paymentStatus }}</div></td>
-
-						@elseif($row->paymentStatus == 'PAYMENT REJECTED')
-						<td><div style="border-radius:5px; background-color:#FF6363; color:white">{{ $row->paymentStatus }}</div></td>
-
+						@if($row->paymentStatus == 'PAID')
+						<td><div style="color:white;background-color:#00CC6A;border-radius:5px">{{ $row->paymentStatus }}</div></td>
+						@elseif($row->paymentStatus == 'PENDING' || $row->paymentStatus == 'SUBMITTED')
+						<td><div style="color:white;background-color:#FBD347;border-radius:5px">{{ $row->paymentStatus }}</div></td>
+						@else
+						<td><div style="color:white;background-color:#FF6363;border-radius:5px">{{ $row->paymentStatus }}</div></td>
 						@endif
+
+						
 
 						<td>
                             <button class="viewbutton">

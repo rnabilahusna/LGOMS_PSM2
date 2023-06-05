@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="/css/updatePDR.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>Design Details</title>
+	<title>PDR</title>
 </head>
 <body>
 <div class="menu-container">
@@ -73,8 +73,8 @@
         <div class="bigrow">
             <div class="leftonly">
 
-                <div class="input-group details"> CUSTOMER NAME:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="buyerName" value="{{$order->getClient->buyerCorrespondentOrName}} " class="form-control"  type="text">
+                <div class="input-group details"> CUSTOMER NAME*:&nbsp&nbsp&nbsp&nbsp
+                    <input  name="buyerName" value="{{$order->getClient->buyerCorrespondentOrName}} " class="form-control"  type="text" required>
                 </div>
                 <div class="input-group details"> MONTH:&nbsp&nbsp&nbsp&nbsp
                     <input  name="month" value="{{ old('month')}} " class="form-control"  type="month">
@@ -82,8 +82,8 @@
             </div>
 
             <div class="rightonly">
-                <div class="input-group details"> DATE OF ISSUE:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="IssuedDate" class="form-control"  type="date" value="{{ $order->IssuedDate }}" >
+                <div class="input-group details"> DATE OF ISSUE*:&nbsp&nbsp&nbsp&nbsp
+                    <input  name="IssuedDate" class="form-control"  type="date" value="{{ $order->IssuedDate }}" required>
                 </div>
                 <div class="input-group details"> REPORT DATE:&nbsp&nbsp&nbsp&nbsp
                     <input  name="reportDate" value="{{old('reportDate')}} " class="form-control"  type="date">
@@ -104,7 +104,7 @@
                 <th class="column colfour">STOCK</th>
                 <th class="column colfive">DLV QTY</th>
                 <th class="column colsix">BAL</th>
-                <th class="column colseven">DELIVERY DATE</th>
+                <th class="column colseven">DELIVERY DATE*</th>
                 <th class="column coleight">DI NO</th>
                 <th class="column colnine">JOB ORDER NO.</th>
                 <th class="column colten">DO NO</th>
@@ -120,7 +120,7 @@
                 <td><input  name="stock" class="form-control"  type="number" value="/" readonly></td>
                 <td><input  name="deliveryQuantity" class="form-control"  type="number" value="/" readonly></td>
                 <td><input  name="balance" class="form-control"  type="number" value="/" readonly></td>
-                <td><input  name="deliveryDate" class="form-control"  type="date" value="{{ $order->deliveryDateETA }}" ></td>
+                <td><input  name="deliveryDate" class="form-control"  type="date" value="{{ $order->deliveryDateETA }}" required></td>
                 <td><input  name="DINo" class="form-control"  type="text" value="/" readonly></td>
                 <td><input  name="JONo" class="form-control"  type="text" value="/" readonly></td>
                 <td><input  name="DONoSales1" class="form-control"  type="text" value="/" readonly></td>

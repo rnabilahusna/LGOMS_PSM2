@@ -92,10 +92,10 @@
             
             <div class="rightonly firstrow">
                 <div class="input-group details"> Buyer Correspondent / Name:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="buyerCode" value="{{$order->getClient->buyerCode}} " class="form-control"  type="text" readonly>
+                    <input  name="buyerCorrespondentOrName" value="{{$order->getClient->buyerCorrespondentOrName}} " class="form-control"  type="text" readonly>
                 </div>
                 <div class="input-group details"> Authorization Code / Name:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="authorizationCodeOrName" value="{{$order->authorizationCodeOrName}} " class="form-control"  type="text" readonly>
+                    <input  name="authorizationCodeOrName" value="{{$order->getClient->authorizationCodeOrName}} " class="form-control"  type="text" readonly>
                 </div>
                 <div class="input-group details"> Contact No:&nbsp&nbsp&nbsp&nbsp
                     <input  name="contactNum" value="{{auth()->user()->contactNum}} " class="form-control"  type="text" readonly>
@@ -115,7 +115,7 @@
                 <div class="input-group details"> P/O No:&nbsp&nbsp&nbsp&nbsp
                     <input  name="PONo" value="{{old('PONo')}} " class="form-control"  type="text">
                 </div>
-                <div class="input-group details"> Creation Date:&nbsp&nbsp&nbsp&nbsp
+                <div class="input-group details"> Creation Date:*&nbsp&nbsp&nbsp&nbsp
                     <input  name="creationDate" value="{{$order->creationDate}} " class="form-control"  type="date">
                 </div>
                 <div class="input-group details"> Quotation No:&nbsp&nbsp&nbsp&nbsp
@@ -127,7 +127,7 @@
                 <div class="input-group details"> Order Status:&nbsp&nbsp&nbsp&nbsp
                     <input  name="orderStatus" value="NEW" class="form-control"  type="text" readonly>
                 </div>
-                <div class="input-group details"> Issued Date:&nbsp&nbsp&nbsp&nbsp
+                <div class="input-group details"> Issued Date:*&nbsp&nbsp&nbsp&nbsp
                     <input  name="IssuedDate" value="{{$order->IssuedDate}} " class="form-control"  type="date">
                 </div>
                
@@ -178,7 +178,7 @@
         <table>
             <tr>
                 <th class="column colone">Line No</th>
-                <th class="column coltwo">Action Code</th>
+                <th class="column coltwo">Action Code*</th>
                 <th class="column colthree" style="width:10%">Part No</th>
                 <th class="column colfour">Part Description</th>
                 <th class="column colfive">Sales Unit Price Basis (UOM)</th>
@@ -187,7 +187,7 @@
                 <th class="column coleight">Quantity</th>
                 <th class="column colnine">UOM</th>
                 <th class="column colten">Reference Data / ETD</th>
-                <th class="column coleleven">Delivery Date / ETA</th>
+                <th class="column coleleven">Delivery Date / ETA*</th>
                 <th class="column coltwelve">Amount</th>
                 <th class="column colonethree">R/O No</th>
             </tr>
@@ -202,7 +202,7 @@
                 <td><input  name="quantity" placeholder="Quantity" class="form-control"  type="number" value="{{ $order->quantity }}"></td>
                 <td><input  name="UOM" placeholder="UOM" class="form-control"  type="text" value="{{ $order->UOM }}"></td>
                 <td><input  name="referenceDateETD" placeholder="Reference Data / ETD" class="form-control"  type="date" value="{{ $order->referenceDateETD }}"></td>
-                <td><input  name="deliveryDateETA" placeholder="Delivery Date / ETA" class="form-control"  type="date" value="{{ $order->deliveryDateETA }}"></td>
+                <td><input  name="deliveryDateETA" placeholder="Delivery Date / ETA" class="form-control"  type="date" value="{{ $order->deliveryDateETA }}" required></td>
                 <td><input  name="amount" placeholder="Amount" class="form-control"  type="number" value="{{ $order->amount }}"></td>
                 <td><input  name="RONo" placeholder="R/O No" class="form-control"  type="number" value="{{ $order->RONo }}"></td>
             </tr>

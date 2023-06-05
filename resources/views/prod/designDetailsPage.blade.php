@@ -19,7 +19,7 @@
 
         <div class="links">
             <div class="home"><a href="{{ route('prod.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
-            <div class="appointment_list"><a href="{{ route('appointment.index') }}" style="text-decoration:none; color:black">Appointment List</a></div>
+            <div class="appointment_list"><a href="{{ route('prod.RFQListPage') }}" style="text-decoration:none; color:black">RFQ List</a></div>
             <div class="order_list"><a href="{{ route('prod.ordersListPage') }}" style="color:black;text-decoration:none">Order List</a></div>
             <div class="design_list"><a href="{{ route('prod.designsListPage') }}" style="text-decoration:none; color:black">Design List</a></div>
         </div>
@@ -52,6 +52,7 @@
 	</div>
 
 	@endif
+    
 
 
 <div class="card">
@@ -85,10 +86,10 @@
                             <input  name="buyerCode" value="{{$design->buyerCode}} " class="form-control"  type="text" readonly>
                         </div>
 
-                        <div class="partDesign details" >
+                        <!-- <div class="partDesign details" >
                             <label>Update The New Part Design:</label>
                                 <input type="file" name="partDesign" />
-                        </div>
+                        </div> -->
 
 
                                 <div class="input-group details" id="partNo">Part No:&nbsp&nbsp&nbsp&nbsp
@@ -100,9 +101,9 @@
                                     <input  name="partDescription" value="{{$design->partDescription}}" class="form-control"  type="text" readonly>
                                 </div>
 
-                                <div class="input-group details" id="designConfirmationStatus">Design Status:&nbsp&nbsp&nbsp&nbsp
-                                    <input  name="designConfirmationStatus" value="{{$design->designConfirmationStatus}}" class="form-control"  type="text" readonly>
-                                </div>
+                                <!-- <div class="input-group details" id="designConfirmationStatus">Design Status:&nbsp&nbsp&nbsp&nbsp -->
+                                    <input  name="designConfirmationStatus" value="{{$design->designConfirmationStatus}}" class="form-control"  type="hidden" readonly>
+                                <!-- </div> -->
                          
 
 
@@ -154,97 +155,13 @@
 
 
 
-                        <!-- <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="noOfCavities" placeholder="No of cavities"  class="form-control"  type="text" value="{{ $design->noOfCavities }}">
-                                   
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="noOfEnvelope" placeholder="No of envelope" class="form-control"  type="text" value="{{ $design->noOfEnvelope }}">
-                                   
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="noOfSheets" placeholder="No of sheets" class="form-control"  type="text" value="{{ $design->noOfSheets }}">
-                                   
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="otherMaterials" placeholder="Other materials" class="form-control"  type="text" value="{{ $design->otherMaterials }}">
-                                   
-                                </div>
-                            </div>
-                        </div> -->
-
-                        <!-- <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <select name="PEFilmApplied" class="form-group" style="width:85%; height:40px; color:grey; padding-left: 10px">
-                                        <option>{{ $design->PEFilmApplied }}</option>
-                                        <option name="PEFilmApplied" value="YES"> YES </option>
-                                        <option name="PEFilmApplied" value="NO"> NO </option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div> -->
-
-
-                        <!-- <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="rawMaterialMain" placeholder="Raw material main" class="form-control"  type="text" value="{{ $design->rawMaterialMain }}">
-                                   
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="size" placeholder="Size" class="form-control"  type="text" value="{{ $design->size }}">
-                                   
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <div class="col-md-4 inputGroupContainer">
-                                <div class="input-group">
-                                    <span class="input-group-addon"></span>
-                                    <input  name="thickness" placeholder="Thickness" class="form-control"  type="text" value="{{ $design->thickness }}">
-                                   
-                                </div>
-                            </div>
-                        </div> -->
-
                     </div>
                     </div>
 
-
+<br>
 					<div class="text-center">
                         <input type="hidden" name="hidden_id" value="{{ $design->designID }}" />
-                        <input type="submit" class="btn btn-primary float-end" value="Update Design" />
+                        <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Update design" />
 			        </div>
 
 				</form>

@@ -3,7 +3,6 @@
 use Illuminate\Support\Facades\Route;
  /*Import controller file */
 use App\Http\Controllers\userController;
-use App\Http\Controllers\appointmentController;
 use App\Http\Controllers\designController;
 use App\Http\Controllers\orderController;
 use App\Http\Controllers\registerController;
@@ -48,26 +47,11 @@ Route::get('client.mainWindow',[loginController::class, 'mainWindowClient'])->na
 
 Route::get('/mainWindow', [mainWindowController::class, 'index'])->middleware('auth');
 
-Route::resource('appointment', appointmentController::class);
 
 Route::resource('design', designController::class);
 
 Route::resource('order', orderController::class);
 
-
-Route::controller(appointmentController::class)->group(function(){
-
-    //client
-    Route::get('client.appointmentForm','requestAppointment')->name('appointment.requestAppointment');
-    Route::get('client.myDesignsListPage','getMyDesignsListPage')->name('client.getMyDesignsListPage');
-
-    //production
-    Route::get('prod.appointmentsListPage','getProdAppointmentsListPage')->name('prod.appointmentsListPage');
-    Route::put('prod.appointmentDetailsPage/{appointment}','updateAppointmentInfo')->name('appointment.updateAppointmentInfo');
-    Route::get('prod.appointmentDetailsPage/{appointment}', 'showForProdP')->name('appointment.showForProdP');
-
-    
-});
 
 
 Route::controller(designController::class)->group(function(){
@@ -77,10 +61,15 @@ Route::controller(designController::class)->group(function(){
     Route::get('sales.designsListPage','getSalesDesignsListPage')->name('sales.designsListPage');
 
     //production
-    Route::get('prod.uploadDesignPage','uploadDesign')->name('design.uploadDesign');
+    // Route::get('prod.uploadDesignPage','uploadDesign')->name('design.uploadDesign');
     Route::get('prod.designsListPage','getProdDesignsListPage')->name('prod.designsListPage');
     Route::put('prod.designDetailsPage/{design}','updateDesignInfo')->name('design.updateDesignInfo');
     Route::get('prod.designDetailsPage/{design}', 'showForProdP')->name('design.showForProdP');
+
+    Route::get('prod.RFQListPage','getProdRFQListPage')->name('prod.RFQListPage');
+    Route::get('prod.RFQDetailsPage/{design}', 'getProdRFQDetailsPage')->name('design.getProdRFQDetailsPage');
+    Route::put('prod.RFQDetailsPage/{design}','updateQuotationStatus')->name('design.updateQuotationStatus');
+
 
     //store
     Route::get('store.designDetailsPage/{design}', 'showForStoreP')->name('design.showForStoreP'); //details
@@ -96,6 +85,12 @@ Route::controller(designController::class)->group(function(){
     Route::get('client.myDesignsListPage','getClientDesignsListPage')->name('client.myDesignsListPage'); //list
     Route::put('client.myDesignDetailsPage/{design}','updateMyDesignInfo')->name('design.updateMyDesignInfo'); //confirm design
     Route::get('client.makeOrderPage/{design}', 'getMakeOrderPage')->name('client.makeOrderPage'); //
+
+    
+    Route::get('client.RFQFormPage','getRFQFormPage')->name('design.getRFQFormPage');
+    Route::post('client.RFQFormPage', 'submitRFQ')->name('design.submitRFQ'); //submit rfq
+
+    
 
 });
 

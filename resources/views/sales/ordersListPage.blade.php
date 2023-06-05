@@ -76,7 +76,15 @@
 						<td>{{ $row->PONo }}</td>
 						<td>{{ $row->getClient->buyerName }}</td>
                         <td>{{ $row->partNo }} / {{ $row->partDescription }}</td>
-						<td>{{ $row->paymentStatus }}</td>
+						
+						@if($row->paymentStatus == 'PAID')
+						<td><div style="color:white;background-color:#00CC6A;border-radius:5px">{{ $row->paymentStatus }}</div></td>
+						@elseif($row->paymentStatus == 'PENDING' || $row->paymentStatus == 'SUBMITTED') 
+						<td><div style="color:white;background-color:#FBD347;border-radius:5px">{{ $row->paymentStatus }}</div></td>
+						@else
+						<td><div style="color:white;background-color:#FF6363;border-radius:5px">{{ $row->paymentStatus }}</div></td>
+						@endif
+
                         <td>{{ $row->deliveryDateETA }}</td>
 						<td><a style="text-decoration:none;color:white" class="viewbutton" href="{{ route('order.showForSalesP', $row->id) }}" class="btn btn-primary btn-sm">View order</a></td>
 					</tr>

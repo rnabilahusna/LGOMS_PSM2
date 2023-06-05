@@ -82,7 +82,10 @@
 			
 				<label>Update the quantity:</label>
                 <span class="input-group-addon"></span>
-                    <input  name="goodsStock" placeholder="Quantity " class="form-control"  type="text" Required value="{{old('goodsStock')}}">
+                    <input  name="goodsStock" placeholder="{{$design->goodsStock}} " class="form-control"  type="text" value="{{old('goodsStock')}}">
+                    @if($errors->has('goodsStock'))
+                        <span class="text-danger" style="color:red">{{ $errors->first('goodsStock') }}</span>
+                    @endif
                 </span>
                   
                 <div class="text-center">

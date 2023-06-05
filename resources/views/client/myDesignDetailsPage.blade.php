@@ -85,6 +85,17 @@
                         {{ $design->partDescription }}
                 </div>
 
+                <div class=" dateCreated">
+                    <label>SIZE:</label>
+                        {{ $design->size }}
+                </div>
+                    
+
+                <div class=" dateCreated">
+                    <label>MATERIAL:</label>
+                        {{ $design->rawMaterialMain }}
+                </div>
+
                 <div class="dateCreated">
                     <label>DATE CREATED:</label>
                         {{ $design->created_at }}
@@ -100,20 +111,16 @@
                 @if($design->designConfirmationStatus == 'PENDING')
                 
                 <div class="designConfirmationStatus">
-                        <label>Do you want to approve the design?</label>
+                    <label>Your design quotation is still in <b>PENDING</b></label>
                 </div>
                 
-                    <div class="row mb-4">
-                        <form method="post" action="{{ route('design.updateMyDesignInfo', $design->designID) }}" enctype="multipart/form-data" class="buttons">
-                            @csrf
-                            @method('PUT')
-                            
-                            <input type="hidden" name="hidden_id" value="{{ $design->designID }}" />
-                            <input name="designConfirmationStatus" type="submit" class="btn btn-success" value="ACCEPTED" />&nbsp&nbsp&nbsp&nbsp
-                            <input name="designConfirmationStatus" type="submit" class="btn btn-danger rejectbutton" value="REJECTED" />
-                        </form>
-                    </div>
-                
+                @elseif($design->designConfirmationStatus == 'REJECTED')
+
+                <div class="designConfirmationStatus">
+                    <label>Your design quotation is still in <b style="color:red">REJECTED</b></label>
+                </div>
+
+
                 @else
                 <!-- STORE NEW ORDER IN ORDER TABLE -->
                 <br><br>

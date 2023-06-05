@@ -73,7 +73,7 @@
                 <div class="bigrow">
             <div class="leftonly">
 
-                <div class="input-group details"> CUSTOMER NAME:&nbsp&nbsp&nbsp&nbsp
+                <div class="input-group details"> CUSTOMER NAME*:&nbsp&nbsp&nbsp&nbsp
                     <input  name="buyerName" value="{{$pdr->buyerName}} " class="form-control"  type="text">
                 </div>
                 <div class="input-group details"> MONTH:&nbsp&nbsp&nbsp&nbsp
@@ -83,7 +83,7 @@
             </div>
 
             <div class="rightonly">
-                <div class="input-group details"> DATE OF ISSUE:&nbsp&nbsp&nbsp&nbsp
+                <div class="input-group details"> DATE OF ISSUE*:&nbsp&nbsp&nbsp&nbsp
                     <input  name="IssuedDate" class="form-control"  type="date" value="{{ $pdr->IssuedDate }}">
 
                 </div>
@@ -106,7 +106,7 @@
                 <th class="column colfour">STOCK</th>
                 <th class="column colfive">DLV QTY</th>
                 <th class="column colsix">BAL</th>
-                <th class="column colseven">DELIVERY DATE</th>
+                <th class="column colseven">DELIVERY DATE*</th>
                 <th class="column coleight">DI NO</th>
                 <th class="column colnine">JOB ORDER NO.</th>
                 <th class="column colten">DO NO</th>
@@ -122,7 +122,7 @@
                 <td><input  name="stock" class="form-control"  type="number" value="{{ $pdr->stock }}" readonly></td>
                 <td><input  name="deliveryQuantity" class="form-control"  type="number" value="{{ $pdr->deliveryQuantity }}" readonly></td>
                 <td><input  name="balance" class="form-control"  type="number" value="{{ $pdr->balance }}" readonly></td>
-                <td><input  name="deliveryDate" class="form-control"  type="date" value="{{ $pdr->deliveryDate }} "></td>
+                <td><input  name="deliveryDate" class="form-control"  type="date" value="{{ $pdr->deliveryDate }}"></td>
                 <td><input  name="DINo" class="form-control"  type="text" value="{{ $pdr->DINo }}" readonly></td>
                 <td><input  name="JONo" class="form-control"  type="text" value="{{ $pdr->JONo }}" readonly></td>
                 <td><input  name="DONoSales1" class="form-control"  type="text" value="{{ $pdr->DONoSales1 }}" readonly></td>

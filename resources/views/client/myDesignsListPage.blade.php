@@ -54,7 +54,7 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>My Designs List</b></div>
 				<div class="col col-md-6">
-					<a href="{{route('appointment.requestAppointment')}}" class="btn btn-success btn-sm float-end" id="requestbutton" >Request New Design</a>
+					<a href="{{route('design.getRFQFormPage')}}" class="btn btn-success btn-sm float-end" id="requestbutton" >Request New Design</a>
 				</div>
 			</div>
 		</div>
@@ -77,12 +77,12 @@
 
 					<tr>
 						
-						<td>{{ $row->partNo }}</td>
+						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="100" /></td>
 						<td>{{ $row->goodsStock }}</td>
 						<td>
 							
-								<a style="text-decoration:none" href="{{ route('design.showForClient', $row->designID) }}" class="btn btn-primary btn-sm">View</a>
+								<a style="text-decoration:none" href="{{ route('design.showForClient', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>
 								
 						</td>
 					</tr>

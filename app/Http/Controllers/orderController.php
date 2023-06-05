@@ -207,7 +207,7 @@ class orderController extends Controller
     {
         // $data = order::latest()->paginate(5);
         // return view('client.myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
-        $data = order::where('buyerCode',Auth::user()->buyerCode)->get();
+        $data = order::where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
 
         return view('client.myOrdersListPage', compact('data'));
     }

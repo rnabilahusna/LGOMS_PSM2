@@ -90,6 +90,10 @@
 				</form>
 				@else
 				@endif
+
+				@if($order->paymentStatus == 'SUBMITTED' || $order->paymentStatus == 'PAYMENT REJECTED')
+				<img src="{{ asset('images/' . $order->paymentProof) }}" width="155" style="padding-top:25px" />
+				@endif
 			</div>
 
 			<div class="centerinfo">

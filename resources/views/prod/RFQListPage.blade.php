@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<title>Appointment List</title>
+	<title>RFQ List</title>
 </head>
 <body>
 
@@ -56,7 +56,7 @@
 	<div class="card">
 		<div class="cardheader">
 			<div class="row">
-				<div class="col col-md-6" id="thetitle"><b>Appointments Requests List</b></div>
+				<div class="col col-md-6" id="thetitle"><b> Request For Quotation List</b></div>
 				
 			</div>
 		</div>
@@ -68,9 +68,9 @@
 			<tr>
 				<th width="10%">Client ID</th>
 				<th width="15%">Company Name</th>
-				<th width="15%">Representative </th>
-				<th width="20%">Request Date & Time</th>
-				<th width="17%">Appointment Status</th>
+				<th width="15%">Part No</th>
+				<th width="20%">Part Design</th>
+				<th width="17%">Part Name</th>
 				<th width="10%"></th>
 			</tr>
 			
@@ -81,26 +81,18 @@
 					<tr>
 						<td>{{ $row->buyerCode }}</td>
 						<td>{{ $row->getClient->buyerCorrespondentOrName }}</td>
-						<td>{{ $row->getUser->name }}</td>
-						<td>{{ $row->appDate }} {{ $row->appTime }}</td>
+						<td>{{ $row->partNo }}</td>
+						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="75" /></td>
+                        <td>{{ $row->partDescription }}</td>
 
-						@if($row->appStatus == 'PENDING')
-						<td><div style="border-radius:5px; background-color:#FBD347; color:white">{{ $row->appStatus }}</div></td>
-
-						@elseif($row->appStatus == 'ACCEPTED')
-						<td><div style="border-radius:5px; background-color:#00CC6A; color:white">{{ $row->appStatus }}</div></td>
-
-						@elseif($row->appStatus == 'REJECTED')
-						<td><div style="border-radius:5px; background-color:#FF6363; color:white">{{ $row->appStatus }}</div></td>
-
-						@endif
+						
 
 						<td>
-							<form method="post" action="{{ route('appointment.destroy', $row->appID) }}">
+							<form method="post" action="">
 								@csrf
 								@method('DELETE')
-								<a href="{{ route('appointment.showForProdP', $row->appID) }}" class="btn btn-primary btn-sm">View</a>
-								<input type="submit" class="btn btn-danger btn-sm" value="Delete" />
+								<a href="{{ route('design.getProdRFQDetailsPage', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>
+								<!-- <input type="submit" class="btn btn-danger btn-sm" value="Delete" /> -->
 							</form>
 						</td>
 					</tr>

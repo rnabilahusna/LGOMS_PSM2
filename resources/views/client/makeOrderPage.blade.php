@@ -92,10 +92,10 @@
             
             <div class="rightonly firstrow">
                 <div class="input-group details"> Buyer Correspondent / Name:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="buyerCode" value="{{$design->getClient->buyerCode}} " class="form-control"  type="text" readonly>
+                    <input  name="buyerCorrespondentOrName" value="{{$design->getClient->buyerCorrespondentOrName}} " class="form-control"  type="text" readonly>
                 </div>
                 <div class="input-group details"> Authorization Code / Name:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="authorizationCodeOrName" value="{{$design->authorizationCodeOrName}} " class="form-control"  type="text" readonly>
+                    <input  name="authorizationCodeOrName" value="{{$design->getClient->authorizationCodeOrName}} " class="form-control"  type="text" readonly>
                 </div>
                 <div class="input-group details"> Contact No:&nbsp&nbsp&nbsp&nbsp
                     <input  name="contactNum" value="{{auth()->user()->contactNum}} " class="form-control"  type="text" readonly>
@@ -115,8 +115,8 @@
                 <div class="input-group details"> P/O No:&nbsp&nbsp&nbsp&nbsp
                     <input  name="PONo" value="{{old('PONo')}} " class="form-control"  type="text">
                 </div>
-                <div class="input-group details"> Creation Date:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="creationDate" value="{{old('creationDate')}} " class="form-control"  type="date">
+                <div class="input-group details"> Creation Date:*&nbsp&nbsp&nbsp&nbsp
+                    <input  name="creationDate" value="{{old('creationDate')}} " class="form-control"  type="date" required>
                 </div>
                 <div class="input-group details"> Quotation No:&nbsp&nbsp&nbsp&nbsp
                     <input  name="QuotationNo" value="{{old('QuotationNo')}} " class="form-control"  type="text">
@@ -127,8 +127,8 @@
                 <div class="input-group details"> Order Status:&nbsp&nbsp&nbsp&nbsp
                     <input  name="orderStatus" value="NEW" class="form-control"  type="text" readonly>
                 </div>
-                <div class="input-group details"> Issued Date:&nbsp&nbsp&nbsp&nbsp
-                    <input  name="IssuedDate" value="{{old('IssuedDate')}} " class="form-control"  type="date">
+                <div class="input-group details"> Issued Date:*&nbsp&nbsp&nbsp&nbsp
+                    <input  name="IssuedDate" value="{{old('IssuedDate')}} " class="form-control"  type="date" required>
                 </div>
                
             </div>
@@ -179,21 +179,21 @@
             <tr>
                 <th class="column colone">Line No</th>
                 <th class="column coltwo">Action Code</th>
-                <th class="column colthree" style="width:10%">Part No</th>
-                <th class="column colfour">Part Description</th>
+                <th class="column colthree" style="width:10%">Part No*</th>
+                <th class="column colfour">Part Description*</th>
                 <th class="column colfive">Sales Unit Price Basis (UOM)</th>
                 <th class="column colsix">Quantity Per Package (UOM)</th>
                 <th class="column colseven">Unit Price</th>
                 <th class="column coleight">Quantity</th>
                 <th class="column colnine">UOM</th>
                 <th class="column colten">Reference Data / ETD</th>
-                <th class="column coleleven">Delivery Date / ETA</th>
+                <th class="column coleleven">Delivery Date / ETA*</th>
                 <th class="column coltwelve">Amount</th>
                 <th class="column colonethree">R/O No</th>
             </tr>
             <tr>
                 <td><input  name="lineNo" placeholder="Line No" class="form-control"  type="number" value="{{ old('lineNo') }}"></td>
-                <td><input  name="actionCode" placeholder="Action Code" class="form-control"  type="text" value="NEW" readonly></td>
+                <td><input  name="actionCode" placeholder="Action Code*" class="form-control"  type="text" value="NEW" readonly></td>
                 <td><input  name="partNo" placeholder="Part No" class="form-control"  type="text" value="{{ $design->partNo }}" readonly></td>
                 <td><input  name="partDescription" placeholder="Part Description" class="form-control"  type="text" value="{{ $design->partDescription }}" readonly></td>
                 <td><input  name="salesUnitPriceBasisUOM" placeholder="Sales Unit Price Basis (UOM)" class="form-control"  type="number" value="{{ old('salesUnitPriceBasisUOM') }}"></td>
@@ -202,7 +202,7 @@
                 <td><input  name="quantity" placeholder="Quantity" class="form-control"  type="number" value="{{ old('quantity') }}"></td>
                 <td><input  name="UOM" placeholder="UOM" class="form-control"  type="text" value="{{ old('UOM') }}"></td>
                 <td><input  name="referenceDateETD" placeholder="Reference Data / ETD" class="form-control"  type="date" value="{{ old('referenceDateETD') }}"></td>
-                <td><input  name="deliveryDateETA" placeholder="Delivery Date / ETA" class="form-control"  type="date" value="{{ old('deliveryDateETA') }}"></td>
+                <td><input  name="deliveryDateETA" placeholder="Delivery Date / ETA" class="form-control"  type="date" value="{{ old('deliveryDateETA') }}" required></td>
                 <td><input  name="amount" placeholder="Amount" class="form-control"  type="number" value="{{ old('amount') }}"></td>
                 <td><input  name="RONo" placeholder="R/O No" class="form-control"  type="number" value="{{ old('RONo') }}"></td>
             </tr>

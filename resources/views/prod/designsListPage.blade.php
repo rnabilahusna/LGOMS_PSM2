@@ -19,7 +19,7 @@
 
         <div class="links">
         <div class="home"><a href="{{ route('prod.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
-            <div class="appointment_list"><a href="{{ route('appointment.index') }}" style="text-decoration:none; color:black">Appointment List</a></div>
+            <div class="appointment_list"><a href="{{ route('prod.RFQListPage') }}" style="text-decoration:none; color:black">RFQ List</a></div>
             <div class="order_list"><a href="{{ route('prod.ordersListPage') }}" style="color:black;text-decoration:none">Order List</a></div>
             <div class="design_list">Design List</div>
         </div>
@@ -58,7 +58,7 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Designs List</b></div>
                 <div class="col col-md-6">
-					<a href="{{route('design.uploadDesign')}}" class="btn btn-success btn-sm float-end" id="requestbutton" >Upload New Design</a>
+					
 				</div>
 				
 			</div>
@@ -84,7 +84,7 @@
 						
 						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
 						<td>{{ $row->getClient->buyerName }}</td>
-						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="75" /></td>
+						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="100" /></td>
 						<td>{{ $row->created_at }}</td>
 						<td>
 							

@@ -80,17 +80,15 @@
                         <td>{{ $row->orderStatus }}</td>
                         <td>{{ $row->updated_at }}</td>
 
-						@if($row->paymentStatus == 'SUBMITTED')
-						<td><div style="border-radius:5px; background-color:#FBD347; color:white">{{ $row->paymentStatus }}</div></td>
-
-						@elseif($row->paymentStatus == 'PAID')
-						<td><div style="border-radius:5px; background-color:#00CC6A; color:white">{{ $row->paymentStatus }}</div></td>
-
-						@elseif($row->paymentStatus == 'PAYMENT REJECTED')
-						<td><div style="border-radius:5px; background-color:#FF6363; color:white">{{ $row->paymentStatus }}</div></td>
-
+						@if($row->paymentStatus == 'PAID')
+						<td><div style="color:white;background-color:#00CC6A;border-radius:5px">{{ $row->paymentStatus }}</div></td>
+						@elseif($row->paymentStatus == 'PENDING' || $row->paymentStatus == 'SUBMITTED')
+						<td><div style="color:white;background-color:#FBD347;border-radius:5px">{{ $row->paymentStatus }}</div></td>
+						@else
+						<td><div style="color:white;background-color:#FF6363;border-radius:5px">{{ $row->paymentStatus }}</div></td>
 						@endif
 
+						
 						<td>
                             <button class="viewbutton">
                             <a style="text-decoration:none;color:white" href="{{ route('order.showForClient', $row->id) }}" >View order</a>
@@ -105,6 +103,7 @@
 					<td colspan="5" class="text-center">No Data Found</td>
 				</tr>
 				@endif
+				
 
 		</table>
 

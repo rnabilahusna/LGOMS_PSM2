@@ -56,6 +56,14 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Designs List</b></div>
 				
+				<form class="form-inline my-2 my-lg-0" action="" type="get">
+					<div>
+						<button type="submit" class="btn float-end" placeholder="Search design">Search</button>
+						
+						<input type="search" class="float-end">
+					</div>
+				
+				</form>
 			</div>
 		</div>
 

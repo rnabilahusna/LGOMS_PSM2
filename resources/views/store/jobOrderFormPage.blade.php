@@ -204,7 +204,7 @@
                             <th class="column colone">NO</th>
                             <th class="column coltwo">DATE IN</th>
                             <th class="column colthree">QTY IN</th>
-                            <th class="column colfour">PROCESSESS CARRIED OUT</th>
+                            <th class="column colfour">PROCESSESS CARRIED OUT*</th>
                             <th class="column colfive">DATE OUT</th>
                             <th class="column colsix">OUTPUT</th>
                             <th class="column colseven">OTY NO GOOD</th>
@@ -216,7 +216,7 @@
                             <td><input type="number" class="form-control" name="no[]" value="{{old('no')}}"></td>
                             <td><input type="date" class="form-control" name="dateIn[]" value="{{old('dateIn')}}"></td>
                             <td><input type="number" class="form-control" name="qtyIn[]" value="{{old('qtyIn')}}"></td>
-                            <td><input type="text" class="form-control" name="processesCarriedOut[]" value="{{old('processesCarriedOut')}}"></td>
+                            <td><input type="text" class="form-control" name="processesCarriedOut[]" value="{{old('processesCarriedOut')}}" required></td>
                             <td><input type="date" class="form-control" name="dateOut[]" value="{{old('dateOut')}}"></td>
                             <td><input type="text" class="form-control" name="output[]" value="{{old('output')}}"></td>
                             <td><input type="text" class="form-control" name="otyNoGood[]" value="{{old('otyNoGood')}}"></td>
@@ -254,12 +254,12 @@
                     <table class="newrow2 bottomtables2" style="width:35%">
                         <tr><td colspan="2" style="text-align:center"><b>ADVANCE MOVEMENT</b></td></tr>
                         <tr>
-                            <th>DATE</th>
-                            <th>QTY</th>
+                            <th>DATE*</th>
+                            <th>QTY*</th>
                         </tr>
                         <tr>
-                            <td><input type="date" class="form-control" name="AMDate[]" value="{{old('AMDate')}}"></td>
-                            <td><input type="text" class="form-control" name="AMQty[]" value="{{old('AMQty')}}"></td>
+                            <td><input type="date" class="form-control" name="AMDate[]" value="{{old('AMDate')}}" required></td>
+                            <td><input type="text" class="form-control" name="AMQty[]" value="{{old('AMQty')}}" required></td>
                             <td class="" ><a href="#" class="addnewrow2">Add row</a></td>
                         </tr>
                     </table>

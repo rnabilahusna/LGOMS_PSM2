@@ -1,0 +1,22 @@
+.cardbody{
+    display: flex;
+    justify-content: space-around;
+    margin:auto;
+}
+
+.partDesignImage{
+    box-shadow: 0 3px 10px rgb(0 0 0 / 0.5);
+    display: block;
+}
+
+.leftonly{margin-left: 20%;}
+.rightonly{margin-right: 20%;}
+
+.details{
+    margin-top: 10px;
+}
+
+.partNo{
+    font-size: 2em;
+    font-weight: 500;
+}

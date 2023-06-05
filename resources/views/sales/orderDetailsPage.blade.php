@@ -68,13 +68,19 @@
 		<div class="cardbody">
 
 			<div class="leftinfo">
+				
+				
 				<div><img class="partDesignImage" src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="175" /></div>
 				
-               
+               	@if(is_null($order->paymentProof))
+				<br><br>
+				<div>Payment proof is still in <b>PENDING</b><br></div>
+				@else
 					<div class="paymentProof">
 						<label>Payment proof: </label>
 							<img src="{{ asset('images/' . $order->paymentProof) }}" width="155" style="padding-top:25px" />
 					</div> 
+				@endif
 
 					<div class="paymentStatus">
 						<label>Payment Status: </label>
