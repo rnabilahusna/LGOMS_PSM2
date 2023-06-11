@@ -7,7 +7,8 @@
     <link rel="stylesheet" href="css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 <body>
 
@@ -18,27 +19,26 @@
         <div class="links">
 			<div class="home"><a href="{{ route('sales.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="register_user"><a href="{{ route('register.index') }}" style="color:black; text-decoration:none">Register User</a></div>
-            <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</div>
+            <div class="order_list"><a href="{{ route('sales.ordersListPage') }}" style="color:black; text-decoration:none">Order List</a></div>
             <div class="design_list">Design List</div>
         </div>
 
-
-        @auth
+		@auth
        
-        <div class="dropdown">
-            <div class="profile-group">
-                <div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
-                <div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
-            </div>
+		<div class="dropdown">
+			<div class="profile-group">
+				<div class="profile-pic"><img  src="images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
+				<div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
+			</div>
 
-            <div class="dropdown-content">
-                <a href="logout">Sign Out</a>
-            </div>
+			<div class="dropdown-content">
+				<a href="logout">Sign Out</a>
+			</div>
 
 
-        </div>
+		</div>
 
-        @endauth
+		@endauth
         
     </div>
 </div>
@@ -58,9 +58,16 @@
 				
 				<form class="form-inline my-2 my-lg-0" action="" type="get">
 					<div>
-						<button type="submit" class="btn float-end" placeholder="Search design">Search</button>
+						<div class="row g-3 align-items-center">
+							
+							<div class="col-auto">
+								<form action="{{route('sales.designsListPage')}}" method="GET">
+									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search by Part Number">
+								</form>
+							</div>
+							
+						</div>
 						
-						<input type="search" class="float-end">
 					</div>
 				
 				</form>
@@ -85,7 +92,7 @@
 
 					<tr>
 						
-						<td>{{ $row->partNo }}</td>
+						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
 						<td>{{ $row->getClient->buyerName }}</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="75" /></td>
 						<td>{{ $row->created_at }}</td>
@@ -119,4 +126,9 @@
 	</div>
     
 </body>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+<script>
+	toastr.success('Have fun','Miracle')
+</script>
 </html>

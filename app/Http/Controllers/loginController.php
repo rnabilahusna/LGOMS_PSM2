@@ -43,10 +43,7 @@ class loginController extends Controller {
             else {
                 return redirect()->intended('client.mainWindow');
             }
-            
-            
         }
-
         return back()->with('loginError','Login failed!');
     }
 

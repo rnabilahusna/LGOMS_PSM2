@@ -182,7 +182,7 @@
                 <th class="column colthree" style="width:10%">Part No*</th>
                 <th class="column colfour">Part Description*</th>
                 <th class="column colfive">Sales Unit Price Basis (UOM)</th>
-                <th class="column colsix">Quantity Per Package (UOM)</th>
+                <th class="column colsix">Quantity Per Package (UOM)*</th>
                 <th class="column colseven">Unit Price</th>
                 <th class="column coleight">Quantity</th>
                 <th class="column colnine">UOM</th>
@@ -197,7 +197,7 @@
                 <td><input  name="partNo" placeholder="Part No" class="form-control"  type="text" value="{{ $design->partNo }}" readonly></td>
                 <td><input  name="partDescription" placeholder="Part Description" class="form-control"  type="text" value="{{ $design->partDescription }}" readonly></td>
                 <td><input  name="salesUnitPriceBasisUOM" placeholder="Sales Unit Price Basis (UOM)" class="form-control"  type="number" value="{{ old('salesUnitPriceBasisUOM') }}"></td>
-                <td><input  name="quantityPerPackageUOM" placeholder="Quantity Per Package (UOM)" class="form-control"  type="number" value="{{ old('quantityPerPackageUOM') }}"></td>
+                <td><input  name="quantityPerPackageUOM" placeholder="Quantity Per Package (UOM)" class="form-control"  type="number" value="{{ old('quantityPerPackageUOM') }}" required></td>
                 <td><input  name="unitPrice" placeholder="Unit Price (RM)" class="form-control"  type="number" step="0.01" value="{{ $design->unitPrice }}" readonly></td>
                 <td><input  name="quantity" placeholder="Quantity" class="form-control"  type="number" value="{{ old('quantity') }}"></td>
                 <td><input  name="UOM" placeholder="UOM" class="form-control"  type="text" value="{{ old('UOM') }}"></td>
@@ -212,6 +212,8 @@
         <div class="text-center">
             <input type="hidden" name="paymentStatus" value="PENDING" />          
             <input type="hidden" name="designID" value="{{ $design->designID }}" />
+            <input type="hidden" name="goodsStock" value="{{ $design->goodsStock }}" />
+
             <br>
             <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Submit Order" />
 		<br><br>

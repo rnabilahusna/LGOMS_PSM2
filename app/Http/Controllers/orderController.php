@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 
 class orderController extends Controller
@@ -116,6 +117,8 @@ class orderController extends Controller
     
     }
 
+    
+
     /**
      * Display the specified resource.
      */
@@ -167,9 +170,15 @@ class orderController extends Controller
     }
 
 
-    public function getSalesOrdersListPage()
+    public function getSalesOrdersListPage(Request $request)
     {
-        $data = order::latest()->paginate(5);
+        if($request->has('search')){
+            $data = order::latest()->where('PONo','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = order::latest()->paginate(5);
+        }
+        
         return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
@@ -205,9 +214,8 @@ class orderController extends Controller
 
     public function getClientOrdersListPage()
     {
-        // $data = order::latest()->paginate(5);
-        // return view('client.myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
-        $data = order::where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
+        $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
+        // $data = order::where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
 
         return view('client.myOrdersListPage', compact('data'));
     }

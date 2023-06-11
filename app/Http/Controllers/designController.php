@@ -57,11 +57,19 @@ class designController extends Controller
     }
 
 
-    public function getSalesDesignsListPage()
+    public function getSalesDesignsListPage(Request $request)
     {
-        $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        if($request->has('search')){
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('partNo','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        }
+
         return view('sales.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
+
+
 
 
 
@@ -113,55 +121,6 @@ class designController extends Controller
         return view('prod.RFQDetailsPage', compact('design'));
     }
 
-
-
-    // public function store(Request $request)
-    // {
-    //     $request->validate([
-    //         'designConfirmationStatus' =>  'required',
-    //         'goodsStock'               =>  'nullable',   
-    //         'noOfCavities'             =>  'nullable',
-    //         'noOfEnvelope'             =>  'nullable',
-    //         'noOfSheets'               =>  'nullable',
-    //         'otherMaterials'           =>  'nullable',
-    //         'partDescription'          =>  'nullable',
-    //         'partDesign'               =>  'required|image|mimes:jpg,png,jpeg,gif,svg|max:2048|dimensions:min_width=100,min_height=100,max_width=3000,max_height=3000',
-    //         'partNo'                   =>  'required',
-    //         'PEFilmApplied'            =>  'nullable',
-    //         'POQty'                    =>  'nullable',
-    //         'rawMaterialMain'          =>  'nullable',
-    //         'size'                     =>  'nullable',
-    //         'thickness'                =>  'nullable',
-    //         'unitPrice'                =>  'required',
-    //         'buyerCode'                =>  'required',
-    //     ]);
-
-    //     $file_name = time() . '.' . request()->partDesign->getClientOriginalExtension();
-    //     request()->partDesign->move(public_path('images'), $file_name);
-
-    //     $design = new design;
-       
-    //     $design->designConfirmationStatus = $request->designConfirmationStatus;
-    //     $design->goodsStock = $request->goodsStock;
-    //     $design->noOfCavities = $request->noOfCavities;
-    //     $design->noOfEnvelope = $request->noOfEnvelope;
-    //     $design->noOfSheets = $request->noOfSheets;
-    //     $design->otherMaterials = $request->otherMaterials;
-    //     $design->partDescription = $request->partDescription;
-    //     $design->partDesign = $file_name;
-    //     $design->partNo = $request->partNo;
-    //     $design->PEFilmApplied = $request->PEFilmApplied;
-    //     $design->POQty = $request->POQty;
-    //     $design->rawMaterialMain = $request->rawMaterialMain;
-    //     $design->size = $request->size;
-    //     $design->thickness = $request->thickness;
-    //     $design->unitPrice = $request->unitPrice;
-    //     $design->buyerCode = $request->buyerCode;
-
-    //     $design->save();
-
-    //     return redirect()->route('prod.designsListPage')->with('success', 'New design added successfully.');
-    // }
 
     public function updateDesignInfo(Request $request, design $design)
     {
@@ -256,20 +215,20 @@ class designController extends Controller
         return view('client.myDesignDetailsPage', compact('design'));
     }
 
-    public function updateMyDesignInfo(Request $request, design $design)
-    {
-        $request->validate([
-            'designConfirmationStatus'          =>  'nullable'
-        ]);
+    // public function updateMyDesignInfo(Request $request, design $design)
+    // {
+    //     $request->validate([
+    //         'designConfirmationStatus'          =>  'nullable'
+    //     ]);
 
-        $design = design::find($request->hidden_id);
+    //     $design = design::find($request->hidden_id);
 
-        $design->designConfirmationStatus = $request->designConfirmationStatus;  
+    //     $design->designConfirmationStatus = $request->designConfirmationStatus;  
 
-        $design->save();
+    //     $design->save();
 
-        return redirect()->route('client.myDesignsListPage')->with('success', 'Thank you for the design confirmation!');
-    }
+    //     return redirect()->route('client.myDesignsListPage')->with('success', 'Thank you for the design confirmation!');
+    // }
 
     public function getClientDesignsListPage()
     {
