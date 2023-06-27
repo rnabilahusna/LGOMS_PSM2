@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="/css/navbarstyle.css" >
     <link rel="stylesheet" href="/css/updatePDR.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	<title>Dashboard</title>
 </head>
@@ -60,7 +61,9 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>PRODUCT DELIVERY REPORT</b></div>
 				
-				<a href="{{route('order.showForProdP',$pdr->getOrder->id)}}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">Back</a>
+				<a href="{{route('order.showForProdP',$pdr->getOrder->id)}}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:90px">
+                <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
+                </a>
 			</div>
 			</div>
 		</div>

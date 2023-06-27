@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/qcdesigndetailspagestyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Design Details</title>
 </head>
 <body>
@@ -57,7 +58,9 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Design ID: {{ $design->designID }}</b></div>
 				
-				<a href="{{ route('sales.designsListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View All</a>
+				<a href="{{ route('sales.designsListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:90px">
+                <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
+                </a>
 			</div>
 			</div>
 		</div>

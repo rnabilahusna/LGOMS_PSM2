@@ -57,9 +57,21 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Designs List</b></div>
-                <div class="col col-md-6">
-					
-				</div>
+                <form class="form-inline my-2 my-lg-0" action="" type="get">
+					<div>
+						<div class="row g-3 align-items-center">
+							
+							<div class="col-auto">
+								<form action="{{route('prod.designsListPage')}}" method="GET">
+									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
+								</form>
+							</div>
+							
+						</div>
+						
+					</div>
+				
+				</form>
 				
 			</div>
 		</div>
@@ -70,7 +82,7 @@
 		<table class="table table-bordered" style="width:100%">
 			<tr>
 				<th width="15%">Part No. & Name</th>
-				<th width="15%">Client Name</th>
+				<th width="15%">Client Code (Name)</th>
 				<th width="25%">Part Design</th>
 				<th width="15%">Creation Date</th>
 				<th width="18%"></th>
@@ -83,7 +95,7 @@
 					<tr>
 						
 						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
-						<td>{{ $row->getClient->buyerName }}</td>
+						<td>{{ $row->getClient->buyerCode }}&nbsp({{ $row->getClient->buyerCorrespondentOrName }})</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="100" /></td>
 						<td>{{ $row->created_at }}</td>
 						<td>

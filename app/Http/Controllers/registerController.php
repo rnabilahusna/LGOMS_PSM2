@@ -9,6 +9,8 @@ use App\Models\User; //user model class, for database operation
 use Illuminate\Support\Facades\Auth; 
 use App\Models\staff;
 use App\Models\client;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\WelcomeMail;
 
 class registerController extends Controller {
     
@@ -55,6 +57,19 @@ class registerController extends Controller {
         $validatedData2['password'] = Hash::make($validatedData2['password']);
 
         User::create($validatedData2);
+
+        // $email = $request->get('email');
+
+        // $data = ([
+        //     'name' => $request->get('name'),
+        //     'email' => $request->get('email'),
+        //     'contactNum' => $request->get('contactNum'),
+        // ]);
+        
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+        Mail::to($email)->send(new WelcomeMail($name,$email,$password));
         
         
         return redirect('/register')->with('success','Registation successful! Do login the account.');
@@ -107,6 +122,12 @@ class registerController extends Controller {
 
         $validatedData4['password'] = Hash::make($validatedData4['password']);
         User::create($validatedData4);
+
+        $name = $request->name;
+        $email = $request->email;
+        $password = $request->password;
+        Mail::to($email)->send(new WelcomeMail($name,$email,$password));
+        
         
         
         return redirect('/register')->with('success','Registation successful! Do login the account.');

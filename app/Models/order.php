@@ -4,12 +4,13 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Notifications\Notifiable;
 
 class order extends Model
 {
     public $table = 'order';
     // protected $primaryKey = "PONo";
-    use HasFactory;
+    use HasFactory, Notifiable;
 
     protected $fillable = [
         'PONo',
@@ -44,6 +45,7 @@ class order extends Model
         'designID',
     ];
 
+    
     public function getClient() {
         return $this->belongsTo(client::class, 'buyerCode','buyerCode');
     }

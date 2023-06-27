@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>My Orders Details Page</title>
 </head>
 <body>
@@ -55,7 +56,14 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>My Order</b></div>
-				<a href="{{ route('client.myOrdersListPage') }}" style="width:250px"  class="btn btn-primary btn-sm float-end" id="requestbutton">View All Orders</a>
+					<a href="{{ route('client.myOrdersListPage') }}" style="width:90px"  class="btn btn-primary btn-sm float-end" id="requestbutton">
+						<i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
+					</a>
+					<a href="{{ route('order.viewInvoice',$order->id)}}" target="_blank" style="width:250px"  class="btn btn-primary btn-sm float-end" id="requestbutton">View Invoice</a>
+					<a href="{{ route('order.downloadInvoice',$order->id)}}" style="width:250px"  class="btn btn-primary btn-sm float-end" id="requestbutton">
+						<i class="fa fa-download" style="font-size:20px;color:white"></i>&nbsp Download Invoice
+					</a>
+					
 			</div>
 			</div>
 		</div>
@@ -92,7 +100,10 @@
 				@endif
 
 				@if($order->paymentStatus == 'SUBMITTED' || $order->paymentStatus == 'PAYMENT REJECTED')
+				
 				<img src="{{ asset('images/' . $order->paymentProof) }}" width="155" style="padding-top:25px" />
+				<a href="{{ route('client.viewPaymentProof', $order->id) }}" target="_blank">View payment proof</a>
+				
 				@endif
 			</div>
 
@@ -101,19 +112,13 @@
 					<label><b>PART NO.:&nbsp</label>
 						{{ $order->partNo }}</b>
 				</div>
-            	<!-- <div class="paymentProof">
-					<label><b>Payment proof:</b></label>
-					<img src="{{ asset('images/' . $order->paymentProof) }}" width="275" />
-				</div> -->
+            	
 				
 				<div class="partName">
 					<label>PART NAME:&nbsp</label>
 						{{ $order->getDesign->partDescription }}
 				</div>
-				<!-- <div class="row mb-3">
-					<label class="col-sm-2 col-label-form"><b>P/O No:</b></label>
-						{{ $order->PONo }}
-				</div> -->
+
 				<div class="ordeStatus">
 					<label>Order Status:&nbsp</label>
 						{{ $order->orderStatus }}

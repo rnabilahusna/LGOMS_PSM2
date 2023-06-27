@@ -9,6 +9,7 @@
     <!-- <link rel="stylesheet" href="/css/designdetailspagestyle.css" > -->
     <link rel="stylesheet" href="/css/mydesignsliststyle.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
 </head>
 <body>
@@ -56,7 +57,9 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Purchase Order </b></div>
-				    <a href="{{ route('client.getClientOrdersHistoryListPage') }}" style="width:150px" class="btn btn-success btn-sm float-end" id="requestbutton">Back</a>
+				    <a href="{{ route('client.getClientOrdersHistoryListPage') }}" style="width:90px" class="btn btn-success btn-sm float-end" id="requestbutton">
+                        <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
+                    </a>
 			    </div>
 			</div>
 		</div>
@@ -182,9 +185,9 @@
                 <th class="column colthree" style="width:10%">Part No</th>
                 <th class="column colfour">Part Description</th>
                 <th class="column colfive">Sales Unit Price Basis (UOM)</th>
-                <th class="column colsix">Quantity Per Package (UOM)</th>
+                <th class="column colsix">Quantity Per Package (UOM)*</th>
                 <th class="column colseven">Unit Price</th>
-                <th class="column coleight">Quantity</th>
+                <th class="column coleight">Quantity*</th>
                 <th class="column colnine">UOM</th>
                 <th class="column colten">Reference Data / ETD</th>
                 <th class="column coleleven">Delivery Date / ETA*</th>
@@ -199,7 +202,7 @@
                 <td><input  name="salesUnitPriceBasisUOM" placeholder="Sales Unit Price Basis (UOM)" class="form-control"  type="number" value="{{ $order->salesUnitPriceBasisUOM }}"></td>
                 <td><input  name="quantityPerPackageUOM" placeholder="Quantity Per Package (UOM)" class="form-control"  type="number" value="{{ $order->quantityPerPackageUOM }}"></td>
                 <td><input  name="unitPrice" placeholder="Unit Price (RM)" class="form-control"  type="number" step="0.01" value="{{ $order->unitPrice }}" readonly></td>
-                <td><input  name="quantity" placeholder="Quantity" class="form-control"  type="number" value="{{ $order->quantity }}"></td>
+                <td><input  name="quantity" placeholder="Quantity" class="form-control"  type="number" value="{{ $order->quantity }}" Required></td>
                 <td><input  name="UOM" placeholder="UOM" class="form-control"  type="text" value="{{ $order->UOM }}"></td>
                 <td><input  name="referenceDateETD" placeholder="Reference Data / ETD" class="form-control"  type="date" value="{{ $order->referenceDateETD }}"></td>
                 <td><input  name="deliveryDateETA" placeholder="Delivery Date / ETA" class="form-control"  type="date" value="{{ $order->deliveryDateETA }}" required></td>
@@ -212,6 +215,7 @@
         <div class="text-center">
             <input type="hidden" name="paymentStatus" value="PENDING" />          
             <input type="hidden" name="designID" value="{{ $order->getDesign->designID }}" />
+            <input type="hidden" name="goodsStock" value="{{ $order->getDesign->goodsStock }}" />
             <br>
             <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Submit Order" />
 		</div>

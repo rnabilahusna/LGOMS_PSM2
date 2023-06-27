@@ -3,11 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Models\order;
+use App\Models\User;
+use App\Models\design;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Carbon;
+use Barryvdh\DomPDF\Facade\Pdf;
+
+use App\Events\OrderSubmitted;
+use App\Listeners\SendNewOrderNotification;
+use App\Notifications\NewOrderNotification;
+
+use App\Events\PaymentSubmitted;
+use App\Notifications\NewPaymentNotification;
+use App\Listeners\SendNewPaymentNotification;
+
+use App\Events\PaymentUpdated;
+use App\Notifications\NewPaymentUpdateNotification;
+use App\Listeners\SendNewPaymentUpdateNotification;
+
+use Illuminate\Support\Facades\Notification;
+
 
 
 class orderController extends Controller
@@ -17,17 +36,25 @@ class orderController extends Controller
      */
     public function index()
     {
-        $data = order::latest()->paginate(5);
-        return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
         // $data = order::latest()->paginate(5);
-        // return view('prod.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
-        // $data = order::latest()->paginate(5);
-        // return view('store.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
-        // $data = order::latest()->paginate(5);
-        // return view('qc.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
-         // $data = order::latest()->paginate(5);
-        // return view('client.myOrdersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        // return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+        $notifications = auth()->user()->unreadNotifications;
+        return view('sales.mainWindow', compact('notifications'));
     }
+
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+        ->unreadNotifications
+        ->when($request->input('id'), function($query) use ($request){
+            return $query->where('id', $request->input('id'));
+        })
+        ->markAsRead();
+
+        return response()->noContent();
+    }
+
+   
 
     /**
      * Show the form for creating a new resource.
@@ -110,12 +137,30 @@ class orderController extends Controller
         $order->buyerCode = $request->buyerCode;
         $order->designID = $request->designID;
 
-        // dd('hellow');
+
         $order->save();
+
+        $salesUsers = User::where('role', 'Sales')->get();
+        Notification::send($salesUsers, new NewOrderNotification($order));
+        $storeUsers = User::where('role', 'Store')->get();
+        Notification::send($storeUsers, new NewOrderNotification($order));
+        $qcUsers = User::where('role', 'QC')->get();
+        Notification::send($qcUsers, new NewOrderNotification($order));
+        $prodUsers = User::where('role', 'Production')->get();
+        Notification::send($prodUsers, new NewOrderNotification($order));
+
+        
+        $design = design::find($request->designID);
+
+        $design->goodsStock = $request->goodsStock - $request->quantity;  
+
+        $design->save();
 
         return redirect()->route('client.myDesignsListPage')->with('success', 'Order submitted successfully.');
     
     }
+
+    
 
     
 
@@ -172,14 +217,22 @@ class orderController extends Controller
 
     public function getSalesOrdersListPage(Request $request)
     {
-        if($request->has('search')){
-            $data = order::latest()->where('PONo','LIKE','%' .$request->search. '%')->paginate(5);
+
+        $query = order::query()->where('orderStatus', '!=', 'DELIVERED');
+
+        if ($request->has('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('PONo', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('buyerCode', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('partNo', 'LIKE', '%' . $request->search . '%')
+                ->orWhere('partDescription', 'LIKE', '%' . $request->search . '%');
+            });
         }
-        else{
-            $data = order::latest()->paginate(5);
-        }
-        
-        return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+
+        $data = $query->orderBy('deliveryDateETA', 'ASC')->paginate(10);
+
+        return view('sales.ordersListPage', compact('data'))->with('i', (request()->input('page', 1) - 1) * 10);
+       
     }
 
     public function updateOrderStatusInfo(Request $request, order $order)
@@ -196,6 +249,10 @@ class orderController extends Controller
 
         $order->save();
 
+        //notify the client that their order payment proof status has been confirmed (accepted / rejected)
+        $clientUsers = User::where('buyerCode', $request->buyerCode)->get();
+        Notification::send($clientUsers, new NewPaymentUpdateNotification($order));
+
         return redirect()->route('sales.ordersListPage')->with('success', 'Order status info has been updated successfully');
     }
 
@@ -204,6 +261,11 @@ class orderController extends Controller
         return view('sales.PDRFormPage', compact('order'));
     }
 
+    public function viewPaymentProofForSales(order $order){
+        return view('sales.viewPaymentProof', compact('order'));
+    }
+    
+
 
     //CLIENT FUNCTIONS
     public function showForClient(order $order)
@@ -211,10 +273,22 @@ class orderController extends Controller
         return view('client.myOrderDetailsPage', compact('order'));
     }
 
-
-    public function getClientOrdersListPage()
+    public function viewPaymentProof(order $order)
     {
-        $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
+        return view('client.viewPaymentProof', compact('order'));
+    }
+
+
+    public function getClientOrdersListPage(Request $request)
+    {
+        if($request->has('search')){
+            $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('PONo','LIKE','%' .$request->search. '%')->orWhere('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->get();
+        }
+        else{
+            $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
+        }
+
+        // $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
         // $data = order::where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
 
         return view('client.myOrdersListPage', compact('data'));
@@ -251,6 +325,11 @@ class orderController extends Controller
         }
 
         $order->save();
+
+        //notify the sales about the payment proof uploaded
+        $salesUsers = User::where('role', 'Sales')->get();
+        Notification::send($salesUsers, new NewPaymentNotification($order));
+
         return redirect()->route('client.myOrdersListPage')->with('success', 'Order payment proof info has been sent successfully');
 
     }
@@ -258,6 +337,22 @@ class orderController extends Controller
     public function getReorderPage(order $order)
     {
         return view('client.reorderPage', compact('order'));
+    }
+
+    public function viewInvoice(int $id)
+    {
+        $order = order::findOrFail($id);
+        return view('client.invoice', compact('order'));
+    }
+
+    public function downloadInvoice(int $id)
+    {
+        $order = order::findOrFail($id);
+        $data = ['order' => $order];
+        $pdf = Pdf::loadView('client.invoice', $data);
+
+        $todayDate = Carbon::now()->format('d-m-Y');
+        return $pdf->download('LG-invoice'.$order->id.'-'.$todayDate.'.pdf');
     }
     
 
@@ -271,9 +366,15 @@ class orderController extends Controller
     }
 
 
-    public function getProdOrdersListPage()
+    public function getProdOrdersListPage(Request $request)
     {
-        $data = order::latest()->paginate(5);
+        if($request->has('search')){
+            $data = order::latest()->where('PONo','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->orWhere('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = order::latest()->paginate(5);
+        }
+
         return view('prod.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
@@ -290,9 +391,15 @@ class orderController extends Controller
     }
 
 
-    public function getStoreOrdersListPage()
+    public function getStoreOrdersListPage(Request $request)
     {
-        $data = order::latest()->paginate(5);
+        if($request->has('search')){
+            $data = order::latest()->where('PONo','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->orWhere('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = order::latest()->paginate(5);
+        }
+
         return view('store.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
@@ -315,9 +422,15 @@ class orderController extends Controller
     }
 
 
-    public function getQCOrdersListPage()
+    public function getQCOrdersListPage(Request $request)
     {
-        $data = order::latest()->paginate(5);
+        if($request->has('search')){
+            $data = order::latest()->where('PONo','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->orWhere('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = order::latest()->paginate(5);
+        }
+        
         return view('qc.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 

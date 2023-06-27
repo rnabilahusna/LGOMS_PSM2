@@ -54,7 +54,21 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Designs List</b></div>
+				<form class="form-inline my-2 my-lg-0" action="" type="get">
+					<div>
+						<div class="row g-3 align-items-center">
+							
+							<div class="col-auto">
+								<form action="{{route('sales.designsListPage')}}" method="GET">
+									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
+								</form>
+							</div>
+							
+						</div>
+						
+					</div>
 				
+				</form>
 			</div>
 		</div>
 
@@ -64,7 +78,7 @@
 		<table class="table table-bordered" style="width:100%">
 			<tr>
 				<th width="15%">Part No. & Name</th>
-				<th width="20%">Client Name</th>
+				<th width="20%">Client Code (Name)</th>
 				<th width="30%">Part Design</th>
 				<th width="15%">Creation Date</th>
 				<th width="12%"></th>
@@ -76,8 +90,8 @@
 
 					<tr>
 						
-						<td>{{ $row->partNo }}</td>
-						<td>{{ $row->getClient->buyerName }}</td>
+						<td>{{ $row->partNo }}/{{$row->partDescription}}</td>
+						<td>{{ $row->getClient->buyerCode }}&nbsp({{ $row->getClient->buyerCorrespondentOrName }})</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="100" /></td>
 						<td>{{ $row->created_at }}</td>
 						<td>
@@ -85,7 +99,7 @@
                         <form method="post" action="{{ route('design.destroy', $row->designID) }}">
 								@csrf
 								@method('DELETE')
-								<a style="text-decoration:none" href="{{ route('design.showForQCP', $row->designID) }}" class="btn btn-primary btn-sm">View</a>
+								<a style="text-decoration:none" href="{{ route('design.showForQCP', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>
 								
 							</form>
 

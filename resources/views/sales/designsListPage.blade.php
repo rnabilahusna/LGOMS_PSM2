@@ -8,7 +8,9 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" integrity="sha512-3pIirOrwegjM6erE5gPSwkUzO+3cTjpnV9lexlNZqvupR64iZBnOOTiiLPb9M36zpMScbmUNIcHUqKD47M719g==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+
 </head>
 <body>
 
@@ -62,7 +64,7 @@
 							
 							<div class="col-auto">
 								<form action="{{route('sales.designsListPage')}}" method="GET">
-									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search by Part Number">
+									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
 								</form>
 							</div>
 							
@@ -80,7 +82,7 @@
 		<table class="table table-bordered" style="width:100%">
 			<tr>
 				<th width="15%">Part No. & Name</th>
-				<th width="20%">Client Name</th>
+				<th width="20%">Client Code (Name)</th>
 				<th width="30%">Part Design</th>
 				<th width="15%">Creation Date</th>
 				<th width="12%"></th>
@@ -93,7 +95,7 @@
 					<tr>
 						
 						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
-						<td>{{ $row->getClient->buyerName }}</td>
+						<td>{{ $row->getClient->buyerCode }}&nbsp({{ $row->getClient->buyerCorrespondentOrName }})</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="75" /></td>
 						<td>{{ $row->created_at }}</td>
 						<td>
@@ -101,7 +103,7 @@
                         <form method="post" action="{{ route('design.destroy', $row->designID) }}">
 								@csrf
 								@method('DELETE')
-								<a style="text-decoration:none" href="{{ route('design.showForSalesP', $row->designID) }}" class="btn btn-primary btn-sm">View</a>
+								<a style="text-decoration:none" href="{{ route('design.showForSalesP', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>
 								<!-- <input type="submit" class="btn btn-danger btn-sm" value="Delete" /> -->
 							</form>
 
@@ -126,9 +128,5 @@
 	</div>
     
 </body>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-<script>
-	toastr.success('Have fun','Miracle')
-</script>
 </html>

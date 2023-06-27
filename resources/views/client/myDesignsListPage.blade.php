@@ -55,6 +55,21 @@
 				<div class="col col-md-6" id="thetitle"><b>My Designs List</b></div>
 				<div class="col col-md-6">
 					<a href="{{route('design.getRFQFormPage')}}" class="btn btn-success btn-sm float-end" id="requestbutton" >Request New Design</a>
+					<form class="form-inline my-2 my-lg-0" action="" type="get">
+					<div>
+						<div class="row g-3 align-items-center">
+							
+							<div class="col-auto">
+								<form action="{{route('client.myDesignsListPage')}}" method="GET">
+									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
+								</form>
+							</div>
+							
+						</div>
+						
+					</div>
+				
+				</form>
 				</div>
 			</div>
 		</div>

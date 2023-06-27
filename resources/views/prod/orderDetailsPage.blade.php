@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/stafforderdetailspagestyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Order Details</title>
 </head>
 <body>
@@ -59,7 +60,9 @@
     <div class="row">
         <div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
      
-        <a href="{{ route('prod.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width: 15%">View All Orders</a>&nbsp&nbsp
+        <a href="{{ route('prod.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width: 90px">
+        <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
+        </a>&nbsp&nbsp
         <a href="{{ route('pdr.getPDRFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View PDR</a>&nbsp
         <a href="{{ route('joborder.getJobOrderFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View JO</a>
     </div>

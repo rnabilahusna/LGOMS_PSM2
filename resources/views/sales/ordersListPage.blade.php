@@ -8,7 +8,10 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Order List</title>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	
 </head>
 <body>
 <div class="menu-container">
@@ -21,6 +24,7 @@
             <div class="order_list">Order List</div>
             <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>
+		
 
 		@auth
        
@@ -54,14 +58,21 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Orders List</b></div>
-				<form class="form-inline my-2 my-lg-0" action="" type="get">
+				<form class="form-inline my-2 my-lg-0" action="{{route('sales.ordersListPage')}}" type="get">
 					<div>
 						<div class="row g-3 align-items-center">
 							
-							<div class="col-auto">
-								<form action="{{route('sales.ordersListPage')}}" method="GET">
-									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search by PO No">
-								</form>
+							<div class="col-auto" style="display:flex">
+									<div class="row" style="padding-right:7%">
+										<label for="">Search</label>
+										<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
+									</div>
+									
+									<div>
+										<label for=""> </label>
+										<button type="submit" class="btn btn-primary">Filter</button>
+									</div>
+								<!-- </form> -->
 							</div>
 							
 						</div>
@@ -73,15 +84,21 @@
 		</div>
 
 		<div class="cardbody">
-		<table class="table table-bordered" style="width:100%">
+		<table class="table table-bordered table-sortable" style="width:100%">
+		<thead>	
 			<tr>
 				<th width="5%">PO No</th>
-				<th width="10%">Client</th>
+				<th width="5%">Client</th>
 				<th width="10%">Part No. & Name</th>
+				<th width="10%">Order Status</th>
                 <th width="10%">Payment Status</th>
-                <th width="10%">Delivery Date</th>
-                <th width="5%"></th>
+                <th width="10%">
+                <!-- Add an ID to the delivery date column header for event listener -->
+                <span id="delivery-date-header">Delivery Date</span>
+            	</th>
+                <th width="10%"></th>
 			</tr>
+		</thead>
 			
 			@if(count($data) > 0)
 
@@ -89,8 +106,9 @@
 
 					<tr>
 						<td>{{ $row->PONo }}</td>
-						<td>{{ $row->getClient->buyerName }}</td>
+						<td>{{ $row->getClient->buyerCode }}</td>
                         <td>{{ $row->partNo }} / {{ $row->partDescription }}</td>
+						<td>{{ $row->orderStatus }}</td>
 						
 						@if($row->paymentStatus == 'PAID')
 						<td><div style="color:white;background-color:#00CC6A;border-radius:5px">{{ $row->paymentStatus }}</div></td>

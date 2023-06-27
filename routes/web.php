@@ -28,11 +28,16 @@ Route::get('/', function () {
 });
 
 
+
+
+
 Route::get('/register', [registerController::class, 'index'])->name('register.index');
 Route::post('/register', [registerController::class, 'store']);
 Route::get('/register.signUpPageClient', [registerController::class, 'signUpPageClient'])->name('register.signUpPageClient');
 Route::post('/register.signUpPageClient', [registerController::class, 'storeClient']);
 Route::get('logout', [loginController::class, 'logout'])->name('logout');
+Route::get('/notify', [loginController::class, 'notify'])->name('notify');
+Route::post('/mark-as-read', [loginController::class, 'markNotification_'])->name('markNotification_');
 
 
 
@@ -61,7 +66,6 @@ Route::controller(designController::class)->group(function(){
     Route::get('sales.designsListPage','getSalesDesignsListPage')->name('sales.designsListPage');
 
     //production
-    // Route::get('prod.uploadDesignPage','uploadDesign')->name('design.uploadDesign');
     Route::get('prod.designsListPage','getProdDesignsListPage')->name('prod.designsListPage');
     Route::put('prod.designDetailsPage/{design}','updateDesignInfo')->name('design.updateDesignInfo');
     Route::get('prod.designDetailsPage/{design}', 'showForProdP')->name('design.showForProdP');
@@ -69,6 +73,7 @@ Route::controller(designController::class)->group(function(){
     Route::get('prod.RFQListPage','getProdRFQListPage')->name('prod.RFQListPage');
     Route::get('prod.RFQDetailsPage/{design}', 'getProdRFQDetailsPage')->name('design.getProdRFQDetailsPage');
     Route::put('prod.RFQDetailsPage/{design}','updateQuotationStatus')->name('design.updateQuotationStatus');
+    
 
 
     //store
@@ -102,6 +107,8 @@ Route::controller(orderController::class)->group(function(){
     Route::get('sales.ordersListPage','getSalesOrdersListPage')->name('sales.ordersListPage'); //list
     Route::put('sales.orderDetailsPage/{order}','updateOrderStatusInfo')->name('order.updateOrderStatusInfo'); //update
     Route::get('sales.PDRFormPage/{order}', 'getPDRFormPageForSalesP')->name('pdr.getPDRFormPageForSalesP'); //details
+    Route::get('sales.viewPaymentProof/{order}', 'viewPaymentProofForSales')->name('sales.viewPaymentProof');
+    Route::post('/mark-as-read', 'markNotification')->name('markNotification');
 
 
     //production
@@ -125,6 +132,11 @@ Route::controller(orderController::class)->group(function(){
     Route::get('client.myOrdersListPage','getClientOrdersListPage')->name('client.myOrdersListPage');
     Route::get('client.orderHistoryPage','getClientOrdersHistoryListPage')->name('client.getClientOrdersHistoryListPage');
     Route::put('client.orderDetailsPage/{order}','updatePaymentInfo')->name('order.updatePaymentInfo');
+    Route::get('client.viewPaymentProof/{order}', 'viewPaymentProof')->name('client.viewPaymentProof');
+
+    Route::get('invoice/{order}', 'viewInvoice')->name('order.viewInvoice');
+    Route::get('invoice/{order}/generate', 'downloadInvoice')->name('order.downloadInvoice');
+
     
 
     //CLIENT REORDER TRU ORDER HISTORY
@@ -133,7 +145,6 @@ Route::controller(orderController::class)->group(function(){
     //CLIENT SUBMIT ORDER TRU DESIGN
     Route::post('client.makeOrderPage','submitOrder')->name('order.submitOrder');
 
-    
 });
 
 
@@ -177,4 +188,5 @@ Route::controller(joborderController::class)->group(function(){
 });
 
 
-
+Route::get('/get-upcoming-due-orders', 'orderController@getUpcomingDueOrders')
+    ->name('orders.getUpcomingDueOrders');

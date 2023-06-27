@@ -19,7 +19,7 @@
 
         <div class="links">
         <div class="home"><a href="{{ route('prod.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
-            <div class="appointment_list">Appointment List</div>
+            <div class="appointment_list">RFQ List</div>
             <div class="order_list"><a href="{{ route('prod.ordersListPage') }}" style="color:black;text-decoration:none">Order List</a></div>
             <div class="design_list"><a href="{{ route('prod.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>

@@ -3,10 +3,18 @@
 namespace App\Http\Controllers;
 
 use App\Models\design;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Auth;
+use App\Events\QuotationSubmitted;
+use App\Listeners\SendNewQuotationNotification;
+use App\Notifications\NewQuotationNotification;
+use App\Events\QuotationUpdated;
+use App\Listeners\SendNewQuotationUpdateNotification;
+use App\Notifications\NewQuotationUpdateNotification;
+use Illuminate\Support\Facades\Notification;
 
 class designController extends Controller
 {
@@ -18,6 +26,18 @@ class designController extends Controller
         $data = design::latest()->paginate(5);
         return view('client.myDesignsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
        
+    }
+
+    public function markNotification(Request $request)
+    {
+        auth()->user()
+        ->unreadNotifications
+        ->when($request->input('id'), function($query) use ($request){
+            return $query->where('id', $request->input('id'));
+        })
+        ->markAsRead();
+
+        return response()->noContent();
     }
 
     /**
@@ -60,7 +80,7 @@ class designController extends Controller
     public function getSalesDesignsListPage(Request $request)
     {
         if($request->has('search')){
-            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('partNo','LIKE','%' .$request->search. '%')->paginate(5);
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->paginate(5);
         }
         else{
             $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
@@ -70,6 +90,7 @@ class designController extends Controller
     }
 
 
+    
 
 
 
@@ -81,9 +102,15 @@ class designController extends Controller
         return view('prod.uploadDesignPage');
     }
 
-    public function getProdDesignsListPage()
+    public function getProdDesignsListPage(Request $request)
     {
-        $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        if($request->has('search')){
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        }
+
         return view('prod.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
@@ -113,6 +140,11 @@ class designController extends Controller
         $design->designConfirmationStatus = $request->designConfirmationStatus;  
 
         $design->save();
+
+
+        //notify the client that their design quotation has been confirmed (accepted / rejected)
+        $clientUsers = User::where('buyerCode', $request->buyerCode)->get();
+        Notification::send($clientUsers, new NewQuotationUpdateNotification($design));
 
         return redirect()->route('prod.RFQListPage')->with('success', 'Thank you for the design quotation confirmation!');
     }
@@ -187,9 +219,15 @@ class designController extends Controller
         return redirect()->route('store.designsListPage')->with('success', 'Design goods stock has been updated successfully');
     }
 
-    public function getStoreDesignsListPage()
+    public function getStoreDesignsListPage(Request $request)
     {
-        $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        if($request->has('search')){
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        }
+
         return view('store.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
@@ -202,9 +240,15 @@ class designController extends Controller
     }
 
 
-    public function getQCDesignsListPage()
+    public function getQCDesignsListPage(Request $request)
     {
-        $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        if($request->has('search')){
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->paginate(5);
+        }
+        else{
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
+        }
+
         return view('qc.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
@@ -215,26 +259,20 @@ class designController extends Controller
         return view('client.myDesignDetailsPage', compact('design'));
     }
 
-    // public function updateMyDesignInfo(Request $request, design $design)
-    // {
-    //     $request->validate([
-    //         'designConfirmationStatus'          =>  'nullable'
-    //     ]);
+    
 
-    //     $design = design::find($request->hidden_id);
-
-    //     $design->designConfirmationStatus = $request->designConfirmationStatus;  
-
-    //     $design->save();
-
-    //     return redirect()->route('client.myDesignsListPage')->with('success', 'Thank you for the design confirmation!');
-    // }
-
-    public function getClientDesignsListPage()
+    public function getClientDesignsListPage(Request $request)
     {
-        
-        $data = design::latest()->where('buyerCode',Auth::user()->buyerCode)->get();
-        
+
+
+        if($request->has('search')){
+            $data = design::latest()->where('buyerCode',Auth::user()->buyerCode)->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->get();
+        }
+        else{
+            $data = design::latest()->where('buyerCode',Auth::user()->buyerCode)->get();
+        }
+
+
         return view('client.myDesignsListPage', compact('data'));
 
        
@@ -300,6 +338,9 @@ class designController extends Controller
        
 
         $design->save();
+
+        $prodUsers = User::where('role', 'Production')->get();
+        Notification::send($prodUsers, new NewQuotationNotification($design));
 
         return redirect()->route('client.myDesignsListPage')->with('success', 'RFQ submitted successfully.');
     }

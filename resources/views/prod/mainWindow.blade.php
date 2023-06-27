@@ -9,6 +9,7 @@
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 	<title>Dashboard</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
 </head>
 <body>
 
@@ -57,11 +58,91 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle">
-                    <b>Welcome back, {{ auth()->user()->name }} PRODUCTION</b>
+                    <b>{{ auth()->user()->name }}'s&nbsp dashboard [Production]</b>
                 </div>
 			</div>
 		</div>
+
+        <div class="card-body" style="width:80%">
+			
+				@forelse($notifications as $notification)
+					<div class="alert alert-success" role="alert" >
+					
+
+                    @if($notification->type === 'App\Notifications\NewOrderNotification')
+                        Client <b>{{ $notification->data['buyerCode'] }}</b> just placed an order 
+						<a href="{{ route('order.showForSalesP', $notification->data['id']) }}" data-id="{{ $notification->id }}">
+							<b>{{$notification->data['PONo']}}</b>
+						</a>
+						and is expecting to receive it on <b>{{ $notification->data['deliveryDateETA'] }}</b>.
+
+                    @elseif($notification->type === 'App\Notifications\NewQuotationNotification')
+                        Client <b>{{ $notification->data['buyerCode'] }}</b> requested a new 
+                        <a href="{{ route('design.getProdRFQDetailsPage', $notification->data['designID']) }}" data-id="{{ $notification->id }}">design quotation</a>.
+
+                    @elseif($notification->type === 'App\Notifications\OrderDueNotification')
+						You have an order due in <b>5</b> days for order 
+						<a href="{{ route('order.showForSalesP', $notification->data['id']) }}" data-id="{{ $notification->id }}">
+							<b>{{$notification->data['PONo']}}</b>
+						</a>
+							from client <b>{{$notification->data['buyerCode']}}</b>. 
+						Please make sure to prepare and complete the necessary arrangements by then.
+
+                    @endif
+
+
+						<a href="#" class="float-end mark-as-read" data-id="{{ $notification->id }}">
+							Mark as read
+						</a>
+					</div>
+
+					@if($loop->last)
+						<a href="#" id="mark-all">Mark all as read</a>
+					@endif
+					@empty
+						<div style="text-align:center">There are no new notifications</div>
+				@endforelse
+
+
+		</div>
+
     </div>
+
+
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script type="text/javascript">
+        var _token = "{{ csrf_token() }}"; // Add this line to define the _token variable
+        function sendMarkRequest(id = null) {
+            return $.ajax("{{ route('markNotification') }}", {
+                method: 'POST',
+                data: {
+                    _token,
+                    id
+                }
+            });
+        }
+        $(function() {
+            $('.mark-as-read').click(function() {
+                let request = sendMarkRequest($(this).data('id'));
+                request.done(() => {
+                    $(this).parents('div.alert').remove();
+                });
+            });
+            $('#mark-all').click(function() {
+                let request = sendMarkRequest();
+                request.done(() => {
+                    $('div.alert').remove();
+                })
+            });
+        });
+    </script>
+
+	</script>
+	</script>
+
+   
 
  @endauth
 

@@ -6,6 +6,7 @@
     <title>Design List</title>
     <link rel="stylesheet" href="css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="css/navbarstyle.css" >
+	<link rel="stylesheet" href="css/filterstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 </head>
@@ -54,17 +55,41 @@
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Designs List</b></div>
+				<form class="form-inline my-2 my-lg-0" action="" type="get">
+					<div>
+						<div class="row g-3 align-items-center">
+							
+							<div class="col-auto">
+								<form action="{{route('store.designsListPage')}}" method="GET">
+									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
+								</form>
+							</div>
+							
+						</div>
+						
+					</div>
 				
+				</form>
 			</div>
 		</div>
 
 	
 
 		<div class="cardbody">
-		<table class="table table-bordered" style="width:100%">
+
+
+			
+
+
+
+
+
+
+	<div class="">
+		<table class="table table-bordered " style="width:100%">
 			<tr>
 				<th width="15%">Part No. & Name</th>
-				<th width="20%">Client Name</th>
+				<th width="20%">Client Code (Name)</th>
 				<th width="30%">Part Design</th>
 				<th width="15%">Creation Date</th>
 				<th width="12%"></th>
@@ -76,8 +101,8 @@
 
 					<tr>
 						
-						<td>{{ $row->partNo }}</td>
-						<td>{{ $row->getClient->buyerName }}</td>
+						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
+						<td>{{ $row->getClient->buyerCode }}&nbsp({{ $row->getClient->buyerCorrespondentOrName }})</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="135" /></td>
 						<td>{{ $row->created_at }}</td>
 						<td>
@@ -101,6 +126,7 @@
 				@endif
 
 		</table>
+	</div>
 		{!! $data->links() !!}
 
 		</div>

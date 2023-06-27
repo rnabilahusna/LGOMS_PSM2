@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/navbarstyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Order Details</title>
 </head>
 <body>
@@ -57,9 +58,11 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
 				
-				<a href="{{ route('sales.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View All Orders</a>&nbsp
-				<a href="{{ route('pdr.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">Create PDR</a>&nbsp
-				<a href="{{ route('sales.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View PDR</a>&nbsp
+				<a href="{{ route('sales.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:90px;height:10%">
+				<i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
+				</a>
+				<a href="{{ route('pdr.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">Create PDR</a>&nbsp
+				<a href="{{ route('sales.getPDRFormPageForSalesP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View PDR</a>&nbsp
 			</div>
 			</div>
 		</div>
@@ -72,20 +75,7 @@
 				
 				<div><img class="partDesignImage" src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="175" /></div>
 				
-               	@if(is_null($order->paymentProof))
-				<br><br>
-				<div>Payment proof is still in <b>PENDING</b><br></div>
-				@else
-					<div class="paymentProof">
-						<label>Payment proof: </label>
-							<img src="{{ asset('images/' . $order->paymentProof) }}" width="155" style="padding-top:25px" />
-					</div> 
-				@endif
-
-					<div class="paymentStatus">
-						<label>Payment Status: </label>
-							{{ $order->paymentStatus }}
-					</div>
+               	
 
 					
 
@@ -128,12 +118,32 @@
                     @method('PUT')
                     <input type="hidden" name="hidden_id" value="{{ $order->id }}"/>
 					<input type="hidden" name="orderStatus" value="{{ $order->orderStatus }}" />
+					<input type="hidden" name="buyerCode" value="{{ $order->getClient->buyerCode }}" />
                     <input name="paymentStatus" type="submit" class="btn btn-success" value="PAID" />
                     <input name="paymentStatus" type="submit" class="btn btn-danger" value="PAYMENT REJECTED" />
                 </form>
 
 
 			@endif
+
+			<div class="paymentStatus">
+						<br>
+						<label>Payment Status: </label>
+							<b>{{ $order->paymentStatus }}</b>
+					</div>
+
+			@if(is_null($order->paymentProof))
+				<br><br>
+				<div>Payment proof is still in <b>PENDING</b><br></div>
+				@else
+					<div class="paymentProof">
+						<label>Payment proof: </label>
+							<img src="{{ asset('images/' . $order->paymentProof) }}" width="140px" style="padding-top:25px" />
+							<a href="{{ route('client.viewPaymentProof', $order->id) }}" target="_blank">View payment proof</a>
+					</div> 
+				@endif
+
+					
 
 			</div>
 

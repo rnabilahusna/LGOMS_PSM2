@@ -54,6 +54,21 @@
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>My Order List</b></div>
 				<a href="{{ route('client.getClientOrdersHistoryListPage') }}" style="width:20%" class="btn btn-success btn-sm float-end" id="requestbutton">Order History</a>
+				<form class="form-inline my-2 my-lg-0" action="" type="get">
+					<div>
+						<div class="row g-3 align-items-center mt-1">
+							
+							<div class="col-auto">
+								<form action="{{route('client.myOrdersListPage')}}" method="GET">
+									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
+								</form>
+							</div>
+							
+						</div>
+						
+					</div>
+				
+				</form>
 			</div>
 		</div>
 
@@ -62,7 +77,7 @@
 		<div class="cardbody">
 		<table class="table table-bordered" style="width:100%">
 			<tr>
-				<th width="5%">Order ID</th>
+				<th width="5%">PO No</th>
 				<th width="10%">Part No & Name</th>
 				<th width="10%">Status</th>
 				<th width="10%">Updated</th>
