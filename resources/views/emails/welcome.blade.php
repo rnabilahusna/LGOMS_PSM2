@@ -22,7 +22,7 @@ Email: {{ $email }}
 Password: {{ $password }}
 
 
-@component('mail::button', ['url' => 'https://www.google.com/'])
+@component('mail::button', ['url' => 'https://thelgoms.000webhostapp.com/'])
 Click here to login
 @endcomponent
 

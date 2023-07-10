@@ -266,6 +266,18 @@ class orderController extends Controller
     }
     
 
+    public function getOrdersHistoryListPageForSales()
+    {
+        $data = order::where('orderStatus','DELIVERED')->latest()->paginate(5);
+
+        return view('sales.orderHistoryPage', compact('data'));
+    }
+
+
+
+
+
+
 
     //CLIENT FUNCTIONS
     public function showForClient(order $order)
@@ -383,6 +395,17 @@ class orderController extends Controller
         return view('prod.PDRFormPage', compact('order'));
     }
 
+    public function getOrdersHistoryListPageForProd()
+    {
+        $data = order::where('orderStatus','DELIVERED')->latest()->paginate(5);
+
+        return view('prod.orderHistoryPage', compact('data'));
+    }
+
+
+
+
+
 
     //STORE PERSONNEL FUNCTIONS
     public function showForStoreP(order $order)
@@ -415,6 +438,18 @@ class orderController extends Controller
     }
 
 
+    public function getOrdersHistoryListPageForStore()
+    {
+        $data = order::where('orderStatus','DELIVERED')->latest()->paginate(5);
+
+        return view('store.orderHistoryPage', compact('data'));
+    }
+
+
+
+
+
+
     //QC PERSONNEL FUNCTIONS
     public function showForQCP(order $order)
     {
@@ -432,6 +467,13 @@ class orderController extends Controller
         }
         
         return view('qc.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
+    }
+
+    public function getOrdersHistoryListPageForQC()
+    {
+        $data = order::where('orderStatus','DELIVERED')->latest()->paginate(5);
+
+        return view('qc.orderHistoryPage', compact('data'));
     }
 
     

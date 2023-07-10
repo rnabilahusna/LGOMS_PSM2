@@ -60,7 +60,7 @@
 
         <div class="cardheader">
 			<div class="row">
-				<div class="col col-md-6" id="thetitle"><b>Order ID: {{ $design->designID }}</b></div>
+				<div class="col col-md-6" id="thetitle"><b>Design ID: {{ $design->designID }}</b></div>
 				
 				<a href="{{ route('prod.designsListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:90px">
                     <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>

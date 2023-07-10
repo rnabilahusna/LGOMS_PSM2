@@ -94,7 +94,13 @@
 						
 						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="100" /></td>
-						<td>{{ $row->goodsStock }}</td>
+						<td>
+							@if( $row->goodsStock < 1)
+								
+							@else
+								{{ $row->goodsStock }}
+							@endif
+						</td>
 						<td>
 							
 								<a style="text-decoration:none" href="{{ route('design.showForClient', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>

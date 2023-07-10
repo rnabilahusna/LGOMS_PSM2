@@ -59,6 +59,7 @@
 				<div class="col col-md-6" id="thetitle"><b>Order List</b></div>
 				<form class="form-inline my-2 my-lg-0" action="" type="get">
 					<div>
+					<a href="{{ route('order.getOrdersHistoryListPageForStore') }}" style="width:20%" class="btn btn-success btn-sm float-end" id="requestbutton">Order History</a>
 						<div class="row g-3 align-items-center">
 							
 							<div class="col-auto">

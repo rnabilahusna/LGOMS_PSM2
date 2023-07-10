@@ -99,7 +99,7 @@
                     
 
                         <div class="details rawMaterialMain">
-                            <label>UNIT PRICE:</label>
+                            <label>MATERIAL:</label>
                                 {{ $design->rawMaterialMain }}
                         </div>
 

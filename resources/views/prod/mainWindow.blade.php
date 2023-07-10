@@ -71,7 +71,7 @@
 
                     @if($notification->type === 'App\Notifications\NewOrderNotification')
                         Client <b>{{ $notification->data['buyerCode'] }}</b> just placed an order 
-						<a href="{{ route('order.showForSalesP', $notification->data['id']) }}" data-id="{{ $notification->id }}">
+						<a href="{{ route('order.showForProdP', $notification->data['id']) }}" data-id="{{ $notification->id }}">
 							<b>{{$notification->data['PONo']}}</b>
 						</a>
 						and is expecting to receive it on <b>{{ $notification->data['deliveryDateETA'] }}</b>.
@@ -82,7 +82,7 @@
 
                     @elseif($notification->type === 'App\Notifications\OrderDueNotification')
 						You have an order due in <b>5</b> days for order 
-						<a href="{{ route('order.showForSalesP', $notification->data['id']) }}" data-id="{{ $notification->id }}">
+						<a href="{{ route('order.showForProdP', $notification->data['id']) }}" data-id="{{ $notification->id }}">
 							<b>{{$notification->data['PONo']}}</b>
 						</a>
 							from client <b>{{$notification->data['buyerCode']}}</b>. 

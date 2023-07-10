@@ -109,11 +109,13 @@ Route::controller(orderController::class)->group(function(){
     Route::get('sales.PDRFormPage/{order}', 'getPDRFormPageForSalesP')->name('pdr.getPDRFormPageForSalesP'); //details
     Route::get('sales.viewPaymentProof/{order}', 'viewPaymentProofForSales')->name('sales.viewPaymentProof');
     Route::post('/mark-as-read', 'markNotification')->name('markNotification');
+    Route::get('sales.orderHistoryPage','getOrdersHistoryListPageForSales')->name('order.getOrdersHistoryListPageForSales');
 
 
     //production
     Route::get('prod.ordersListPage','getProdOrdersListPage')->name('prod.ordersListPage');
     Route::get('prod.orderDetailsPage/{order}', 'showForProdP')->name('order.showForProdP');
+    Route::get('prod.orderHistoryPage','getOrdersHistoryListPageForProd')->name('order.getOrdersHistoryListPageForProd');
 
 
     //store
@@ -121,11 +123,14 @@ Route::controller(orderController::class)->group(function(){
     Route::get('store.ordersListPage','getStoreOrdersListPage')->name('store.ordersListPage');
 
     Route::get('store.jobOrderFormPage/{order}', 'getJobOrderFormPageForStoreP')->name('joborder.getJobOrderFormPageForStoreP'); //details
+    Route::get('store.orderHistoryPage','getOrdersHistoryListPageForStore')->name('order.getOrdersHistoryListPageForStore');
    
 
     //quality control
     Route::get('qc.orderDetailsPage/{order}', 'showForQCP')->name('order.showForQCP');
     Route::get('qc.ordersListPage','getQCOrdersListPage')->name('qc.ordersListPage');
+    Route::get('qc.orderHistoryPage','getOrdersHistoryListPageForQC')->name('order.getOrdersHistoryListPageForQC');
+
 
     //client
     Route::get('client.myOrderDetailsPage/{order}', 'showForClient')->name('order.showForClient');
@@ -136,8 +141,6 @@ Route::controller(orderController::class)->group(function(){
 
     Route::get('invoice/{order}', 'viewInvoice')->name('order.viewInvoice');
     Route::get('invoice/{order}/generate', 'downloadInvoice')->name('order.downloadInvoice');
-
-    
 
     //CLIENT REORDER TRU ORDER HISTORY
     Route::get('client.reorderPage/{order}', 'getReorderPage')->name('client.reorderPage');

@@ -266,10 +266,10 @@ class designController extends Controller
 
 
         if($request->has('search')){
-            $data = design::latest()->where('buyerCode',Auth::user()->buyerCode)->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->get();
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('buyerCode',Auth::user()->buyerCode)->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->get();
         }
         else{
-            $data = design::latest()->where('buyerCode',Auth::user()->buyerCode)->get();
+            $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('buyerCode',Auth::user()->buyerCode)->get();
         }
 
 
