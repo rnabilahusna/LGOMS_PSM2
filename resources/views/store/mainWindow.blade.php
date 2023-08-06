@@ -35,15 +35,12 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
 
-       
-        
     </div>
 </div>
 
+<!-- display the message from the controller if success-->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -51,7 +48,6 @@
 	</div>
 
 	@endif
-
 
     <div class="card">
 		<div class="cardheader">
@@ -64,6 +60,7 @@
 
         <div class="card-body" style="width:80%">
 			
+		<!-- display all the notifications -->
 				@forelse($notifications as $notification)
 					<div class="alert alert-success" role="alert">
 
@@ -94,7 +91,6 @@
 					@empty
 					<div style="text-align:center">There are no new notifications</div>
 				@endforelse
-
 
 		</div>
     </div>

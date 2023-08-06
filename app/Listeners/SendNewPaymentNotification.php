@@ -28,18 +28,14 @@ class SendNewPaymentNotification
 
     public function handle($event)
     {
-        
+        //send the payment proof submission notification to the user with Sales role
         $salesRole = Role::where('role', 'Sales')->first();
 
-        
         if ($salesRole) {
             $salesUsers = $salesRole->users;
             Notification::send($salesUsers, new NewPaymentNotification($event->order));
         }
        
-
     }
 
-
-    
 }

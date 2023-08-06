@@ -12,7 +12,6 @@
 </head>
 <body>
 
-
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
@@ -35,8 +34,6 @@
 		   <div class="dropdown-content">
 			   <a href="logout">Sign Out</a>
 		   </div>
-
-
 	   </div>
 
 	   @endauth
@@ -44,6 +41,7 @@
     </div>
 </div>
 
+	<!-- display message returned from the controller if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -61,8 +59,6 @@
 			</div>
 		</div>
 
-	
-
 		<div class="cardbody">
 		<table class="table table-bordered" style="width:100%">
 			<tr>
@@ -74,25 +70,20 @@
 				<th width="10%"></th>
 			</tr>
 			
+			<!-- display the table data in row if the data exist -->
 			@if(count($data) > 0)
-
 				@foreach($data as $row)
-
 					<tr>
 						<td>{{ $row->buyerCode }}</td>
 						<td>{{ $row->getClient->buyerCorrespondentOrName }}</td>
 						<td>{{ $row->partNo }}</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="75" /></td>
                         <td>{{ $row->partDescription }}</td>
-
-						
-
 						<td>
 							<form method="post" action="">
 								@csrf
 								@method('DELETE')
 								<a href="{{ route('design.getProdRFQDetailsPage', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>
-								<!-- <input type="submit" class="btn btn-danger btn-sm" value="Delete" /> -->
 							</form>
 						</td>
 					</tr>
@@ -109,9 +100,6 @@
 		{!! $data->links() !!}
 
 		</div>
-
-
-		
 	</div>
 
 </body>

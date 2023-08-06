@@ -12,30 +12,19 @@ class NewQuotationUpdateNotification extends Notification
     use Queueable;
     public $design;
 
-    /**
-     * Create a new notification instance.
-     */
+    //Create a new notification instance.
     public function __construct($design)
     {
         $this->design = $design;
     }
 
-    /**
-     * Get the notification's delivery channels.
-     *
-     * @return array<int, string>
-     */
+    //Get the notification's delivery channels.
     public function via(object $notifiable)
     {
         return ['database'];
     }
 
-
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
+    //the attributes that will be store in notification table 
     public function toArray(object $notifiable)
     {
         return [

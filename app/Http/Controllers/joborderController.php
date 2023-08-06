@@ -7,78 +7,29 @@ use Illuminate\Http\Request;
 
 class joborderController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
     public function index()
     {
         $data = order::latest()->paginate(5);
         return view('store.jobOrderFormPage', compact('data'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(joborder $joborder)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(joborder $joborder)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, joborder $joborder)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(joborder $joborder)
-    {
-        //
-    }
-
-
     //QC PERSONNEL FUNCTIONS
+    //redirect to the created Job Order Form Page
     public function getJobOrderFormPageForQCP(joborder $joborder)
     {
         return view('qc.jobOrderFormPage', compact('joborder'));
     }
 
+    //function to update the job order information as Quality Control personnel
     public function updateJobOrderFormPageForQCP(Request $request, joborder $joborder){
+        //find the particular job order to update
         $joborder = joborder::with('getJO')->find($request->PDRID);
-        // dd($request->all());
-
         joborder::where('PDRID', $joborder->PDRID)->delete();
 
+        //get the data from the job order form
        $data = $request->all();
-      
+      //creates a new instance of the job order model
        $joborder = new joborder;
        $joborder->id = $request->id;
        $joborder->JONo = $request->JONo;
@@ -121,6 +72,7 @@ class joborderController extends Controller
 
         $joborder->save();
 
+        //update the job order info entered
         $joborder->update([
             'id' => $data['id'],
             'JONo' => $data['JONo'],
@@ -161,7 +113,7 @@ class joborderController extends Controller
             'stockUpdatedQty' => $data['stockUpdatedQty'],
             'thickness' => $data['thickness']
         ]);
-        
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['no']) > 0){
             foreach($data['no'] as $item => $value){
                 $data2 = array(
@@ -181,7 +133,7 @@ class joborderController extends Controller
                 joborder::create($data2);
             }
         }
-
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['AMDate'])>0){
             foreach($data['AMDate'] as $item=>$value){
                 $data4 = array(
@@ -201,19 +153,21 @@ class joborderController extends Controller
 
 
     //STORE PERSONNEL FUNCTIONS
+    //redirect to the created Job Order Form Page
     public function getJobOrderFormPageForStoreP(joborder $joborder) 
     {
+        // get the job order that has the same id as PDR
         $joborder = joborder::with('getJO')->where('PDRID',$joborder->PDRID)->first();
-        // dd($joborder);
         return view('store.updateJobOrderFormPage', compact('joborder'));
     }
 
    
-
+    //function for Store personnel to create Job Order (JO)
     public function createJobOrderFormPageForStoreP(Request $request)
     {
+        // get all the data entered 
         $data = $request->all();
-        // dd($data);
+        // validate all the data 
         $request->validate([
             'id'                        =>  'required',
             'JONo'                      =>  'nullable',
@@ -267,7 +221,7 @@ class joborderController extends Controller
             'thickness'                 =>  'nullable'
         ]);
 
-
+        //creates a new instance of the job order model.
         $joborder = new joborder;
         $joborder->id = $request->id;
         $joborder->JONo = $request->JONo;
@@ -308,9 +262,10 @@ class joborderController extends Controller
         $joborder->stockUpdatedQty = $request->stockUpdatedQty;
         $joborder->thickness = $request->thickness;
         
-        
+        //save the data to the joborder table
         $joborder->save();
 
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['no']) > 0){
             foreach($data['no'] as $item => $value){
                 $data2 = array(
@@ -327,10 +282,11 @@ class joborderController extends Controller
                     'operatorName' => $data['operatorName'][$item],
                     'operatorSign' => $data['operatorSign'][$item],
                 );
+                //store the data into joborder table
                 joborder::create($data2);
             }
         }
-
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['AMDate'])>0){
             foreach($data['AMDate'] as $item=>$value){
                 $data4 = array(
@@ -339,26 +295,23 @@ class joborderController extends Controller
                     'AMDate' => $data['AMDate'][$item],
                     'AMQty' => $data['AMQty'][$item],
                 );
+                //store the data into joborder table
                 joborder::create($data4);
             }
         }
-
-       
-
         return redirect()->route('store.ordersListPage')->with('success', 'Job order created successfully.');
-
     }
 
+    //function to update the job order information for Store personnel
     public function updateJobOrderFormPageForStoreP(Request $request, joborder $joborder){
         
-        
+        //find for the particular job order using hidden id
         $joborder = joborder::with('getJO')->find($request->PDRID);
-        // dd($request->all());
-
         joborder::where('PDRID', $joborder->PDRID)->delete();
 
+        //get the data entered by the Store personnel
        $data = $request->all();
-      
+        //creates a new instance of the job order model
        $joborder = new joborder;
        $joborder->id = $request->id;
        $joborder->JONo = $request->JONo;
@@ -400,7 +353,7 @@ class joborderController extends Controller
        $joborder->thickness = $request->thickness;
 
         $joborder->save();
-
+        //update the job order info entered
         $joborder->update([
             'id' => $data['id'],
             'JONo' => $data['JONo'],
@@ -441,7 +394,8 @@ class joborderController extends Controller
             'stockUpdatedQty' => $data['stockUpdatedQty'],
             'thickness' => $data['thickness']
         ]);
-        
+                
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['no']) > 0){
             foreach($data['no'] as $item => $value){
                 $data2 = array(
@@ -461,7 +415,7 @@ class joborderController extends Controller
                 joborder::create($data2);
             }
         }
-
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['AMDate'])>0){
             foreach($data['AMDate'] as $item=>$value){
                 $data4 = array(
@@ -473,31 +427,28 @@ class joborderController extends Controller
                 joborder::create($data4);
             }
         }
-
-
-        
-
         return redirect()->route('store.ordersListPage')->with('success', 'Job order updated successfully.');
-
     }
 
 
     //PRODUCTION PERSONNEL FUNCTIONS
    
-
+    //redirect to the created Job Order Form Page 
     public function getJobOrderFormPageForProdP(joborder $joborder)
     {
         return view('prod.jobOrderFormPage', compact('joborder'));
     }
 
+    //function to update the job order information as Production personnel
     public function updateJobOrderFormPageForProdP(Request $request, joborder $joborder){
+       
+        //find the particular job order using the hidden id
         $joborder = joborder::with('getJO')->find($request->PDRID);
-        // dd($request->all());
-
         joborder::where('PDRID', $joborder->PDRID)->delete();
 
+        //get all the data from the job order form page
        $data = $request->all();
-      
+      //creates a new instance of the job order model
        $joborder = new joborder;
        $joborder->id = $request->id;
        $joborder->JONo = $request->JONo;
@@ -539,7 +490,7 @@ class joborderController extends Controller
        $joborder->thickness = $request->thickness;
 
         $joborder->save();
-
+        //update the job order info entered
         $joborder->update([
             'id' => $data['id'],
             'JONo' => $data['JONo'],
@@ -580,7 +531,7 @@ class joborderController extends Controller
             'stockUpdatedQty' => $data['stockUpdatedQty'],
             'thickness' => $data['thickness']
         ]);
-        
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['no']) > 0){
             foreach($data['no'] as $item => $value){
                 $data2 = array(
@@ -600,7 +551,7 @@ class joborderController extends Controller
                 joborder::create($data2);
             }
         }
-
+        //processes an array of data and creates multiple records in the joborder table         
         if(count($data['AMDate'])>0){
             foreach($data['AMDate'] as $item=>$value){
                 $data4 = array(
@@ -613,10 +564,7 @@ class joborderController extends Controller
             }
         }
 
-
         return redirect()->route('prod.ordersListPage')->with('success', 'Job order created successfully.');
     }
-
-
 
 }

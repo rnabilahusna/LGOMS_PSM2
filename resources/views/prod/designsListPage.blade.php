@@ -11,8 +11,6 @@
 	<title>Design List</title>
 </head>
 <body>
-
-
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
@@ -35,8 +33,6 @@
 		   <div class="dropdown-content">
 			   <a href="logout">Sign Out</a>
 		   </div>
-
-
 	   </div>
 
 	   @endauth
@@ -44,6 +40,7 @@
     </div>
 </div>
 
+<!-- display returned message from the controller if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -51,7 +48,6 @@
 	</div>
 
 	@endif
-
 
 	<div class="card">
 		<div class="cardheader">
@@ -66,17 +62,11 @@
 									<input type="search" name="search" id="search" class="form-control" aria-describedby="passwordHelpInline" placeholder="Search to filter">
 								</form>
 							</div>
-							
 						</div>
-						
 					</div>
-				
 				</form>
-				
 			</div>
 		</div>
-
-	
 
 		<div class="cardbody">
 		<table class="table table-bordered" style="width:100%">
@@ -88,6 +78,7 @@
 				<th width="18%"></th>
 			</tr>
 			
+			<!-- display rows from db table if exist -->
 			@if(count($data) > 0)
 
 				@foreach($data as $row)
@@ -123,9 +114,6 @@
 		{!! $data->links() !!}
 
 		</div>
-
-
-		
 	</div>
 
 </body>

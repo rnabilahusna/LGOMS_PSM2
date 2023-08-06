@@ -34,15 +34,12 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
-
-        
       @endauth  
     </div>
 </div>
 
+<!-- display returned message from the controller if success -->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -64,20 +61,16 @@
 			</div>
 		</div>
 
-	
 		<div class="cardbody" id="cardbody">
-
 
             <div class="leftonly">
                 <div class="partDesign">
-                            <img src="{{ asset('images/' . $design->partDesign) }}" width="275" />
-                        
+                            <img src="{{ asset('images/' . $design->partDesign) }}" width="275" />               
                     </div>    
             </div>
 
             <div class="rightonly">
-                
-                
+                 
                 <div class="partNo">
                     <label><b>PART NO.: </b></label>
                         <b>{{ $design->partNo }}</b>
@@ -93,7 +86,6 @@
                         {{ $design->size }}
                 </div>
                     
-
                 <div class=" dateCreated">
                     <label>MATERIAL:</label>
                         {{ $design->rawMaterialMain }}
@@ -109,8 +101,7 @@
                         {{ $design->unitPrice }}
                 </div>
                 
-                
-
+                <!-- display based on designConfirmationStatus -->
                 @if($design->designConfirmationStatus == 'PENDING')
                 
                 <div class="designConfirmationStatus">
@@ -123,20 +114,15 @@
                     <label>Your design quotation is still in <b style="color:red">REJECTED</b></label>
                 </div>
 
-
                 @else
                 <!-- STORE NEW ORDER IN ORDER TABLE -->
                 <br><br>
 				    <a href="{{ route('client.makeOrderPage',$design->designID) }}" style="width:50%" class="btn btn-success btn-sm float-end" id="requestbutton" class="reorderbutton">Order design</a>
                 
-                   
-
                 @endif
 
                 </div>
         </div>
-        
-
 </div>
 
 </body>

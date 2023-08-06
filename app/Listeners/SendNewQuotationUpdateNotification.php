@@ -25,21 +25,15 @@ class SendNewQuotationUpdateNotification
      * Handle the event.
      */
  
-
+    //only particular Client will receive notification about the quotation confirmation
     public function handle($event)
     {
-        
+        //assign role to who will receive the notifications
         $clientRole = Role::where('role', 'Client')->first();
 
-        
         if ($clientRole) {
             $clientUsers = $clientRole->users;
             Notification::send($clientUsers, new NewQuotationUpdateNotification($event->design));
         }
-       
-
-    }
-
-
-    
+    } 
 }

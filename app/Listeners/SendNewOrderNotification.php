@@ -2,7 +2,6 @@
 
 namespace App\Listeners;
 
-
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Queue\InteractsWithQueue;
 use App\Models\User;
@@ -13,22 +12,16 @@ use App\Events\OrderSubmitted;
 
 class SendNewOrderNotification
 {
-    /**
-     * Create the event listener.
-     */
+    //Create the event listener.
     public function __construct()
     {
         //
     }
 
-    /**
-     * Handle the event.
-     */
- 
-
+    // Handle the event.
     public function handle($event)
     {
-        
+        //assign the roles of user to receive the new order notification
         $salesRole = Role::where('role', 'Sales')->first();
         $storeRole = Role::where('role', 'Store')->first();
         $qcRole = Role::where('role', 'QC')->first();
@@ -50,10 +43,5 @@ class SendNewOrderNotification
             $prodUsers = $prodRole->users;
             Notification::send($prodUsers, new NewOrderNotification($event->order));
         }
-       
-
     }
-
-
-    
 }

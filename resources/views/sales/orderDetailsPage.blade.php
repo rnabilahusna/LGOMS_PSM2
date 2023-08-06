@@ -44,6 +44,7 @@
     </div>
 </div>
 
+<!-- display returned message from controller if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -67,28 +68,23 @@
 			</div>
 		</div>
 
-	
 		<div class="cardbody">
-
 			<div class="leftinfo">
-				
-				
 				<div><img class="partDesignImage" src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="175" /></div>
 				
-               	
-
-					
-
+               	<!-- display based on the paymentStatus -->
+				<!-- if the paymentStatus from the 'order' table is PAID -->
 			@if($order->paymentStatus == 'PAID')
-            
             
                 <div class="updateStatusForm">
                     <label><b>What is the current order status?</b></label>
             
+				<!-- the function updateOrderStatusInfo from order controller will be executed
+				if the form is submitted -->
                     <form method="post" action="{{ route('order.updateOrderStatusInfo', $order->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
-                        
+                        <!-- options of the order status to update the client -->
                         <select name="orderStatus" class="form-group" value="{{$order->orderStatus}}" style="width:85%; height:40px; color:grey; padding-left: 10px">
                         <option>-- Update Order Status --</option>
                         <option name="orderStatus" value="NEW"> New </option>
@@ -107,13 +103,16 @@
                     </form>
                 </div>
             
+			<!-- if the paymentStatus from the 'order' table is PAYMENT REJECTED or PENDING -->
             @elseif($order->paymentStatus == 'PAYMENT REJECTED' || $order->paymentStatus == 'PENDING')
-
+			<!-- nothing will be display -->
 
 			@else
 			<!-- payment status == submitted -->
+			<!-- the function updateOrderStatusInfo from order controller will be executed
+				if the form is submitted -->
 				<form method="post" action="{{ route('order.updateOrderStatusInfo', $order->id) }}" class="paymentConfirmationForm">
-                    
+                <!-- options of the payment status to update the client -->
                     @csrf
                     @method('PUT')
                     <input type="hidden" name="hidden_id" value="{{ $order->id }}"/>
@@ -132,6 +131,7 @@
 							<b>{{ $order->paymentStatus }}</b>
 					</div>
 
+			<!-- if the client hasn't submit payment proof yet -->
 			@if(is_null($order->paymentProof))
 				<br><br>
 				<div>Payment proof is still in <b>PENDING</b><br></div>
@@ -142,16 +142,9 @@
 							<a href="{{ route('client.viewPaymentProof', $order->id) }}" target="_blank">View payment proof</a>
 					</div> 
 				@endif
-
-					
-
 			</div>
-
-
-
-
+			
 			<div class="centerinfo">
-				
 				
 				<div class="PONo">
 					<label><b>P/O No:</label>
@@ -204,7 +197,6 @@
 			
 			</div>
 
-
 			<div class="rightinfo">
 
 				<div class="created_at">
@@ -252,9 +244,6 @@
 				</div>
 			</div>
         </div>
-	
 
 </body>
 </html>
-
-

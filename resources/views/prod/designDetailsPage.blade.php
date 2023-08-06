@@ -45,7 +45,7 @@
     </div>
 </div>
 
-
+<!-- display returned message from the controller if success -->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -54,8 +54,6 @@
 
 	@endif
     
-
-
 <div class="card">
 
         <div class="cardheader">
@@ -65,7 +63,6 @@
 				<a href="{{ route('prod.designsListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:90px">
                     <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
                 </a>
-				
 			</div>
 			</div>
 		</div>
@@ -76,6 +73,7 @@
                <img class="partDesignImage" src="{{ asset('images/' . $design->partDesign) }}" width="275" />
             </div>
 				
+            <!-- form to update the design details by Production personnel -->
 				<form method="post" action="{{ route('design.updateDesignInfo', $design->designID) }}" enctype="multipart/form-data">
 					
 					@csrf
@@ -89,12 +87,6 @@
                             <input  name="buyerCode" value="{{$design->buyerCode}} " class="form-control"  type="text" readonly>
                         </div>
 
-                        <!-- <div class="partDesign details" >
-                            <label>Update The New Part Design:</label>
-                                <input type="file" name="partDesign" />
-                        </div> -->
-
-
                                 <div class="input-group details" id="partNo">Part No:&nbsp&nbsp&nbsp&nbsp
                                     <input  name="partNo" value="{{$design->partNo}}" class="form-control"  type="text" readonly>
                                 </div>
@@ -104,16 +96,9 @@
                                     <input  name="partDescription" value="{{$design->partDescription}}" class="form-control"  type="text" readonly>
                                 </div>
 
-                                <!-- <div class="input-group details" id="designConfirmationStatus">Design Status:&nbsp&nbsp&nbsp&nbsp -->
-                                    <input  name="designConfirmationStatus" value="{{$design->designConfirmationStatus}}" class="form-control"  type="hidden" readonly>
-                                <!-- </div> -->
-                         
-
-
+                                <input  name="designConfirmationStatus" value="{{$design->designConfirmationStatus}}" class="form-control"  type="hidden" readonly>                  
                         </div>
                     
-        
-
                     <div class="rightinfo">
 
                         <div class="input-group details" id="unitPrice">Unit Price:&nbsp&nbsp&nbsp&nbsp
@@ -156,28 +141,18 @@
                             <input  name="thickness" placeholder="Thickness" class="form-control"  type="text" value="{{ $design->thickness }}">
                         </div>
 
-
-
                     </div>
                     </div>
 
-<br>
+                <br>
 					<div class="text-center">
                         <input type="hidden" name="hidden_id" value="{{ $design->designID }}" />
                         <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Update design" />
 			        </div>
 
 				</form>
-			
-
-         
-
-
 
 </div>
 
-
-
-    
 </body>
 </html>

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -12,21 +10,6 @@
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
 </head>
 <body>
-
-
-<!-- @if($errors->any())
-
-<div class="alert alert-danger">
-	<ul>
-	@foreach($errors->all() as $error)
-
-		<li>{{ $error }}</li>
-
-	@endforeach
-	</ul>
-</div>
-
-@endif -->
 
 <div class="menu-container">
     <div class="menu">
@@ -49,15 +32,12 @@
            <div class="dropdown-content">
                <a href="logout">Sign Out</a>
            </div>
-
-
        </div>
-
-       
-        
+ 
     </div>
 </div>
 
+<!-- returned message if the  -->
 @if($message = Session::get('success'))
 
 <div class="alert alert-success">
@@ -65,8 +45,6 @@
 </div>
 
 @endif
-
-
 
 <div class="content-container">
             
@@ -80,10 +58,9 @@
                 </div>
                 
                 <div class="the-query">
+                    <!-- RFQ form -->
                     <form id="addquery" class="well form-horizontal" method="post" action="{{ route('design.submitRFQ') }}" enctype="multipart/form-data">
                         @csrf
-
-                       
                         <div class="partDesign details" >
                             <label>Upload your tech design here:</label>
                                 <input type="file" name="partDesign" />
@@ -91,7 +68,6 @@
                                         <span class="text-danger" style="color:red">{{ $errors->first('partDesign') }}</span>
                                     @endif
                         </div>
-
 
                         <div class="input-group details" id="partNo">Part No:&nbsp&nbsp&nbsp&nbsp
                             <input  name="partNo" value="{{old('partNo')}}" class="form-control"  type="text" required>
@@ -133,14 +109,9 @@
 
                         <button id="requestbutton" type="submit" id="submit" class="button buttonsubmit" >Submit</button>
 
-
                     </form>
                 </div>
-
-
-                
             </div>
-           
         </div>
 
     @endauth

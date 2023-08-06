@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="/css/navbarstyle.css" >
-    <!-- <link rel="stylesheet" href="/css/updatePDR.css" > -->
     <link rel="stylesheet" href="/css/RFQDetailsPagestyle.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -37,16 +36,11 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
-
-       
-        
     </div>
 </div>
 
-
+    <!-- display returned mesage from the controller if success -->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -69,10 +63,8 @@
 			</div>
 		</div>
 
-	
 		<div class="cardbody">
 
-            
                     <div class="leftonly">
                         <div class="partDesign">
                             <img class="partDesignImage" src="{{ asset('images/' . $design->partDesign) }}" width="275" />
@@ -80,7 +72,6 @@
                     </div>
 
                     <div class="rightonly">
-                    
                     
                         <div class="partNo">
                             <label><b>PART NO.: </b></label>
@@ -108,8 +99,6 @@
                                 {{ $design->unitPrice }}
                         </div>
                         
-                        
-
                         <div class="details designConfirmationStatus">
                                 <br><label>Do you want to approve the quotation?</label><br><br>
                         </div>
@@ -127,14 +116,8 @@
                                     </div>
                                 </form>
                             </div>
-                    
-                
-
                     </div>
-               
         </div>
-
-
     </div>
 
  @endauth

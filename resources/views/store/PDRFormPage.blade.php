@@ -14,8 +14,6 @@
 	<title>Order Details</title>
 </head>
 <body>
-
-
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
@@ -26,7 +24,6 @@
             <div class="design_list"><a href="{{ route('store.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>
 
-
         @auth
        
         <div class="dropdown">
@@ -34,17 +31,14 @@
                 <div class="profile-pic"><img  src="/images/profile_picture_default.png" alt="profile pic" style="width:45px;height:45px;"></div>
                 <div class="profile"><p class="dropbtn">{{ auth()->user()->name }}</p></div>
             </div>
-
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
-        
     </div>
 </div>
 
+<!-- display returned message from the controllers if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -66,10 +60,9 @@
                 </div>
                 </div>
             </div>
-    
-        
+           
             <div class="cardbody">
-    
+            <!-- function updatePDRFormPageForStoreP will be executed once the submit button was clicked -->
             <form id="PDRForm" method="post" action="{{ route('store.updatePDRFormPageForStoreP', $pdr->id) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -96,7 +89,6 @@
                         <input  name="refNo" value="{{$pdr->refNo}} " class="form-control"  type="text" readonly>
                     </div>
                 </div>
-            
             </div>
     <hr>
         
@@ -151,21 +143,15 @@
                 </div>
             </div>
     
-    
-    
             <div class="text-center">
-                <!-- <input type="hidden" name="id" value="{{$pdr->id}}" /> -->
                 <input type="hidden" name="hidden_id" value="{{ $pdr->id }}" />
                 <input type="hidden" name="orderID" value="{{$pdr->getOrder->id}}" />
                 <input type="hidden" name="buyerCode" value="{{$pdr->getClient->buyerCode}}" />
                 <br>
                 <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Update" />
             </div>
-                
             </form>	
             </div>
-    
-    
         </div>
 
         @endauth

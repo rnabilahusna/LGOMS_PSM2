@@ -13,9 +13,6 @@
 	<title>Order Details</title>
 </head>
 <body>
-
-
-
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
@@ -25,7 +22,6 @@
             <div class="order_list"><a href="{{ route('qc.ordersListPage') }}" style="color:black; text-decoration:none" >Order List</a></div>
             <div class="design_list"><a href="{{ route('qc.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>
-
 
         @auth
        
@@ -38,15 +34,13 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
 
         @endauth
         
     </div>
 </div>
-
+<!-- display returned message from controllers if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -55,36 +49,26 @@
 
 	@endif
 
-
-    <div class="card">
-
+<div class="card">
 <div class="cardheader">
     <div class="row">
         <div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
-        
+        <!-- to go to the order list page, QC personnel has to click to this button -->        
         <a href="{{ route('qc.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="color:white;width:90px">
         <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
         </a>&nbsp&nbsp
+        <!-- to go to the Job Order page, QC personnel has to click to this button -->
         <a href="{{ route('joborder.getJobOrderFormPageForQCP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View JO</a>
     </div>
     </div>
 </div>
 
-
-
 <div class="cardbody">
-
     <div class="leftinfo">
         <div><img class="partDesignImage" src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="275" /></div>
-        
     </div>
 
-
-
-
     <div class="centerinfo">
-
-
         <div class="details PONo">
             <label><b>P/O No:&nbsp&nbsp </label>
                 {{ $order->PONo }}</b>
@@ -135,12 +119,9 @@
             <label>Amount:&nbsp&nbsp </label>
                 {{ $order->amount }}
         </div>
-    
     </div>
 
-
     <div class="rightinfo">
-
         <div class="details referenceDateETD">
             <label>Reference Date/ETA:&nbsp&nbsp </label>
                 {{ $order->referenceDateETD }}
@@ -157,14 +138,10 @@
             <label>Remark:&nbsp&nbsp </label>
                 {{ $order->remark }}
         </div>
-
-        
         <div class="details paymentTerm">
             <label>Payment Term:&nbsp&nbsp </label>
                 {{ $order->paymentTerm }}
         </div>
-
-        
         <div class="details quantity">
             <label>Quantity:&nbsp&nbsp </label>
                 {{ $order->quantity }}
@@ -181,14 +158,10 @@
             <label>R/O No:&nbsp&nbsp </label>
                 {{ $order->RONo }}
         </div>
-
         <div class="details amount">
             <label><b>Total Amount:&nbsp&nbsp &nbsp&nbsp </b></label>
-          
         </div>
     </div>
-
-
 </div>
 </body>
 </html>

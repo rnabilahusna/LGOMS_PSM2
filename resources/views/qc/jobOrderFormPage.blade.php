@@ -4,13 +4,12 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- <link rel="stylesheet" href="/css/mydesignsliststyle.css" > -->
     <link rel="stylesheet" href="/css/navbarstyle.css" >
     <link rel="stylesheet" href="/css/updateJO.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-	<title>Dashboard</title>
+	<title>Job order</title>
 </head>
 <body>
 
@@ -24,7 +23,6 @@
             <div class="design_list"><a href="{{ route('qc.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>
 
-
         @auth
        
         <div class="dropdown">
@@ -36,15 +34,10 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
-
-    
-        
     </div>
 </div>
-
+<!-- display returned message from controllers if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -55,7 +48,6 @@
 
 
     <div class="card">
-		
         <div class="cardheader">
                 <div class="">
                     <div class="col col-md-6" id="thetitle"><b>JOB ORDER</b></div>
@@ -64,12 +56,10 @@
                     <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
                     </a>
                 </div>
-                
         </div>
     
-        
             <div class="cardbody">
-    
+            <!-- the function updateJobOrderFormPageForQCP will be executed once the button submit was clicked -->        
                 <form id="JobOrderForm" method="post" action="{{ route('joborder.updateJobOrderFormPageForQCP', $joborder->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -96,7 +86,6 @@
                                 </div>
                             </div>
                         </div>
-                    
 
                 <hr>
                 <div class="uppertables">
@@ -218,7 +207,6 @@
                             <th class="column colten">OPERATOR SIGNATURE</th>
                         </tr>
 
-
                         @foreach($joborder->getJO as $jo)
                         @if(!is_null($jo->processesCarriedOut))
                         <tr>
@@ -304,7 +292,6 @@
                     </div>
                 </div>
 
-                
                 <div class="text-center">
                 <input type="hidden" name="hidden_id" value="{{$joborder->PDRID}}" />
                 <input type="hidden" name="id" value="{{$joborder->id}}" />
@@ -314,17 +301,13 @@
                 <br>
                 <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Update" />
                 </div>
-
-
-                        
                 </form>	
             </div>
-    
-    
         </div>
 
         @endauth
-
+        
+        <!-- script to add new row in the job order table -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script type="text/javascript">
             $('.addnewrow').on('click',function(){
@@ -344,9 +327,7 @@
                             '<td hidden class="" ><a type="hidden" href="#" class="addnewrow">Add row</a></td></tr>';
                 $('.newrow').append(newrow);
             };
-            // $('.remove').live('click',function(){
-            //     $(this).parent().parent().parent().remove();
-            // });
+            
         </script>
         <script type="text/javascript">
             $('.addnewrow2').on('click',function(){
@@ -357,9 +338,7 @@
                             '<td><input type="text" class="form-control" name="AMQty[]" value="{{old('AMQty')}}"></td></tr>';
                 $('.newrow2').append(newrow2);
             };
-            // $('.remove').live('click',function(){
-            //     $(this).parent().parent().parent().remove();
-            // });
+            
         </script>
 </body>
 </html>

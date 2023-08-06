@@ -36,16 +36,11 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
-
-       
-        
     </div>
 </div>
 
-
+<!-- display returned message from the controllers if success -->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -54,9 +49,7 @@
 
 	@endif
 
-
-    <div class="card">
-		
+    <div class="card">		
     <div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>PRODUCT DELIVERY REPORT</b></div>
@@ -67,10 +60,9 @@
 			</div>
 			</div>
 		</div>
-
 	
 		<div class="cardbody">
-
+        <!-- submit the form to update the PRD -->
         <form id="PDRForm" method="post" action="{{ route('prod.updatePDRFormPageForProdP', $pdr->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -97,9 +89,7 @@
                     <input  name="refNo" value="{{$pdr->refNo}} " class="form-control"  type="text" readonly>
                 </div>
             </div>
-        
         </div>
-
         <hr>
     
         <table>
@@ -138,7 +128,6 @@
         </table>
         <hr>
 
-
         <div class="lastrow">
             <div>
                 <b>PRODUCED BY:</b>
@@ -154,25 +143,18 @@
             </div>
         </div>
 
-
-
         <div class="text-center">
-            <!-- <input type="hidden" name="id" value="{{$pdr->id}}" /> -->
             <input type="hidden" name="hidden_id" value="{{ $pdr->id }}" />
             <input type="hidden" name="orderID" value="{{$pdr->getOrder->id}}" />
             <input type="hidden" name="buyerCode" value="{{$pdr->getClient->buyerCode}}" />
             <br>
             <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Update" />
-		</div>
-            
+		</div>      
 		</form>	
         </div>
-
-
     </div>
 
  @endauth
-
-    
+   
 </body>
 </html>

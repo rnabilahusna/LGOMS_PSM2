@@ -43,6 +43,7 @@
 		</div>
 	</div>
 
+<!-- display returned message from the controller if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -52,7 +53,6 @@
 	@endif
 
 	<div class="card">
-
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>My Order</b></div>
@@ -63,14 +63,12 @@
 					<a href="{{ route('order.downloadInvoice',$order->id)}}" style="width:250px"  class="btn btn-primary btn-sm float-end" id="requestbutton">
 						<i class="fa fa-download" style="font-size:20px;color:white"></i>&nbsp Download Invoice
 					</a>
-					
 			</div>
 			</div>
 		</div>
 
 	
 		<div class="cardbody">
-
 			<div class="leftinfo">
 				<div class="partDesign"><img class="partDesignImage" src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="275" /></div>
 
@@ -80,6 +78,8 @@
 				</div>
 				
 				@if($order->paymentStatus == 'SUBMITTED' || $order->paymentStatus == 'PAYMENT REJECTED' || $order->paymentStatus == 'PENDING')
+				<!-- payment proof submission form -->
+				<!-- function updatePaymentInfo will be executed if client click submit button -->
 				<form method="post" action="{{ route('order.updatePaymentInfo', $order->id) }}" enctype="multipart/form-data">
 					
 					@csrf
@@ -118,7 +118,7 @@
 					<label>PART NAME:&nbsp</label>
 						{{ $order->getDesign->partDescription }}
 				</div>
-
+				<!-- updated order status can be seen here -->
 				<div class="ordeStatus">
 					<label>Order Status:&nbsp</label>
 						{{ $order->orderStatus }}
@@ -159,20 +159,13 @@
 					<label>Amount:&nbsp</label>
 						{{ $order->amount }}
 				</div>
-			
 			</div>
 
-
 			<div class="rightinfo">
-
 				<div class="orderSubmitted">
 					<label>ORDER SUBMITTED:&nbsp</label>
 						{{ $order->created_at }}
 				</div>
-				<!-- <div class="IssuedDate">
-					<label>Issued Date:</label>
-						{{ $order->IssuedDate }}
-				</div> -->
 				<div class="remark">
 					<label>Remark:&nbsp</label>
 						{{ $order->remark }}
@@ -201,12 +194,8 @@
 				<div class="totalAmount">
 					<label><b>Total Amount:&nbsp</b></label>
 				</div>
-
-
 			</div>
         </div>
-	
-
 </body>
 </html>
 

@@ -6,7 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link rel="stylesheet" href="/css/mydesignsliststyle.css" >
     <link rel="stylesheet" href="/css/navbarstyle.css" >
-    <!-- <link rel="stylesheet" href="/css/qcdesigndetailspagestyle.css" > -->
     <link rel="stylesheet" href="/css/updatePDR.css" >
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
@@ -17,7 +16,6 @@
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
-
         <div class="links">
             <div class="home"><a href="{{ route('sales.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="register_user"><a href="{{ route('register.index') }}" style="color:black; text-decoration:none">Register User</a></div>
@@ -36,8 +34,6 @@
 			<div class="dropdown-content">
 				<a href="logout">Sign Out</a>
 			</div>
-
-
 		</div>
 
 		@endauth
@@ -45,6 +41,7 @@
     </div>
 </div>
 
+    <!-- display returned message from controllers if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -54,7 +51,6 @@
 	@endif
 
 	<div class="card">
-
 		<div class="cardheader">
 			<div class="row">
 				<div class="col col-md-6" id="thetitle"><b>PRODUCT DELIVERY REPORT</b></div>
@@ -66,9 +62,9 @@
 			</div>
 		</div>
 
-	
 		<div class="cardbody">
 
+        <!-- execute function createPDRFormPageForSales if the Sales personnel submit the form -->
         <form id="PDRForm" method="post" action="{{ route('pdr.createPDRFormPageForSalesP') }}" enctype="multipart/form-data">
                 @csrf
                 @method('POST')
@@ -151,24 +147,16 @@
             </div>
         </div>
 
-
-
         <div class="text-center">
-            <!-- <input type="hidden" name="hidden_id" value="" /> -->
             <input type="hidden" name="id" value="{{$order->id}}" />
             <input type="hidden" name="orderID" value="{{$order->id}}" />
             <input type="hidden" name="buyerCode" value="{{$order->getClient->buyerCode}}" />
             <br>
             <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Create" />
 		</div>
-            
 		</form>	
         </div>
-
-
         </div>
-	
-
 </body>
 </html>
 

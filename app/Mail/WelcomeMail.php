@@ -17,12 +17,10 @@ class WelcomeMail extends Mailable
     public $name;
     public $email;
     public $password;
-
     
     public function build()
-    {
-        // $subject = 'Welcome';
-        // return $this->view('emails.welcome');
+    { 
+        //email template for welcome mail
         return $this->markdown('emails.welcome');
     }
 
@@ -45,8 +43,6 @@ class WelcomeMail extends Mailable
             subject: 'Welcome Mail',
         );
     }
-
-   
 
     /**
      * Get the attachments for the message.

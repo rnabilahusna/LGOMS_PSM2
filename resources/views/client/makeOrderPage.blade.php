@@ -6,7 +6,6 @@
     <title>Purchase Order</title>
     <link rel="stylesheet" href="/css/navbarstyle.css" >
     <link rel="stylesheet" href="/css/updateJO.css" >
-    <!-- <link rel="stylesheet" href="/css/designdetailspagestyle.css" > -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="/css/mydesignsliststyle.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
@@ -17,7 +16,6 @@
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
-
         <div class="links">
         <div class="home"><a href="{{ route('client.mainWindow') }}" style="color:black; text-decoration:none">Home</a></div>
             <div class="my_designs"><a href="{{ route('client.myDesignsListPage') }}" style="color:black; text-decoration:none">My Designs</a></div>
@@ -35,15 +33,11 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
-
-        
-       
     </div>
 </div>
 
+<!-- display returned message from the controller if success -->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -64,9 +58,8 @@
 			</div>
 		</div>
 
-	
 		<div class="cardbody" id="cardbody">
-
+        <!-- function submitOrder will be executed once the form is submitted -->
         <form method="post" action="{{ route('order.submitOrder') }}" enctype="multipart/form-data">
 					
 					@csrf
@@ -89,8 +82,6 @@
                 <div class="input-group details"> Buyer Section Code / Name:&nbsp&nbsp&nbsp&nbsp
                     <input  name="buyerSectionCodeOrName" value="{{$design->getClient->buyerSectionCodeOrName}} " class="form-control"  type="text" readonly>
                 </div>
-                
-
             </div>
             
             <div class="rightonly firstrow">
@@ -222,11 +213,8 @@
             <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Submit Order" />
 		<br><br>
         </div>
-
-
-
 </form>
-        </div>
+</div>
         
 
 </div>

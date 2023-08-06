@@ -13,8 +13,6 @@
 	<title>Order Details</title>
 </head>
 <body>
-
-
 <div class="menu-container">
     <div class="menu">
         <div class="logo"><img src="/images/Lengkuas_Logo_1.svg" alt="LG Logo" style="width:180px;height:45px;"></div>
@@ -37,8 +35,6 @@
 		   <div class="dropdown-content">
 			   <a href="logout">Sign Out</a>
 		   </div>
-
-
 	   </div>
 
 	   @endauth
@@ -46,6 +42,7 @@
     </div>
 </div>
 
+<!-- display returned message from controllers if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -59,16 +56,17 @@
 <div class="cardheader">
     <div class="row">
         <div class="col col-md-6" id="thetitle"><b>Order ID: {{ $order->PONo }}</b></div>
-     
+        <!-- to go to the order list page, Production personnel has to click to this button -->     
         <a href="{{ route('prod.ordersListPage') }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width: 90px">
         <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
         </a>&nbsp&nbsp
+        <!-- to update the PDR form, Production personnel has to click to this button -->
         <a href="{{ route('pdr.getPDRFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:16%">View PDR</a>&nbsp
+        <!-- to update the job order form, Production personnel has to click to this button -->
         <a href="{{ route('joborder.getJobOrderFormPageForProdP', $order->id) }}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:15%">View JO</a>
     </div>
     </div>
 </div>
-
 
 <div class="cardbody">
 
@@ -76,13 +74,7 @@
         <div><img class="partDesignImage" src="{{ asset('images/' . $order->getDesign->partDesign) }}" width="275" /></div>
         
     </div>
-
-
-
-
     <div class="centerinfo">
-
-
         <div class="details PONo">
             <label><b>P/O No:&nbsp&nbsp </label>
                 {{ $order->PONo }}</b>
@@ -132,10 +124,8 @@
         <div class="details amount">
             <label>Amount:&nbsp&nbsp </label>
                 {{ $order->amount }}
-        </div>
-    
+        </div>    
     </div>
-
 
     <div class="rightinfo">
 
@@ -154,15 +144,11 @@
         <div class="details remark">
             <label>Remark:&nbsp&nbsp </label>
                 {{ $order->remark }}
-        </div>
-
-        
+        </div> 
         <div class="details paymentTerm">
             <label>Payment Term:&nbsp&nbsp </label>
                 {{ $order->paymentTerm }}
-        </div>
-
-        
+        </div>       
         <div class="details quantity">
             <label>Quantity:&nbsp&nbsp </label>
                 {{ $order->quantity }}
@@ -182,7 +168,6 @@
 
         <div class="details amount">
             <label><b>Total Amount:&nbsp&nbsp &nbsp&nbsp </b></label>
-          
         </div>
     </div>
 </div>

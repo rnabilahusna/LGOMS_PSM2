@@ -44,7 +44,7 @@
     </div>
 </div>
 
-
+<!-- display message returned from controller -->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -64,7 +64,7 @@
 		</div>
 
         <div class="card-body" style="width:80%">
-			
+			<!-- display all the notifications -->
 				@forelse($notifications as $notification)
 					<div class="alert alert-success" role="alert" >
 					
@@ -90,7 +90,6 @@
 
                     @endif
 
-
 						<a href="#" class="float-end mark-as-read" data-id="{{ $notification->id }}">
 							Mark as read
 						</a>
@@ -102,13 +101,8 @@
 					@empty
 						<div style="text-align:center">There are no new notifications</div>
 				@endforelse
-
-
 		</div>
-
     </div>
-
-
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -142,10 +136,7 @@
 	</script>
 	</script>
 
-   
-
  @endauth
 
-    
 </body>
 </html>

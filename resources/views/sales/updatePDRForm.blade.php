@@ -36,8 +36,6 @@
 			<div class="dropdown-content">
 				<a href="logout">Sign Out</a>
 			</div>
-
-
 		</div>
 
 		@endauth
@@ -45,6 +43,7 @@
     </div>
 </div>
 
+<!-- display returned message from controllers if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -66,9 +65,8 @@
 			</div>
 		</div>
 
-	
 		<div class="cardbody">
-
+            <!-- function updatePDRFormPageForSalesP will be executed once the form is submitted -->
         <form id="PDRForm" method="post" action="{{ route('sales.updatePDRFormPageForSalesP', $pdr->id) }}" enctype="multipart/form-data">
                 @csrf
                 @method('PUT')
@@ -136,8 +134,6 @@
             </tr>
         </table>
         <hr>
-
-
         <div class="lastrow">
             <div>
                 <b>PRODUCED BY:</b>
@@ -153,22 +149,16 @@
             </div>
         </div>
 
-
-
         <div class="text-center">
             <input type="hidden" name="hidden_id" value="{{ $pdr->id }}" />
             <input type="hidden" name="orderID" value="{{$pdr->getOrder->id}}" />
             <input type="hidden" name="buyerCode" value="{{$pdr->getClient->buyerCode}}" />
             <br>
             <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Update" />
-		</div>
-            
+		</div>        
 		</form>	
         </div>
-
-
         </div>
-	
 
 </body>
 </html>

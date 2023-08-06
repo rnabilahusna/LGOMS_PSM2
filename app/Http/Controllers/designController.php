@@ -97,23 +97,21 @@ class designController extends Controller
 
     //PRODUCTION PERSONNEL FUNCTIONS
 
-    public function uploadDesign()
-    {
-        return view('prod.uploadDesignPage');
-    }
-
+    // redirect to designs list page for Production personnel
     public function getProdDesignsListPage(Request $request)
     {
+        //the search utility
         if($request->has('search')){
             $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->paginate(5);
         }
         else{
             $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->paginate(5);
         }
-
+        //using bootstrap paginate, which will only display 5 design row per page
         return view('prod.designsListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
+    //redirect to design details page for Production personnel
     public function showForProdP(design $design)
     {
         return view('prod.designDetailsPage', compact('design'));
@@ -122,6 +120,7 @@ class designController extends Controller
 
     //NEW PROD FUNCTIONS RFQ
     
+    //redirect to RFQ list page
     public function getProdRFQListPage()
     {
         $data = design::latest()->where('designConfirmationStatus','PENDING')->paginate(5);
@@ -129,6 +128,8 @@ class designController extends Controller
        
     }
 
+    //function for Production personnel
+    //to confirm the quoation status submitted by the client
     public function updateQuotationStatus(Request $request, design $design)
     {
         $request->validate([
@@ -149,6 +150,7 @@ class designController extends Controller
         return redirect()->route('prod.RFQListPage')->with('success', 'Thank you for the design quotation confirmation!');
     }
 
+    //redirect to RFQ details page for Production perosnnel
     public function getProdRFQDetailsPage(design $design){
         return view('prod.RFQDetailsPage', compact('design'));
     }
@@ -198,18 +200,20 @@ class designController extends Controller
 
 
     //STORE PERSONNEL FUNCTIONS
-
+    //view design detail page
     public function showForStoreP(design $design)
     {
         return view('store.designDetailsPage', compact('design'));
     }
 
+    //function to update design goods stock
     public function updateGoodsStock(Request $request, design $design)
     {
+        //validate the 'goodsStock' entered by the Store personnel
         $request->validate([
             'goodsStock'          =>  'nullable|numeric'
         ]);
-
+        //find the particular design to update
         $design = design::find($request->hidden_id);
 
         $design->goodsStock = $request->goodsStock;  
@@ -254,31 +258,29 @@ class designController extends Controller
 
 
     //CLIENT FUNCTIONS
+
+    //redirect to the design details page for client for a particular design
     public function showForClient(design $design)
     {
         return view('client.myDesignDetailsPage', compact('design'));
     }
 
     
-
+    //get the designs list page for client user
     public function getClientDesignsListPage(Request $request)
     {
-
-
+        //use search utility to find specific design
         if($request->has('search')){
             $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('buyerCode',Auth::user()->buyerCode)->where('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->get();
         }
         else{
             $data = design::latest()->where('designConfirmationStatus','ACCEPTED')->where('buyerCode',Auth::user()->buyerCode)->get();
         }
-
-
+        //return the design list page
         return view('client.myDesignsListPage', compact('data'));
-
-       
     }
 
-    
+    //redirect to purchase order page with automated filled information
     public function getMakeOrderPage(design $design)
     {
         return view('client.makeOrderPage', compact('design'));
@@ -288,13 +290,15 @@ class designController extends Controller
 
     //NEW CLIENT RFQ
 
+    //redirect to the RFQ form page
     public function getRFQFormPage() {
         return view('client.RFQFormPage');
     }
 
-
+    //submit Request For Quotation Form by Client user
     public function submitRFQ(Request $request)
     {
+        //validate the data entered by the client
         $request->validate([
             'designConfirmationStatus' =>  'required',
             'goodsStock'               =>  'nullable',   
@@ -314,11 +318,14 @@ class designController extends Controller
             'buyerCode'                =>  'required',
         ]);
 
+        //move the uploaded file (partDesign) into the images folder
         $file_name = time() . '.' . request()->partDesign->getClientOriginalExtension();
         request()->partDesign->move(public_path('images'), $file_name);
 
+        //create new instances of design model
         $design = new design;
        
+        //assign values into the design object
         $design->designConfirmationStatus = $request->designConfirmationStatus;
         $design->goodsStock = $request->goodsStock;
         $design->noOfCavities = $request->noOfCavities;
@@ -336,9 +343,9 @@ class designController extends Controller
         $design->unitPrice = $request->unitPrice;
         $design->buyerCode = $request->buyerCode;
        
-
         $design->save();
 
+        //Send the new quotation submission notification to the Production personnel
         $prodUsers = User::where('role', 'Production')->get();
         Notification::send($prodUsers, new NewQuotationNotification($design));
 

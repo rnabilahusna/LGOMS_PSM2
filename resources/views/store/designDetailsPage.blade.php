@@ -43,7 +43,7 @@
         
     </div>
 </div>
-
+<!-- display returned message from the controller if success -->
     @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -65,9 +65,7 @@
 			</div>
 		</div>
 
-    
         <div class="cardbody_qc">
-
         <div class="left">
             <div class="row mb-3">
                 <label class="col-sm-2 col-label-form"></label>
@@ -76,8 +74,8 @@
                 </div>
             </div>
 
-
             <div class="updateQuantityForm">
+            <!-- form to update the current goods stock of the design -->
 			<form method="post" action="{{ route('design.updateGoodsStock', $design->designID) }}" enctype="multipart/form-data">
 			
                 @csrf
@@ -99,7 +97,6 @@
             </div>
         </div>
             
-
         <div class="right">
 
              <div class="detailstop" id="partNo">
@@ -134,14 +131,8 @@
                 <label>No of sheets:</label>
 					{{ $design->noOfSheets }}
             </div>
-
-    
         </div>
-            
-			
-        </div>
-
-
+     </div>
 	</div>
     
 </body>

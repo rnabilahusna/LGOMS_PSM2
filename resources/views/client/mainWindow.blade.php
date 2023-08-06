@@ -34,15 +34,13 @@
 				<div class="dropdown-content">
 					<a href="logout">Sign Out</a>
 				</div>
-
-
 			</div>
-
-			
 			
 		</div>
 	</div>
 
+
+<!--display the message returned from controller  -->
 @if($message = Session::get('success'))
 
 <div class="alert alert-success">
@@ -63,6 +61,7 @@
 
     <div class="cardbody card-body" >
 
+				<!-- display notifications -->
 				@forelse($notifications as $notification)
 					<div class="alert alert-success" role="alert" >
 					
@@ -119,6 +118,7 @@
     </div>
 </div>
 
+<!-- script for 'Mark as Read' notification -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script type="text/javascript">

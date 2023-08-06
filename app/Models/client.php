@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+//model for Client table
 class client extends Model
 {
     public $table = 'client';
@@ -19,6 +20,4 @@ class client extends Model
         'buyerSectionCodeOrName',
         'originCountry',
     ];
-
-   
 }

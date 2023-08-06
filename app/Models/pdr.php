@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+//pdr model
 class pdr extends Model
 {
     public $table = 'pdr';
@@ -37,9 +38,12 @@ class pdr extends Model
         'stock'
     ];
 
+    //connect with 'order' table using Foreign Key 'id'
     public function getOrder() {
         return $this->belongsTo(order::class, 'id','id');
     }
+        
+    //connect with 'client' table using Foreign Key 'buyerCode'
     public function getClient() {
         return $this->belongsTo(client::class, 'buyerCode','buyerCode');
     }

@@ -27,8 +27,6 @@ use App\Listeners\SendNewPaymentUpdateNotification;
 
 use Illuminate\Support\Facades\Notification;
 
-
-
 class orderController extends Controller
 {
     /**
@@ -67,11 +65,12 @@ class orderController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+     //client submit order of their design function
     public function submitOrder(Request $request)
     {
-
+        //validate the data entered in the order page
         $request->validate([
-            
             'PONo'              =>   'nullable',
             'actionCode'        =>   'required',
             'amount'            =>   'nullable',
@@ -103,10 +102,9 @@ class orderController extends Controller
             'designID'          =>   'required',
         ]);
 
-        // dd('hello');
-
+       //creates a new instance of the order model
         $order = new order;
-
+        //get all the data
         $order->PONo = $request->PONo;
         $order->actionCode = $request->actionCode;
         $order->amount = $request->amount;
@@ -137,9 +135,9 @@ class orderController extends Controller
         $order->buyerCode = $request->buyerCode;
         $order->designID = $request->designID;
 
-
         $order->save();
 
+        //send notification to the role should receive about the new order 
         $salesUsers = User::where('role', 'Sales')->get();
         Notification::send($salesUsers, new NewOrderNotification($order));
         $storeUsers = User::where('role', 'Store')->get();
@@ -149,9 +147,9 @@ class orderController extends Controller
         $prodUsers = User::where('role', 'Production')->get();
         Notification::send($prodUsers, new NewOrderNotification($order));
 
-        
+        //get the design to update the balance goods stock
         $design = design::find($request->designID);
-
+        //update the goods stock
         $design->goodsStock = $request->goodsStock - $request->quantity;  
 
         $design->save();
@@ -162,28 +160,6 @@ class orderController extends Controller
 
     
 
-    
-
-    /**
-     * Display the specified resource.
-     */
-
-    public function show(order $order)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(order $order)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
     public function update(Request $request, order $order)
     {
         $request->validate([
@@ -199,27 +175,25 @@ class orderController extends Controller
         return redirect()->route('sales.ordersListPage')->with('success', 'Order status info has been updated successfully');
     }
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(order $order)
-    {
-        //
-    }
+   
 
 
     //SALES PERSONNEL FUNCTIONS
+
+    //details page about the design for Sales personnel view
     public function showForSalesP(order $order)
     {
         return view('sales.orderDetailsPage', compact('order'));
     }
 
-
+    //redirect to orders list page for Sales view
     public function getSalesOrdersListPage(Request $request)
     {
-
+        //return all the order that the orderStatus is not yet DELIVERED, which
+        //is the order is still active
         $query = order::query()->where('orderStatus', '!=', 'DELIVERED');
 
+        //the search utility
         if ($request->has('search')) {
             $query->where(function ($q) use ($request) {
                 $q->where('PONo', 'LIKE', '%' . $request->search . '%')
@@ -235,13 +209,16 @@ class orderController extends Controller
        
     }
 
+    //to update the client's order status for the client's view
     public function updateOrderStatusInfo(Request $request, order $order)
     {
+        //validate data entered
         $request->validate([
             'orderStatus'          =>  'required',
             'paymentStatus'          =>  'required'
         ]);
 
+        //find the particular order to update the status by hidden id
         $order = order::find($request->hidden_id);
 
         $order->orderStatus = $request->orderStatus; 
@@ -256,11 +233,13 @@ class orderController extends Controller
         return redirect()->route('sales.ordersListPage')->with('success', 'Order status info has been updated successfully');
     }
 
+    //redirect to PDR form page compact with order data for Sales personnel
     public function getPDRFormPageForSalesP(order $order)
     {
         return view('sales.PDRFormPage', compact('order'));
     }
 
+    
     public function viewPaymentProofForSales(order $order){
         return view('sales.viewPaymentProof', compact('order'));
     }
@@ -280,6 +259,7 @@ class orderController extends Controller
 
 
     //CLIENT FUNCTIONS
+    //details page about the design for Client  view
     public function showForClient(order $order)
     {
         return view('client.myOrderDetailsPage', compact('order'));
@@ -290,19 +270,16 @@ class orderController extends Controller
         return view('client.viewPaymentProof', compact('order'));
     }
 
-
+    //redirect to the orders list page that are still active
     public function getClientOrdersListPage(Request $request)
     {
+        //the search utility
         if($request->has('search')){
             $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('PONo','LIKE','%' .$request->search. '%')->orWhere('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->get();
         }
         else{
             $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
         }
-
-        // $data = DB::table('order')->where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
-        // $data = order::where('buyerCode',Auth::user()->buyerCode)->where('orderStatus','!=', 'DELIVERED')->get();
-
         return view('client.myOrdersListPage', compact('data'));
     }
 
@@ -315,13 +292,14 @@ class orderController extends Controller
         return view('client.orderHistoryPage', compact('data'));
     }
 
+    //submit payment proof function for client user
     public function updatePaymentInfo(Request $request, order $order)
     {
-    
+        //find the order by hidden id
         $order = order::find($request->hidden_id);
-       
+       //update the payment proof file
         $order->paymentStatus = $request->paymentStatus; 
-
+        //delete if the payment proof exist in db, replace new proof
         if($request->hasFile('paymentProof'))
         {
             $destination = '/images' . $order->paymentProof;
@@ -343,7 +321,6 @@ class orderController extends Controller
         Notification::send($salesUsers, new NewPaymentNotification($order));
 
         return redirect()->route('client.myOrdersListPage')->with('success', 'Order payment proof info has been sent successfully');
-
     }
 
     public function getReorderPage(order $order)
@@ -408,21 +385,23 @@ class orderController extends Controller
 
 
     //STORE PERSONNEL FUNCTIONS
+    //redirect to the order details page for Store personnel
     public function showForStoreP(order $order)
     {
         return view('store.orderDetailsPage', compact('order'));
     }
 
-
+    //redirect to the order list page for Store personnel
     public function getStoreOrdersListPage(Request $request)
     {
+        //the search utility
         if($request->has('search')){
             $data = order::latest()->where('PONo','LIKE','%' .$request->search. '%')->orWhere('buyerCode','LIKE','%' .$request->search. '%')->orWhere('partNo','LIKE','%' .$request->search. '%')->orWhere('partDescription','LIKE','%' .$request->search. '%')->paginate(5);
         }
         else{
             $data = order::latest()->paginate(5);
         }
-
+        //using bootstrap to display the order list table with 5 rows for each page
         return view('store.ordersListPage', compact('data'))->with('i', (request()->input('page',1)-1)*5);
     }
 
@@ -431,7 +410,7 @@ class orderController extends Controller
         return view('store.PDRFormPage', compact('order'));
     }
 
-
+    //redirect to job order form page compact with order data for Store personnel
     public function getJobOrderFormPageForStoreP(order $order)
     {
         return view('store.jobOrderFormPage', compact('order'));
@@ -475,8 +454,5 @@ class orderController extends Controller
 
         return view('qc.orderHistoryPage', compact('data'));
     }
-
-    
-
 
 }

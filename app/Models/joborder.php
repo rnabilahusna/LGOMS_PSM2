@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+//joborder model
 class joborder extends Model
 {
     public $table = 'joborder';
@@ -61,23 +62,25 @@ class joborder extends Model
         'thickness'
     ];
 
+    //connect with 'order' table using Foreign Key 'id'
     public function getOrder() {
         return $this->belongsTo(order::class, 'id','id');
     }
+    //connect with 'client' table using Foreign Key 'buyerCode'
     public function getClient() {
         return $this->belongsTo(client::class, 'buyerCode','buyerCode');
     }
-
+    //connect with 'design' table using Foreign Key 'designID'
     public function getDesign() {
         return $this->belongsTo(design::class, 'designID','designID');
     }
+    //connect with 'PDR' table using Foreign Key 'JONo'
     public function getPDR() {
         return $this->belongsTo(pdr::class, 'JONo','JONo');
     }
-
+    //establishes a one-to-many relationship
     public function getJO() {
         return $this->hasMany(joborder::class, 'PDRID');
     }
-   
     
 }

@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
     <link rel="stylesheet" href="css/signupstyle_1.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
 <div class="menu-container">
@@ -41,6 +40,8 @@
     </div>
 </div>
 
+<!-- display the message returned from the controller -->
+
 @if($message = Session::get('success'))
 
 <div class="alert alert-success">
@@ -55,7 +56,7 @@
     </div>
 </div>
 <div class="container-contents-right">
-
+            <!-- option button to choose either to sign up staff or client -->
                 <div class="btnrole">
                             <button type="submit" class="btnstaff" ><a href="{{ route('register.index') }}" style="color:white; text-decoration:none">Staff</a></button>
                             <button type="submit" class="btnclient" >Client</button>
@@ -63,18 +64,12 @@
 
                 <p style="color: grey;font-size:20px;text-align:center;padding-top: 20px;">Sign up for Client</p>
                 
+                <!-- registration form for client -->
                 <form id="registerFormP" class="well form-horizontal" action="/register.signUpPageClient" method="post">
                 @csrf
                 <div class="contents-right">
                   <div class="PI-left">
                       <p style="text-decoration:underline;color: grey;">Company Information</p>
-
-                      
-                      <!-- <input type="hidden" name="role" value="staff"> -->
-                      
-                      <!-- Company Information---- buyerCode, buyerName, buyerAddress, buyerSectionCodeOrName, buyerCorrespondentOrName,
-                    authorizationCode, originCountry, contactNum, email, password -->
-
                         <div class="form-group">
                             <div class="col-md-4 inputGroupContainer">
                                 <div class="input-group">
@@ -147,35 +142,13 @@
                             </div>
                         </div>
 
-                        
-<!-- 
-                        <div class="form-group">
-                            <label class="col-md-4 control-label">Citizenship&emsp;</label>
-                                    <label>
-                                        <input type="radio" name="citizenship" value="malaysian" /> Malaysian
-                                    </label>
-                                    <label>
-                                        <input type="radio" name="citizenship" value="non-malaysian" /> Non-Malaysia
-                                    </label>
-                      </div> -->
-
-
-                      
                   </div>
 
                   <div class="PI-right" style="padding-top: 40px">
 
-                        <!-- <div class="form-group">
-                                <div class="col-md-4 inputGroupContainer">
-                                    <div class="input-group">
-                                        <span class="input-group-addon"></span>
-                                        <input  name="originCountry" placeholder="Malaysia " class="form-control"  type="text">
-                                    </div>
-                                </div>
-                            </div> -->
+                       
                             
                             <div class="form-group">
-                                <!-- <label for="country" style="color: grey">Country or region</label> -->
                                 <select class="country" id="country" name="originCountry" autocomplete="country" enterkeyhint="done" style="width:94%; height:40px; color:grey; padding-left: 10px" required>
                                     <option>--Choice of country origin--</option>
                                     <option value="AF">Afghanistan</option>

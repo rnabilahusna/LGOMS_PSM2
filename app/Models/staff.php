@@ -5,6 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
+//Model for Staff table
 class staff extends Model
 {
     public $table = 'staff';
@@ -17,6 +18,4 @@ class staff extends Model
         'citizenship',
         'department',
     ];
-
-    
 }

@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,7 +7,6 @@
     <link rel="stylesheet" href="css/navbarstyle.css" >
     <link rel="stylesheet" href="css/signupstyle.css" >
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
-    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet"> -->
 </head>
 <body>
 <div class="menu-container">
@@ -43,6 +40,7 @@
     </div>
 </div>
 
+<!-- display the message returned from the controller -->
 @if($message = Session::get('success'))
 
 <div class="alert alert-success">
@@ -59,6 +57,7 @@
 
 <div class="container-contents-right">
 
+            <!-- option button to choose either to sign up staff or client -->
                 <div class="btnrole">
                             <button type="submit" class="btnstaff" onclick="#">Staff</button>
                             <button type="submit" class="btnclient"><a href="{{ route('register.signUpPageClient') }}" style="color:white; text-decoration:none">Client</a></button>
@@ -66,13 +65,12 @@
 
                 <p style="color: grey;font-size:20px;text-align:center;padding-top: 20px;">Sign up for Staff</p>
                 
+                <!-- registration form for staff -->
               <form id="registerFormP" class="well form-horizontal" action="/register" method="post">
                 @csrf
                 <div class="contents-right">
                   <div class="PI-left">
                       <p style="text-decoration:underline;color: grey;">Personal Information</p>
-
-
 
                         <div class="form-group">
                             <div class="col-md-4 inputGroupContainer">
@@ -172,8 +170,6 @@
                   
                   <p style="text-decoration:underline;color: grey;"> Login Info </p>
 
-                        
-                  
                         <div class="form-group">
                                 <div class="col-md-4 inputGroupContainer">
                                     <div class="input-group">
@@ -200,9 +196,7 @@
                                 </div>
                             </div>
 
-                        <!-- <input  id="role" name="role" value="staff" type="hidden"> -->
                         <button type="submit" id="registerbutton" class="button buttonregister" >Register</button>
-                             
 
                         </div>
                     </div>

@@ -34,15 +34,13 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
 
         @endauth
         
     </div>
 </div>
-
+<!-- display returned message from the controller if success -->
 @if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -72,19 +70,7 @@
 				</form>
 			</div>
 		</div>
-
-	
-
 		<div class="cardbody">
-
-
-			
-
-
-
-
-
-
 	<div class="">
 		<table class="table table-bordered " style="width:100%">
 			<tr>
@@ -111,9 +97,7 @@
 								@csrf
 								@method('DELETE')
 								<a style="text-decoration:none" href="{{ route('design.showForStoreP', $row->designID) }}" class="btn btn-primary btn-sm">View</a>
-								<!-- <input type="submit" class="btn btn-danger btn-sm" value="Delete" /> -->
 							</form>
-
                         </td>
 					</tr>
 
@@ -130,9 +114,6 @@
 		{!! $data->links() !!}
 
 		</div>
-
-
-		
 	</div>
     
 </body>

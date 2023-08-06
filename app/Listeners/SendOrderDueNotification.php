@@ -13,22 +13,11 @@ use App\Events\OrderDue;
 
 class SendOrderDueNotification
 {
-    /**
-     * Create the event listener.
-     */
-    public function __construct()
-    {
-        //
-    }
-
-    /**
-     * Handle the event.
-     */
- 
-
+   
+    // order due will be received by all of the staff user
     public function handle($event)
     {
-        
+        //assign role to who will receive the notifications
         $salesRole = Role::where('role', 'Sales')->first();
         $storeRole = Role::where('role', 'Store')->first();
         $qcRole = Role::where('role', 'QC')->first();
@@ -50,10 +39,5 @@ class SendOrderDueNotification
             $prodUsers = $prodRole->users;
             Notification::send($prodUsers, new OrderDueNotification($event->order));
         }
-       
-
     }
-
-
-    
 }

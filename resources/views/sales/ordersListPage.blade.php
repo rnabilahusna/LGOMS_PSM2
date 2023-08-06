@@ -25,7 +25,6 @@
             <div class="design_list"><a href="{{ route('sales.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>
 		
-
 		@auth
        
 		<div class="dropdown">
@@ -46,6 +45,7 @@
     </div>
 </div>
 
+<!-- display returned message from the controller if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -62,8 +62,6 @@
 					<div>
 					<a href="{{ route('order.getOrdersHistoryListPageForSales') }}" style="width:20%" class="btn btn-success btn-sm float-end" id="requestbutton">Order History</a>
 						<div class="row g-3 align-items-center">
-						
-							
 							<div class="col-auto" style="display:flex">
 									<div class="row" style="padding-right:7%">
 										<label for="">Search</label>
@@ -74,13 +72,9 @@
 										<label for=""> </label>
 										<button type="submit" class="btn btn-primary">Filter</button>
 									</div>
-								<!-- </form> -->
 							</div>
-							
 						</div>
-						
 					</div>
-				
 				</form>
 			</div>
 		</div>
@@ -136,9 +130,6 @@
 		{!! $data->links() !!}
 
 		</div>
-
-
-		
 	</div>
 
 </body>

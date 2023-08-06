@@ -4,17 +4,14 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- <link rel="stylesheet" href="/css/mydesignsliststyle.css" > -->
     <link rel="stylesheet" href="/css/navbarstyle.css" >
     <link rel="stylesheet" href="/css/updateJO.css" >
-    <!-- <link rel="stylesheet" href="/css/stafforderdetailspagestyle.css" > -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 	<title>Job order</title>
 </head>
 <body>
-
 
 <div class="menu-container">
     <div class="menu">
@@ -25,7 +22,6 @@
             <div class="order_list"><a href="{{ route('store.ordersListPage') }}" style="color:black; text-decoration:none">Order List</a></div>
             <div class="design_list"><a href="{{ route('store.designsListPage') }}" style="color:black; text-decoration:none">Design List</a></div>
         </div>
-
 
         @auth
        
@@ -38,13 +34,10 @@
             <div class="dropdown-content">
                 <a href="logout">Sign Out</a>
             </div>
-
-
         </div>
-        
     </div>
 </div>
-
+<!-- display returned message from controllers if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -53,13 +46,11 @@
 
 	@endif
 
-
     <div class="card">
-		
         <div class="cardheader">
                 <div class="">
                     <div class="col col-md-6" id="thetitle"><b>JOB ORDER</b></div>
-                    
+                
                     <a href="{{route('order.showForStoreP',$joborder->id)}}" class="btn btn-primary btn-sm float-end" id="requestbutton" style="width:90px">
                     <i class="fa fa-arrow-circle-left" style="font-size:25px;color:white"></i>
                     </a>
@@ -69,7 +60,7 @@
     
         
             <div class="cardbody">
-    
+            <!-- the function updateJobOrderFormPageForStoreP will be executed once the button submit was clicked -->    
                 <form id="JobOrderForm" method="post" action="{{ route('store.updateJobOrderFormPageForStoreP', $joborder->id) }}" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
@@ -96,7 +87,6 @@
                                 </div>
                             </div>
                         </div>
-                    
 
                 <hr>
                 <div class="uppertables">
@@ -147,7 +137,6 @@
                             <td>PO RECEIVED DATE:</td>
                             <td><input  name="POReceivedDate" value="{{$joborder->POReceivedDate}}" class="form-control"  type="date" ></td>
                         </tr>
-                        
                     </table>
 
                     <table class="secondtable" style="width:35%">
@@ -197,7 +186,6 @@
                             <td>PO QUANTITY:</td>
                             <td><input  name="POQuantity" value="{{$joborder->POQuantity}}" class="form-control"  type="number" ></td>
                         </tr>
-                        
                     </table>
                 </div>
 
@@ -217,8 +205,6 @@
                             <th class="column colnine">OPERATOR NAME</th>
                             <th class="column colten">OPERATOR SIGNATURE</th>
                         </tr>
-
-
                         @foreach($joborder->getJO as $jo)
                         @if(!is_null($jo->processesCarriedOut))
                         <tr>
@@ -238,8 +224,6 @@
                         </tr>
                         @endif
                         @endforeach
-
-
                     </table>
                 </div>
                 <hr>
@@ -304,7 +288,6 @@
                     </div>
                 </div>
 
-                
                 <div class="text-center">
                 <input type="hidden" name="hidden_id" value="{{$joborder->PDRID}}" />
                 <input type="hidden" name="id" value="{{$joborder->id}}" />
@@ -314,17 +297,13 @@
                 <br>
                 <input type="submit" class="btn btn-primary float-end" id="requestbutton" value="Update" />
                 </div>
-
-
-                        
                 </form>	
             </div>
-    
-    
         </div>
 
         @endauth
 
+        <!-- script to add new row in the job order table -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
         <script type="text/javascript">
             $('.addnewrow').on('click',function(){
@@ -344,9 +323,6 @@
                             '<td hidden class="" ><a type="hidden" href="#" class="addnewrow">Add row</a></td></tr>';
                 $('.newrow').append(newrow);
             };
-            // $('.remove').live('click',function(){
-            //     $(this).parent().parent().parent().remove();
-            // });
         </script>
         <script type="text/javascript">
             $('.addnewrow2').on('click',function(){
@@ -357,9 +333,6 @@
                             '<td><input type="text" class="form-control" name="AMQty[]" value="{{old('AMQty')}}"></td></tr>';
                 $('.newrow2').append(newrow2);
             };
-            // $('.remove').live('click',function(){
-            //     $(this).parent().parent().parent().remove();
-            // });
         </script>
 </body>
 </html>

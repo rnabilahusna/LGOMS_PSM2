@@ -41,6 +41,7 @@
 		</div>
 	</div>
 
+<!-- display returned message from the controller if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -72,8 +73,6 @@
 			</div>
 		</div>
 
-	
-
 		<div class="cardbody">
 		<table class="table table-bordered" style="width:100%">
 			<tr>
@@ -95,6 +94,7 @@
                         <td>{{ $row->orderStatus }}</td>
                         <td>{{ $row->updated_at }}</td>
 
+						<!-- the updated order status can be seen from this column -->
 						@if($row->paymentStatus == 'PAID')
 						<td><div style="color:white;background-color:#00CC6A;border-radius:5px">{{ $row->paymentStatus }}</div></td>
 						@elseif($row->paymentStatus == 'PENDING' || $row->paymentStatus == 'SUBMITTED')
@@ -103,7 +103,6 @@
 						<td><div style="color:white;background-color:#FF6363;border-radius:5px">{{ $row->paymentStatus }}</div></td>
 						@endif
 
-						
 						<td>
                             <button class="viewbutton">
                             <a style="text-decoration:none;color:white" href="{{ route('order.showForClient', $row->id) }}" >View order</a>
@@ -119,15 +118,9 @@
 				</tr>
 				@endif
 				
-
 		</table>
-
 		</div>
-
-
-		
 	</div>
-
 </body>
 </html>
 

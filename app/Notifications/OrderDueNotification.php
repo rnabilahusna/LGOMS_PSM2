@@ -22,6 +22,7 @@ class OrderDueNotification extends Notification implements ShouldQueue
         return ['database'];
     }
 
+    //all the attributes that will be store in notification table 
     public function toDatabase($notifiable)
     {
         return [

@@ -32,15 +32,12 @@
 				<div class="dropdown-content">
 					<a href="logout">Sign Out</a>
 				</div>
-
-
 			</div>
 
-			
-			
 		</div>
 	</div>
 
+	<!-- display returned message from controller if success -->
 	@if($message = Session::get('success'))
 
 	<div class="alert alert-success">
@@ -66,15 +63,11 @@
 							</div>
 							
 						</div>
-						
 					</div>
-				
 				</form>
 				</div>
 			</div>
 		</div>
-
-	
 
 		<div class="cardbody">
 		<table class="table table-bordered" style="width:100%">
@@ -84,14 +77,10 @@
 				<th width="15%">Good Stock</th>
 				<th width="12%"></th>
 			</tr>
-			
+			<!-- display the data in table if has data in the table database -->
 			@if(count($data) > 0)
-			
-
 				@foreach($data as $key=>$row)
-
 					<tr>
-						
 						<td>{{ $row->partNo }}/{{ $row->partDescription }}</td>
 						<td><img src="{{ asset('images/' . $row->partDesign) }}" width="100" /></td>
 						<td>
@@ -102,9 +91,8 @@
 							@endif
 						</td>
 						<td>
-							
-								<a style="text-decoration:none" href="{{ route('design.showForClient', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>
-								
+							<!-- view the design details -->
+							<a style="text-decoration:none" href="{{ route('design.showForClient', $row->designID) }}" class="btn btn-primary btn-sm" id="requestbutton">View</a>
 						</td>
 					</tr>
 
@@ -117,12 +105,7 @@
 				@endif
 
 		</table>
-	
-
 		</div>
-
-
-		
 	</div>
 	@endauth
 </body>
