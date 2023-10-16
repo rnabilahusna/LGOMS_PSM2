@@ -31,11 +31,7 @@ class NewPaymentUpdateNotification extends Notification
     }
 
 
-    /**
-     * Get the array representation of the notification.
-     *
-     * @return array<string, mixed>
-     */
+    //all the data to insert in the notification table in db
     public function toArray(object $notifiable)
     {
         return [
